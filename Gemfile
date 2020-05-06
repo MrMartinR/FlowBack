@@ -30,7 +30,8 @@ gem "bootstrap", "~> 4.4.1"
 # gem 'bcrypt', '~> 3.1.7'
 
 # For login
-gem "clearance", "~> 2.1.0"
+# gem "clearance", "~> 2.1.0" commented, now we are using devise
+gem 'devise'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
