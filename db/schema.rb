@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 2020_05_01_163213) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "countries", force: :cascade do |t|
@@ -25,15 +26,19 @@ ActiveRecord::Schema.define(version: 2020_05_01_163213) do
     t.index ["currency_id"], name: "index_countries_on_currency_id"
   end
 
-  create_table "users", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "email", null: false
-    t.string "encrypted_password", limit: 128, null: false
-    t.string "confirmation_token", limit: 128
-    t.string "remember_token", limit: 128, null: false
-    t.index ["email"], name: "index_users_on_email"
-    t.index ["remember_token"], name: "index_users_on_remember_token"
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "username"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.uuid "currency_id"
+    t.uuid "country_id"
+    t.datetime "remember_created_at"
+    t.index ["country_id"], name: "index_users_on_country_id"
+    t.index ["currency_id"], name: "index_users_on_currency_id"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action :require_login, only: [:dashboard]
+  before_action :authenticate_user!, only: [:dashboard]
 
   def index
   end
