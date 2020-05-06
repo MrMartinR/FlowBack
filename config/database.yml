@@ -24,8 +24,8 @@ default: &default
 development:
   <<: *default
   database: flow_development
-  username: flow
-  password: banana33
+  username: bainur
+  password: password
 
   # Connect on a TCP socket. Omitted by default since the client uses a
   # domain socket that doesn't need configuration. Windows does not have
@@ -52,8 +52,8 @@ test:
   <<: *default
   database: flow_test
   host: localhost
-  username: flow
-  password: banana33
+  username: bainur
+  password: password
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
