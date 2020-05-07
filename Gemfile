@@ -30,8 +30,13 @@ gem "bootstrap", "~> 4.4.1"
 # gem 'bcrypt', '~> 3.1.7'
 
 # For login
-# gem "clearance", "~> 2.1.0" commented, now we are using devise
+
 gem 'devise'
+# token based auth
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors', :require => 'rack/cors'
+
+gem 'devise_token_auth'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -42,13 +47,17 @@ gem "bootsnap", ">= 1.4.2", require: false
 # auto prefixer
 gem 'mini_racer'
 
+# api doc
+#gem 'swagger-docs'
+gem 'rswag'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
-
+  gem "rspec"
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem "web-console", ">= 3.3.0"
   gem "listen", ">= 3.0.5", "< 3.2"
