@@ -1,4 +1,16 @@
 class Api::V1::RegistrationsController < DeviseTokenAuth::RegistrationsController
+
+  # swagger_api :create do
+  #   summary "To create user"
+  #   notes "Implementation notes, such as required params, example queries for apis are written here."
+  #   param :form, "user[username]", :string, :required, "Name of user"
+  #   param :form, "user[email]", :string, :required, "Email of user"
+  #   param :form, "user[password]", :string, :required, "Password of user"
+  #   response :success
+  #   response :unprocessable_entity
+  #   response :status, "Internal Error"
+  # end
+
   def create
     params[:user][:uid] = params[:user][:email]
     build_resource
