@@ -1,34 +1,4 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Flow</title>
-  <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
-
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-</head>
-
-
-  <ul>
-    <li> <%= link_to "Home", root_path %></li>
-    <li> <%= link_to "Dashboard", pages_dashboard_path %></li>
-    <ul>
-
-<body>
-<li>
-  <%= link_to('Login', new_user_session_path) if !user_signed_in? %>
-</li>
-<section>
-  <div id="flash">
-    <% flash.each do |key, value| %>
-      <div class="flash <%= key %>"><%= value %></div>
-    <% end %>
-  </div>
-
-  <%= yield %>
-</section>
-
-</body>
+API V1 for FLOW APP
 </html>
