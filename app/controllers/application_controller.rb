@@ -16,4 +16,8 @@ class ApplicationController <  ActionController::Base
 
   protected
 
+  rescue_from ActionController::ParameterMissing do |e|
+    render json: {success: false, code: 400, message: "Bad request"}
+  end
+
 end
