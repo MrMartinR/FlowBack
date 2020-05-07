@@ -30,8 +30,13 @@ gem "bootstrap", "~> 4.4.1"
 # gem 'bcrypt', '~> 3.1.7'
 
 # For login
-# gem "clearance", "~> 2.1.0" commented, now we are using devise
+
 gem 'devise'
+# token based auth
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
+gem 'rack-cors', :require => 'rack/cors'
+
+gem 'devise_token_auth'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
