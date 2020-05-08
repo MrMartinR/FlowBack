@@ -52,4 +52,5 @@ DeviseTokenAuth.setup do |config|
   # If, however, you wish to integrate with legacy Devise authentication, you can
   # do so by enabling this flag. NOTE: This feature is highly experimental!
   # config.enable_standard_devise_support = false
+  config.default_password_reset_url =  ENV["DEFAULT_PASSWORD_RESET_PATH"] || "localhost:3000"
 end
