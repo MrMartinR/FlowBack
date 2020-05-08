@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :countries
+  resources :currencies
   # mount Rswag::Ui::Engine => '/api-docs'
   # mount Rswag::Api::Engine => '/api-docs'
   get 'pages/index'
@@ -15,6 +17,10 @@ Rails.application.routes.draw do
       }
       defaults format: :json do
         resources :settings, as: JSON
+      end
+
+      defaults format: :json do
+        resources :currencies, as: JSON
       end
     end
   end
