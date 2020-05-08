@@ -120,7 +120,7 @@ Rails.application.configure do
       :port                 => 587,
       :authentication       => :plain,
       :user_name            => ENV['MAIL_USER'],
-      :password             => EVN["MAIL_PASSWORD"]
+      :password             => EVN["MAIL_PASSWORD"],
       :enable_starttls_auto => true
   }
 end
