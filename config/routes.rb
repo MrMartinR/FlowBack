@@ -13,7 +13,9 @@ Rails.application.routes.draw do
           registrations: 'api/v1/registrations',
           sessions: 'api/v1/sessions'
       }
-      resources :settings
+      defaults format: :json do
+        resources :settings, as: JSON
+      end
     end
   end
 

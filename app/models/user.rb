@@ -6,11 +6,13 @@ class User < ApplicationRecord
   #        :recoverable, :rememberable, :validatable
 
   #extend Devise::Models #added this line to extend devise model
-# Include default devise modules. Others available are:
-# :confirmable, :lockable, :timeoutable and :omniauthable
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  #
   devise :database_authenticatable, :registerable,:recoverable, :rememberable#, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
   # validations
+  attr_accessor :country_id, :currency_id
 
   validates :username, presence: true, length: { minimum: 3 }
   validates_uniqueness_of :username
