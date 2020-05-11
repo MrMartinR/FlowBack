@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         resources :currencies
         resources :countries
         resources :settings
-        resources :users
+        resources :users, only: [:index,:show,:update]
       end
     end
   end

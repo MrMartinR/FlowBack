@@ -48,6 +48,9 @@ gem "bootsnap", ">= 1.4.2", require: false
 # auto prefixer
 gem 'mini_racer'
 
+# pagination
+gem 'will_paginate', '~> 3.1.0'
+
 # api doc
 #gem 'swagger-docs'
 #gem 'rswag'

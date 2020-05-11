@@ -15,6 +15,8 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
   # validations
   attr_accessor :country_id, :currency_id
+  belongs_to :currency
+  belongs_to :country
 
   validates :username, presence: true, length: { minimum: 3 }
   validates_uniqueness_of :username
