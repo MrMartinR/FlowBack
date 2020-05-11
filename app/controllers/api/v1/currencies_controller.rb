@@ -5,7 +5,7 @@ class Api::V1::CurrenciesController < ApplicationController
   # GET /currencies
   # GET /currencies.json
   def index
-    @currencies = Currency.all
+    @currencies = Currency.order('currencies.name asc')
   end
 
   # GET /currencies/1

@@ -5,7 +5,7 @@ class Api::V1::CountriesController < ApplicationController
   # GET /countries
   # GET /countries.json
   def index
-    @countries = Country.includes(:currency)
+    @countries = Country.includes(:currency).order('countries.name asc')
   end
 
   # GET /countries/1
