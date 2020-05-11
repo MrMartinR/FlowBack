@@ -1,11 +1,7 @@
 Rails.application.routes.draw do
 
-  # mount Rswag::Ui::Engine => '/api-docs'
-  # mount Rswag::Api::Engine => '/api-docs'
   get 'pages/index'
   get 'pages/dashboard'
-  #get '/api' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')
-
 
   namespace :api do
     namespace :v1 do
@@ -14,13 +10,12 @@ Rails.application.routes.draw do
           registrations: 'api/v1/registrations',
           sessions: 'api/v1/sessions'
       }
-      defaults format: :json do
-        resources :settings, as: JSON
-      end
 
       defaults format: :json do
-        resources :currencies, as: JSON
+        resources :currencies
         resources :countries
+        resources :settings
+        resources :users
       end
     end
   end

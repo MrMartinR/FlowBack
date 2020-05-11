@@ -29,9 +29,10 @@ gem "bootstrap", "~> 4.4.1"
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# For login
+# For login, role
 
 gem 'devise'
+gem "rolify"
 # token based auth
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', :require => 'rack/cors'
