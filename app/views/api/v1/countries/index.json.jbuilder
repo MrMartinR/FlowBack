@@ -12,7 +12,7 @@ json.array! @countries do |country|
     json.code country.currency.code
     json.symbol country.currency.symbol
     json.decimal_places country.currency.decimal_places
+    json.fx_eur country.currency.fx_eur
     json.type country.currency.kind
-    #json.symbol_helper number_to_currency(1,locale:country.iso_code)
   end
 end
