@@ -1,10 +1,10 @@
-class CountriesController < ApplicationController
+class Api::V1::CountriesController < ApplicationController
   before_action :set_country, only: [:show, :update, :destroy]
 
   # GET /countries
   # GET /countries.json
   def index
-    @countries = Country.all
+    @countries = Country.includes(:currency)
   end
 
   # GET /countries/1

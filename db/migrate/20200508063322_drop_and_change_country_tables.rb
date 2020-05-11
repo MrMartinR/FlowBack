@@ -2,7 +2,7 @@ class DropAndChangeCountryTables < ActiveRecord::Migration[6.0]
   def change
     connection.execute 'drop table if exists countries'
 
-    create_table :countries do |t|
+    create_table :countries, id: :uuid do |t|
       t.string :name
       t.string :iso_code
       t.string :continent
