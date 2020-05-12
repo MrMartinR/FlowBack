@@ -54,6 +54,9 @@ gem 'will_paginate', '~> 3.1.0'
 # api doc
 #gem 'swagger-docs'
 #gem 'rswag'
+# image processing
+gem "image_processing", "~> 1.0"
+gem 'active_storage_validations'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
