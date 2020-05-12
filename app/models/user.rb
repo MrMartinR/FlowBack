@@ -1,27 +1,20 @@
 class User < ApplicationRecord
   rolify
   self.implicit_order_column = "created_at"
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  # attr_accessor :tos
-  # devise :database_authenticatable, :registerable,
-  #        :recoverable, :rememberable, :validatable
 
-  #extend Devise::Models #added this line to extend devise model
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  #
-  devise :database_authenticatable, :registerable,:recoverable, :rememberable#, :trackable, :validatable
+  devise :database_authenticatable, :registerable,:recoverable, :rememberable
   include DeviseTokenAuth::Concerns::User
   # validations
-  #attr_accessor :country_id, :currency_id
-  belongs_to :currency, optional: true
-  belongs_to :country, optional: true
-
   validates :username, presence: true, length: { minimum: 3 }
   validates_uniqueness_of :username
 
+  belongs_to :currency, optional: true
+  belongs_to :country, optional: true
+  has_one_attached :avatar
+
   after_create :assign_default_role
+
+  attr_accessor :country_id, :currency_id
 
   def valid_token?(token, client = 'default')
     return false unless tokens[client]

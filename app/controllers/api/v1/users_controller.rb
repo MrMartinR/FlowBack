@@ -1,8 +1,7 @@
-class Api::V1::UsersController < ApplicationController
+class Api::V1::UsersController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :auth_admin!, only: [:index]
   before_action :find_user, only: [:show, :update, :destroy]
-
 
   def index
     @page = params[:page] || 1
@@ -11,17 +10,32 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
+    @user = current_api_v1_user if !current_api_v1_user.has_role?(:admin)
+  end
+
+  def user_profile
+    @user = current_api_v1_user
   end
 
   def update
     if current_api_v1_user == @user || current_api_v1_user.has_role?(:admin)
-      if @user.update(user_params)
+      if @user.update!(user_params)
         render json: show
       else
         render json: {success: false,status: 400, message: "Could not update profile"}
       end
     else
       render json: {success: false, code: 403, message: "Forbidden"}
+    end
+  end
+
+  def update_profile
+    @user = current_api_v1_user
+
+    if @user.update!(user_params)
+      render :user_profile, status: :ok
+    else
+      render json: {success: false, status: 400, message: "Could not update profile"}
     end
   end
 
@@ -45,7 +59,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:uid, :username, :email,  :password, :password_confirmation, :current_password,:currency_id, :country_id)
+    params.require(:user).permit(:uid, :username, :email,  :password, :password_confirmation, :current_password,:currency_id, :country_id, :avatar)
   end
 
   rescue_from ActionController::UnpermittedParameters do |error|

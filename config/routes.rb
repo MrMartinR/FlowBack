@@ -15,7 +15,9 @@ Rails.application.routes.draw do
         resources :currencies
         resources :countries
         resources :settings
-        resources :users, only: [:index,:show,:update]
+        resources :users, only: [:index,:update]
+        match 'user_profile', to: 'users#user_profile', via: :get
+        match 'update_profile', to: 'users#update_profile', via: :post
       end
     end
   end
