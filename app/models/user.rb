@@ -14,9 +14,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,:recoverable, :rememberable#, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
   # validations
-  attr_accessor :country_id, :currency_id
-  belongs_to :currency
-  belongs_to :country
+  #attr_accessor :country_id, :currency_id
+  belongs_to :currency, optional: true
+  belongs_to :country, optional: true
 
   validates :username, presence: true, length: { minimum: 3 }
   validates_uniqueness_of :username
