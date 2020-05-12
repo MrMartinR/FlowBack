@@ -10,4 +10,12 @@ module ApplicationHelper
     # compile URL which can be used in <img src="RIGHT_HERE"...
     image_src = "https://www.gravatar.com/avatar/#{hash}"
   end
+
+  def date_format(dt)
+    if dt.class == Date
+     dt.strftime('%d-%m-%Y')
+    else
+      dt
+    end
+  end
 end

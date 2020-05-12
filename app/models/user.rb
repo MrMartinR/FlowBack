@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  #IMAGE FORMAT (JPEG, PNG, GIF, SVG)
   rolify
   self.implicit_order_column = "created_at"
 
@@ -7,7 +8,8 @@ class User < ApplicationRecord
   # validations
   validates :username, presence: true, length: { minimum: 3 }
   validates_uniqueness_of :username
-
+  validates :avatar, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg','image/gif'], size: { less_than: 2.megabytes , message: 'is not given between size' }#,
+  # relation
   belongs_to :currency, optional: true
   belongs_to :country, optional: true
   has_one_attached :avatar
