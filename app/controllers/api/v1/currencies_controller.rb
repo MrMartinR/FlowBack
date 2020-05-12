@@ -1,4 +1,4 @@
-class Api::V1::CurrenciesController < ApplicationController
+class Api::V1::CurrenciesController < Api::BaseController
   before_action :set_currency, only: [:show, :update, :destroy]
   before_action :authenticate_api_v1_user!
 

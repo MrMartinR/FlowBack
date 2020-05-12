@@ -1,6 +1,8 @@
 class Api::V1::UsersController < ApplicationController
   before_action :authenticate_api_v1_user!
-#  before_action :auth_admin!, only: [:index]
+  before_action :auth_admin!, only: [:index]
+  before_action :find_user, only: [:show, :update, :destroy]
+
 
   def index
     @page = params[:page] || 1
@@ -9,14 +11,9 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
-    puts @user.id
-    puts current_api_v1_user.id
-    puts current_api_v1_user == @user
     if current_api_v1_user == @user || current_api_v1_user.has_role?(:admin)
       if @user.update(user_params)
         render json: show
@@ -29,7 +26,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
   end
 
@@ -43,6 +39,10 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
+
+  def find_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:uid, :username, :email,  :password, :password_confirmation, :current_password,:currency_id, :country_id)
