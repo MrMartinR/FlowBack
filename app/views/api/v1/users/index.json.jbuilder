@@ -1,7 +1,7 @@
 #json.array! @countries, partial: "api/v1/countries/country", as: :country
 json.success true
 
-json.users @users do |user|
+json.data @users do |user|
   json.id user.id
   json.email user.email
   json.username user.username

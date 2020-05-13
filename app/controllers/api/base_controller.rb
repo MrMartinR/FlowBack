@@ -1,15 +1,17 @@
 class Api::BaseController < ApplicationController
   include DeviseTokenAuth::Concerns::SetUserByToken
+  include ExceptionHandler
+  include Response
 
   protected
 
-  rescue_from ActionController::ParameterMissing do |e|
-    render json: {success: false, code: 400, message: "Bad request"}
-  end
-
-  rescue_from ActiveRecord::RecordInvalid do |invalid|
-    render json: {success: false, code: 400, message: "#{invalid.record.errors.messages}"}
-  end
+  # rescue_from ActionController::ParameterMissing do |e|
+  #   render json: {success: false, code: 400, message: "Bad request"}
+  # end
+  #
+  # rescue_from ActiveRecord::RecordInvalid do |invalid|
+  #   render json: {success: false, code: 400, message: "#{invalid.record.errors.messages}"}
+  # end
 
 
   def auth_admin!

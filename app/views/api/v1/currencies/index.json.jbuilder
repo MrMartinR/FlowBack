@@ -1,5 +1,6 @@
 #json.array! @currencies, partial: "api/v1/currencies/currency", as: :currency
-json.array! @currencies do |currency|
+json.success true
+json.data @currencies do |currency|
   json.id currency.id
   json.name currency.name
   json.code currency.code

@@ -1,4 +1,6 @@
-json.country @countries do |country|
+json.success true
+
+json.data @countries do |country|
   json.id country.id
   json.name  country.name
   json.iso_code country.iso_code

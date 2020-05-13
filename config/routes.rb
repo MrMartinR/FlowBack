@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       }
 
       defaults format: :json do
+        resources :accounts
         resources :currencies
         resources :countries
         resources :settings
