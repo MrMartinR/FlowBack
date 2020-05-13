@@ -20,8 +20,8 @@ class Api::V1::AccountsController < Api::BaseController
   end
 
   def update
-    if @account.update(account_params)
-      render :show, status: :ok, location: @account
+    if @account.update!(account_params)
+      render :show, status: :ok
     else
       render json: @account.errors, status: :unprocessable_entity
     end
@@ -37,6 +37,6 @@ class Api::V1::AccountsController < Api::BaseController
     end
 
     def account_params
-      params.require(:account).permit(:currency_id, :country_id, :category, :name, :icon)
+      params.require(:account).permit(:currency_id, :country_id, :category, :name, :icon, :platform_id)
     end
 end

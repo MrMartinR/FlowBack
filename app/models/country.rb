@@ -3,4 +3,5 @@ class Country < ApplicationRecord
 
   belongs_to :currency, optional: true
   has_many :users
+  has_many :accounts
 end
