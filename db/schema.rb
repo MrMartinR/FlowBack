@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_021346) do
+ActiveRecord::Schema.define(version: 2020_05_13_034626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -24,6 +24,10 @@ ActiveRecord::Schema.define(version: 2020_05_13_021346) do
     t.string "icon"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "platform_id"
+    t.index ["country_id"], name: "index_accounts_on_country_id"
+    t.index ["currency_id"], name: "index_accounts_on_currency_id"
+    t.index ["platform_id"], name: "index_accounts_on_platform_id"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
