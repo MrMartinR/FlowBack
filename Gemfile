@@ -29,9 +29,10 @@ gem "bootstrap", "~> 4.4.1"
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# For login
+# For login, role
 
 gem 'devise'
+gem "rolify"
 # token based auth
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', :require => 'rack/cors'
@@ -47,9 +48,15 @@ gem "bootsnap", ">= 1.4.2", require: false
 # auto prefixer
 gem 'mini_racer'
 
+# pagination
+gem 'will_paginate', '~> 3.1.0'
+
 # api doc
 #gem 'swagger-docs'
 #gem 'rswag'
+# image processing
+gem "image_processing", "~> 1.0"
+gem 'active_storage_validations'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

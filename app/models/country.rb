@@ -1,3 +1,6 @@
 class Country < ApplicationRecord
-  belongs_to :currency
+  has_one_attached :flag_image
+
+  belongs_to :currency, optional: true
+  has_many :users
 end
