@@ -1,6 +1,7 @@
 class Api::V1::AccountsController < Api::BaseController
-  before_action :set_account, only: [:show, :update, :destroy]
   before_action :authenticate_api_v1_user!
+  before_action :admin_or_contributor! , except: [:index, :show]
+  before_action :set_account, only: [:show, :update, :destroy]
 
   def index
     if params[:page].blank?
