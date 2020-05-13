@@ -3,7 +3,12 @@ class Api::V1::AccountsController < Api::BaseController
   before_action :authenticate_api_v1_user!
 
   def index
-    @accounts = Account.includes(:currency, :country).order('accounts.name asc')
+    if params[:page].blank?
+      @accounts = Account.includes(:currency, :country).order('accounts.name asc')
+    else
+      @accounts = Account.includes(:currency, :country).order('accounts.name asc').paginate(page: params[:page])
+      @total_pages = Account.includes(:currency, :country).order('accounts.name asc').paginate(page: params[:page]).total_pages
+    end
   end
 
   def show

@@ -20,6 +20,11 @@ json.data  @accounts do |account|
   end
 end
 
+if params[:page]
+json.page params[:page]
+json.total_pages @total_pages
+end
+
 
 
 
