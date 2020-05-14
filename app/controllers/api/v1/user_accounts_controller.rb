@@ -3,14 +3,14 @@ class Api::V1::UserAccountsController < Api::BaseController
   before_action :set_user_account, only: [:show, :update, :destroy]
 
   def index
-    @user_accounts = UserAccount.order('name asc').paginate(page: params[:page])
+    @user_accounts = @user.user_accounts.order('name asc').paginate(page: params[:page])
   end
 
   def show
   end
 
   def create
-    @user_account = UserAccount.new(user_account_params)
+    @user_account = @user.user_accounts.new(user_account_params)
 
     if @user_account.save
       render :show, status: :created
@@ -33,7 +33,7 @@ class Api::V1::UserAccountsController < Api::BaseController
 
   private
     def set_user_account
-      @user_account = UserAccount.find(params[:id])
+      @user_account = @user.user_accounts.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
