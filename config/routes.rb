@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         resources :countries
         resources :settings
         resources :users, only: [:index,:update]
+        resources :user_accounts
         match 'user_profile', to: 'users#user_profile', via: :get
         match 'update_profile', to: 'users#update_profile', via: :post
       end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_034626) do
+ActiveRecord::Schema.define(version: 2020_05_13_081446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -81,6 +81,32 @@ ActiveRecord::Schema.define(version: 2020_05_13_034626) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+  end
+
+  create_table "user_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.uuid "account_id"
+    t.uuid "platform_id"
+    t.uuid "currency_id"
+    t.uuid "user_id"
+    t.string "category"
+    t.string "name"
+    t.float "total_fee"
+    t.float "total_loss"
+    t.float "total_tax"
+    t.boolean "active"
+    t.float "total_invest"
+    t.float "total_profit"
+    t.float "total_referral"
+    t.float "total_interest"
+    t.float "total_bonus"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["account_id"], name: "index_user_accounts_on_account_id"
+    t.index ["country_id"], name: "index_user_accounts_on_country_id"
+    t.index ["currency_id"], name: "index_user_accounts_on_currency_id"
+    t.index ["platform_id"], name: "index_user_accounts_on_platform_id"
+    t.index ["user_id"], name: "index_user_accounts_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
