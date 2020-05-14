@@ -13,6 +13,7 @@ class User < ApplicationRecord
   belongs_to :currency, optional: true
   belongs_to :country, optional: true
   has_one_attached :avatar
+  has_many :user_accounts
 
   after_create :assign_default_role
 

@@ -2,7 +2,7 @@
 #
 json.success true
 
-json.data do ||
+json.data [@user_account]do | user_account|
   #  :id, :country_id, :account_id, :platform_id, :currency_id, :user_id, :category, :name, :total_fee, :total_loss,
   #  :total_tax, :active, :total_invest, :total_profit, :total_referral, :total_interest, :total_bonus
   json.id @user_account.id
