@@ -1,46 +1,38 @@
-class Api::V1::PlatformsController < ApplicationController
+class Api::V1::PlatformsController < Api::BaseController
+  before_action  :authenticate_api_v1_user!
+  before_action :admin_or_contributor!, except: [:index, :show]
   before_action :set_platform, only: [:show, :update, :destroy]
 
-  # GET /platforms
-  # GET /platforms.json
   def index
     if params[:page].blank?
-      @platforms = Platform.includes(:currency, :country).order('accounts.name asc')
+      @platforms = Platform.order('category asc')
     else
       @platforms = Platform.order('category asc').paginate(page: params[:page])
       @total_pages = Platform.order('category asc').paginate(page: params[:page]).total_pages
     end
   end
 
-  # GET /platforms/1
-  # GET /platforms/1.json
   def show
   end
 
-  # POST /platforms
-  # POST /platforms.json
   def create
     @platform = Platform.new(platform_params)
 
     if @platform.save
-      render :show, status: :created, location: @platform
+      render :show, status: :created
     else
-      render json: @platform.errors, status: :unprocessable_entity
+      json_response({success:false, :message => @platform.errors},:unprocessable_entity)
     end
   end
 
-  # PATCH/PUT /platforms/1
-  # PATCH/PUT /platforms/1.json
   def update
     if @platform.update(platform_params)
-      render :show, status: :ok, location: @platform
+      render :show, status: :ok
     else
-      render json: @platform.errors, status: :unprocessable_entity
+      json_response({success:false, :message => @platform.errors},:unprocessable_entity)
     end
   end
 
-  # DELETE /platforms/1
-  # DELETE /platforms/1.json
   def destroy
     @platform.destroy
   end

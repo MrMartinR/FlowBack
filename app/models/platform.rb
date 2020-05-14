@@ -1,2 +1,3 @@
 class Platform < ApplicationRecord
+
 end
