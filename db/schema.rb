@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_15_015349) do
+ActiveRecord::Schema.define(version: 2020_05_15_055329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -89,6 +89,27 @@ ActiveRecord::Schema.define(version: 2020_05_15_015349) do
     t.string "website"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "platform_originators", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "originator_id"
+    t.uuid "platform_id"
+    t.string "status"
+    t.float "skin_game"
+    t.integer "grace_period"
+    t.string "rating"
+    t.string "length"
+    t.float "apr"
+    t.string "structure"
+    t.text "notes"
+    t.string "buyback"
+    t.boolean "buyback_principal"
+    t.boolean "buyback_interest"
+    t.integer "buyback_activation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["originator_id"], name: "index_platform_originators_on_originator_id"
+    t.index ["platform_id"], name: "index_platform_originators_on_platform_id"
   end
 
   create_table "platforms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
