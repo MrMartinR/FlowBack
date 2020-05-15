@@ -20,3 +20,9 @@ json.data @originators do |originator|
   json.website originator.website
 end
 
+if params[:page].present?
+  json.page params[:page]
+  json.total_pages @total_pages
+end
+
+

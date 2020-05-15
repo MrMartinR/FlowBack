@@ -5,8 +5,8 @@ class Api::V1::UsersController < Api::BaseController
 
   def index
     @page = params[:page] || 1
-    @total_pages = User.paginate(page: params[:page]).total_pages
-    @users = User.order('username asc').paginate(page: params[:page])
+    @total_pages = User.paginate(page: params[:page],per_page: params[:per_page]).total_pages
+    @users = User.order('username asc').paginate(page: params[:page],per_page: params[:per_page])
   end
 
   def show

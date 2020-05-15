@@ -7,8 +7,8 @@ class Api::V1::AccountsController < Api::BaseController
     if params[:page].blank?
       @accounts = Account.includes(:currency, :country).order('accounts.name asc')
     else
-      @accounts = Account.includes(:currency, :country).order('accounts.name asc').paginate(page: params[:page])
-      @total_pages = Account.includes(:currency, :country).order('accounts.name asc').paginate(page: params[:page]).total_pages
+      @accounts = Account.includes(:currency, :country).order('accounts.name asc').paginate(page: params[:page],per_page: params[:per_page])
+      @total_pages = Account.includes(:currency, :country).order('accounts.name asc').paginate(page: params[:page],per_page: params[:per_page]).total_pages
     end
   end
 

@@ -6,8 +6,8 @@ class Api::V1::UserPlatformsController < Api::BaseController
     if params[:page].blank?
       @user_platforms = @user.user_platforms.order('created_at desc')
     else
-      @user_platforms = @user.user_platforms.order('created_at desc').paginate(page: params[:page])
-      @total_pages = @user.user_platforms.paginate(page: params[:page]).total_pages
+      @user_platforms = @user.user_platforms.order('created_at desc').paginate(page: params[:page],per_page: params[:per_page])
+      @total_pages = @user.user_platforms.paginate(page: params[:page],per_page: params[:per_page]).total_pages
     end
   end
 
