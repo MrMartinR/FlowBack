@@ -11,14 +11,18 @@ Rails.application.routes.draw do
       }
 
       defaults format: :json do
-        resources :originators
         resources :accounts
         resources :currencies
         resources :countries
         resources :settings
         resources :users, only: [:index,:update]
         resources :user_accounts
-        resources :platforms
+
+        resources :platform_originators
+        # resources :originators do
+        #   resources :platform_originators
+        # end
+
         resources :user_platforms
 
 
