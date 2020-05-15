@@ -37,28 +37,28 @@ end
 
 1.upto(20) do |i|
   Platform.create!({
-                      :contact_id => "contact_id #{i}",
-                      :category => "category #{i}",
-                      :status => "#{i}",
-                      :liquidity => "#{i}",
-                      :term => "#{i}",
-                      :invest_mode => "#{i}",
-                      :min_investment => "#{i}",
-                      :secondary_market => "#{i}",
-                      :taxes => "#{i}",
-                      :cashflow_options => "#{i}",
-                      :protection_scheme => "#{i}",
-                      :cost => "#{i}",
-                      :profitable => true,
-                      :ifisa => true,
-                      :structure => "structure #{i}",
-                      :account_category => "contact_id",
-                      :welcome_bonus => "welcome_bonus #{i}",
-                      :promo => "promo #{i}",
-                      :promo_end => Date.today + rand(1..100).days,
-                      :icon => "contact_id",
-                      :logo => "contact_id"
-                  })
+                       :contact_id => "contact_id #{i}",
+                       :category => "category #{i}",
+                       :status => "#{i}",
+                       :liquidity => "#{i}",
+                       :term => "#{i}",
+                       :invest_mode => "#{i}",
+                       :min_investment => "#{i}",
+                       :secondary_market => "#{i}",
+                       :taxes => "#{i}",
+                       :cashflow_options => "#{i}",
+                       :protection_scheme => "#{i}",
+                       :cost => "#{i}",
+                       :profitable => true,
+                       :ifisa => true,
+                       :structure => "structure #{i}",
+                       :account_category => "contact_id",
+                       :welcome_bonus => "welcome_bonus #{i}",
+                       :promo => "promo #{i}",
+                       :promo_end => Date.today + rand(1..100).days,
+                       :icon => "contact_id",
+                       :logo => "contact_id"
+                   })
 end
 
 1.upto(20) do |i|
@@ -80,6 +80,24 @@ end
                           :total_interest => rand(0..100),
                           :total_bonus => rand(0..100)
                       })
+
+  Originator.delete_all
+  1.upto(20) do |i|
+     Originator.create({
+                           :name => "Originator #{i}",
+                           :product_type_individuals => "Product Type individual #{i}" ,
+                           :product_type_companies => "product_type_companies #{i}",
+                           :length=> "length #{i}",
+                           :default_rate=> rand(1..10),
+                           :air=> rand(1..10),
+                           :xirr=> rand(1..10),
+                           :rating=> rand(1..10),
+                           :apr=> rand(1..10),
+                           :logo=> "img #{i}",
+                           :icon=> "icon #{i}",
+                           :website => "web #{i}"
+                       })
+  end
 end
 
 

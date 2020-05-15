@@ -1,0 +1,2 @@
+class Originator < ApplicationRecord
+end

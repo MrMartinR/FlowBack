@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       }
 
       defaults format: :json do
+        resources :originators
         resources :accounts
         resources :currencies
         resources :countries
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
         resources :user_accounts
         resources :platforms
         resources :user_platforms
+
 
         match 'user_profile', to: 'users#user_profile', via: :get
         match 'update_profile', to: 'users#update_profile', via: :post

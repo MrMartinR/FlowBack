@@ -1,9 +1,9 @@
 class Api::BaseController < ApplicationController
   include DeviseTokenAuth::Concerns::SetUserByToken
-  include ExceptionHandler
+  #include ExceptionHandler
   include Response
 
-  before_action :set_var
+#  before_action :set_var
 
   protected
 
