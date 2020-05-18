@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_14_035205) do
+ActiveRecord::Schema.define(version: 2020_05_18_040246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -74,6 +74,45 @@ ActiveRecord::Schema.define(version: 2020_05_14_035205) do
     t.float "fx_eur"
   end
 
+  create_table "originators", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "product_type_individuals"
+    t.string "product_type_companies"
+    t.string "length"
+    t.float "default_rate"
+    t.float "air"
+    t.float "xirr"
+    t.string "rating"
+    t.float "apr"
+    t.string "logo"
+    t.string "icon"
+    t.string "website"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "customer_category"
+  end
+
+  create_table "platform_originators", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "originator_id"
+    t.uuid "platform_id"
+    t.string "status"
+    t.float "skin_game"
+    t.integer "grace_period"
+    t.string "rating"
+    t.string "length"
+    t.float "apr"
+    t.string "structure"
+    t.text "notes"
+    t.string "buyback"
+    t.boolean "buyback_principal"
+    t.boolean "buyback_interest"
+    t.integer "buyback_activation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["originator_id"], name: "index_platform_originators_on_originator_id"
+    t.index ["platform_id"], name: "index_platform_originators_on_platform_id"
+  end
+
   create_table "platforms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "contact_id"
     t.string "category"
@@ -134,6 +173,25 @@ ActiveRecord::Schema.define(version: 2020_05_14_035205) do
     t.index ["currency_id"], name: "index_user_accounts_on_currency_id"
     t.index ["platform_id"], name: "index_user_accounts_on_platform_id"
     t.index ["user_id"], name: "index_user_accounts_on_user_id"
+  end
+
+  create_table "user_platforms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.uuid "platform_id"
+    t.text "overview"
+    t.text "strategy"
+    t.string "user"
+    t.string "pass"
+    t.string "internal_id"
+    t.text "notes"
+    t.integer "rating"
+    t.float "xirr"
+    t.float "total_loss"
+    t.float "air"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["platform_id"], name: "index_user_platforms_on_platform_id"
+    t.index ["user_id"], name: "index_user_platforms_on_user_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

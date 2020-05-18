@@ -14,6 +14,7 @@ class User < ApplicationRecord
   belongs_to :country, optional: true
   has_one_attached :avatar
   has_many :user_accounts
+  has_many :user_platforms
 
   after_create :assign_default_role
 

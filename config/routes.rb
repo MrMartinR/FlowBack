@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get 'pages/index'
   get 'pages/dashboard'
 
@@ -18,7 +17,10 @@ Rails.application.routes.draw do
         resources :settings
         resources :users, only: [:index,:update]
         resources :user_accounts
-        resources :platforms
+        resources :originators
+        resources :platform_originators
+        resources :user_platforms
+
 
         match 'user_profile', to: 'users#user_profile', via: :get
         match 'update_profile', to: 'users#update_profile', via: :post
