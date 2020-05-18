@@ -97,6 +97,39 @@ end
                            :icon=> "icon #{i}",
                            :website => "web #{i}"
                        })
+
+  end
+
+  PlatformOriginator.delete_all
+  1.upto(20) do |i|
+    PlatformOriginator.create!({
+                                   :originator_id => Originator.order('random()').first.id,
+                                   :platform_id=> Platform.order('random()').first.id,
+                                   :status=> "Acvite",
+                                   :skin_game=> rand_float,
+                                   :grace_period=> rand_int,
+                                   :rating=> rand_int,
+                                   :length=> "Length",
+                                   :apr=> rand_float,
+                                   :structure=> "structure",
+                                   :notes=> "notes for Platform originator",
+                                   :buyback=> "buyback"+rand_int.to_s,
+                                   :buyback_principal=> rand_bool,
+                                   :buyback_interest=> rand_bool,
+                                   :buyback_activation => rand_int
+                               })
+  end
+
+  def rand_float
+    rand(0..20)
+  end
+
+  def rand_int
+    rand(1..100)
+  end
+
+  def rand_bool
+    [true, false].sample
   end
 end
 
