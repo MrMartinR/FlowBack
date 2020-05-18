@@ -14,7 +14,7 @@ class Api::V1::PlatformsController < Api::BaseController
 
   def search
     @search = Platform.ransack(params[:q])
-    @platforms = @search.result
+    @platforms = @search.result(distinct: true).paginate(page: params[:page], per_page: params[:per_page])
     @search.build_condition
 
     render :index
