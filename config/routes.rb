@@ -17,12 +17,8 @@ Rails.application.routes.draw do
         resources :settings
         resources :users, only: [:index,:update]
         resources :user_accounts
-
+        resources :originators
         resources :platform_originators
-        # resources :originators do
-        #   resources :platform_originators
-        # end
-
         resources :user_platforms
 
 
