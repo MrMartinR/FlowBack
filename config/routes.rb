@@ -20,7 +20,11 @@ Rails.application.routes.draw do
         resources :originators
         resources :platform_originators
         resources :user_platforms
-
+        resources :platforms do
+          collection do
+            get 'search'
+          end
+        end
 
         match 'user_profile', to: 'users#user_profile', via: :get
         match 'update_profile', to: 'users#update_profile', via: :post

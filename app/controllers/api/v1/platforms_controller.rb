@@ -12,6 +12,14 @@ class Api::V1::PlatformsController < Api::BaseController
     end
   end
 
+  def search
+    @search = Platform.ransack(params[:q])
+    @platforms = @search.result
+    @search.build_condition
+
+    render :index
+  end
+
   def show
   end
 

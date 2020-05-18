@@ -21,8 +21,7 @@ class ApplicationController <  ActionController::Base
   end
 
   def admin_or_contributor!
-    if !current_api_v1_user.has_role?(:user)
-      render json: {success: false, code: 403, message: "Forbidden"}
-    end
+      admin_or_contributor = current_api_v1_user.has_role?(:admin).equal?(true) || current_api_v1_user.has_role?(:contributor).equal?(true)
+      render json: {success: false, code: 403, message: "Forbidden"} if admin_or_contributor.equal?(false)
   end
 end
