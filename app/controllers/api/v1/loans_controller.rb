@@ -20,7 +20,7 @@ class Api::V1::LoansController <  Api::BaseController
     if @loan.save
       render :show, status: :created
     else
-      render json: @loan.errors, status: :unprocessable_entity
+      json_response({success:false, :message => @loan.errors},:unprocessable_entity)
     end
   end
 
@@ -28,7 +28,7 @@ class Api::V1::LoansController <  Api::BaseController
     if @loan.update(loan_params)
       render :show, status: :ok
     else
-      render json: @loan.errors, status: :unprocessable_entity
+      json_response({success:false, :message => @loan.errors},:unprocessable_entity)
     end
   end
 
