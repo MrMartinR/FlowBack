@@ -5,4 +5,5 @@ class Country < ApplicationRecord
   has_many :users
   has_many :accounts
   has_many :user_accounts
+  has_many :loans
 end
