@@ -3,8 +3,23 @@ class Api::V1::UserAccountsController < Api::BaseController
   before_action :set_user_account, only: [:show, :update, :destroy]
 
   def index
-    @user_accounts = @user.user_accounts.order('name asc').paginate(page: params[:page])
+    @user_accounts = @user.user_accounts.order('name asc').
+        paginate(page: params[:page], per_page: params[:per_page])
   end
+
+  def search
+    @search = @user.user_accounts.includes(:country, :currency).ransack(params[:q])
+    @user_accounts = @search.result(distinct: false).order('name asc').paginate(page: params[:page], per_page: params[:per_page])
+    render :index
+  end
+  # def search
+  #   @search = Platform.ransack(params[:q])
+  #   @platforms = @search.result(distinct: true).paginate(page: params[:page], per_page: params[:per_page])
+  #   @search.build_condition
+  #
+  #   render :index
+  # end
+
 
   def show
   end

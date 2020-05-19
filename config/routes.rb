@@ -16,7 +16,11 @@ Rails.application.routes.draw do
         resources :countries
         resources :settings
         resources :users, only: [:index,:update]
-        resources :user_accounts
+        resources :user_accounts do
+          collection do
+            get 'search'
+          end
+        end
         resources :originators
         resources :platform_originators
         resources :user_platforms

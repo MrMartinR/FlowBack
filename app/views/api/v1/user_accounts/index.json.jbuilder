@@ -5,9 +5,16 @@ json.data @user_accounts do |user_account|
   #  :id, :country_id, :account_id, :platform_id, :currency_id, :user_id, :category, :name, :total_fee, :total_loss,
   #  :total_tax, :active, :total_invest, :total_profit, :total_referral, :total_interest, :total_bonus
   json.id user_account.id
-  json.country_id user_account.country_id
-  json.account_id user_account.account_id
-  json.platform_id user_account.platform_id
+  json.country do ||
+    json.id user_account.country.id
+    json.name  user_account.country.name
+    json.iso_code user_account.country.iso_code
+    json.continent user_account.country.continent
+    json.flag user_account.country.flag_image.attached?? rails_blob_path(user_account.country.flag_image) : nil
+  end
+  pl = user_account.platform
+  json.account user_account.account, partial: "api/v1/accounts/account", as: :account
+  json.platform  pl, partial: "api/v1/platforms/platform", as: :platform
   json.currency_id user_account.currency_id
   json.user_id user_account.user_id
   json.category user_account.category
