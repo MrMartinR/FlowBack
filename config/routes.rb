@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       end
     end
   end
-
+  # routing errors
+  match '*path', to: "errors#handle_root_not_found", via: [:get, :post, :put, :patch]
   root 'pages#index'
 end
