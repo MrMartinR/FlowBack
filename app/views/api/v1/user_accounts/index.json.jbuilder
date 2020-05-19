@@ -12,9 +12,9 @@ json.data @user_accounts do |user_account|
     json.continent user_account.country.continent
     json.flag user_account.country.flag_image.attached?? rails_blob_path(user_account.country.flag_image) : nil
   end
-
+  pl = user_account.platform
   json.account user_account.account, partial: "api/v1/accounts/account", as: :account
-  json.platform user_account.platform , partial: "api/v1/platforms/platform", as: :platform
+  json.platform  pl, partial: "api/v1/platforms/platform", as: :platform
   json.currency_id user_account.currency_id
   json.user_id user_account.user_id
   json.category user_account.category
