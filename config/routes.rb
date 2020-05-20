@@ -33,6 +33,7 @@ Rails.application.routes.draw do
         resources :user_loans do
           collection do
             get 'index_as_admin'
+            get 'search'
           end
         end
 

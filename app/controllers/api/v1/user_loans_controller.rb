@@ -12,6 +12,15 @@ class Api::V1::UserLoansController < Api::BaseController
     end
   end
 
+  def search
+    @search = UserLoan.by_user(@user).ransack(params[:q])
+    @user_loans = @search.result(distinct: true).paginate(page: params[:page], per_page: params[:per_page])
+    @total_pages = @search.result(distinct: true).paginate(page: params[:page], per_page: params[:per_page]).total_pages
+    @search.build_condition
+
+    render :index
+  end
+
   def show
   end
 
