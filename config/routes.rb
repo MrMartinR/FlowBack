@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :loans
   get 'pages/index'
   get 'pages/dashboard'
 
@@ -31,6 +30,12 @@ Rails.application.routes.draw do
           end
         end
         resources :loans
+        resources :user_loans do
+          collection do
+            get 'index_as_admin'
+          end
+        end
+
 
         match 'user_profile', to: 'users#user_profile', via: :get
         match 'update_profile', to: 'users#update_profile', via: :post

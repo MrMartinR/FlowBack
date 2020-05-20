@@ -26,6 +26,14 @@ def rand_platform
   Platform.order("RANDOM()").first
 end
 
+def user_account_by_user(user_id)
+  UserAccount.where(user_id: user_id).first
+end
+
+def rand_user
+  User.order("RANDOM()").first
+end
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -111,20 +119,20 @@ end
 
   Originator.delete_all
   1.upto(20) do |i|
-     Originator.create({
-                           :name => "Originator #{i}",
-                           :product_type_individuals => "Product Type individual #{i}" ,
-                           :product_type_companies => "product_type_companies #{i}",
-                           :length=> "length #{i}",
-                           :default_rate=> rand(1..10),
-                           :air=> rand(1..10),
-                           :xirr=> rand(1..10),
-                           :rating=> rand(1..10),
-                           :apr=> rand(1..10),
-                           :logo=> "img #{i}",
-                           :icon=> "icon #{i}",
-                           :website => "web #{i}"
-                       })
+    Originator.create({
+                          :name => "Originator #{i}",
+                          :product_type_individuals => "Product Type individual #{i}",
+                          :product_type_companies => "product_type_companies #{i}",
+                          :length => "length #{i}",
+                          :default_rate => rand(1..10),
+                          :air => rand(1..10),
+                          :xirr => rand(1..10),
+                          :rating => rand(1..10),
+                          :apr => rand(1..10),
+                          :logo => "img #{i}",
+                          :icon => "icon #{i}",
+                          :website => "web #{i}"
+                      })
 
   end
 
@@ -132,57 +140,86 @@ end
   1.upto(20) do |i|
     PlatformOriginator.create!({
                                    :originator_id => Originator.order('random()').first.id,
-                                   :platform_id=> Platform.order('random()').first.id,
-                                   :status=> "Acvite",
-                                   :skin_game=> rand_float,
-                                   :grace_period=> rand_int,
-                                   :rating=> rand_int,
-                                   :length=> "Length",
-                                   :apr=> rand_float,
-                                   :structure=> "structure",
-                                   :notes=> "notes for Platform originator",
-                                   :buyback=> "buyback"+rand_int.to_s,
-                                   :buyback_principal=> rand_bool,
-                                   :buyback_interest=> rand_bool,
+                                   :platform_id => Platform.order('random()').first.id,
+                                   :status => "Acvite",
+                                   :skin_game => rand_float,
+                                   :grace_period => rand_int,
+                                   :rating => rand_int,
+                                   :length => "Length",
+                                   :apr => rand_float,
+                                   :structure => "structure",
+                                   :notes => "notes for Platform originator",
+                                   :buyback => "buyback" + rand_int.to_s,
+                                   :buyback_principal => rand_bool,
+                                   :buyback_interest => rand_bool,
                                    :buyback_activation => rand_int
                                })
   end
 
 
   1.upto(20) do |i|
-  attr = {
-      :country_id => rand_country.id,
-      :currency_id => rand_currency.id,
-      :originator_id => rand_originator.id,
-      :platform_id => rand_platform.id,
-      :code => "code #{i}",
-      :internal_code => "code #{i}",
-      :name => "code #{i}",
-      :borrower => "code #{i}",
-      :gender => "code #{i}",
-      :air => "code #{i}",
-      :status => "code #{i}",
-      :xirr => "code #{i}",
-      :rating => "code #{i}",
-      :dti_rating => "code #{i}",
-      :borrower_type => "code #{i}",
-      :category => "code #{i}",
-      :amount => "code #{i}",
-      :description => "code #{i}",
-      :link => "code #{i}",
-      :secured_buyback => "code #{i}",
-      :secured_personal => "code #{i}",
-      :secured_collaretal => "code #{i}",
-      :security => "code #{i}",
-      :date_listed => "code #{i}",
-      :date_issued => "code #{i}",
-      :date_maturity => "code #{i}",
-      :amortization => "code #{i}",
-      :installment => "code #{i}",
-      :notes => "Notes #{i}"
-  }
-  Loan.create!(attr)
-end
+    attr = {
+        :country_id => rand_country.id,
+        :currency_id => rand_currency.id,
+        :originator_id => rand_originator.id,
+        :platform_id => rand_platform.id,
+        :code => "code #{i}",
+        :internal_code => "code #{i}",
+        :name => "code #{i}",
+        :borrower => "code #{i}",
+        :gender => "code #{i}",
+        :air => "code #{i}",
+        :status => "code #{i}",
+        :xirr => "code #{i}",
+        :rating => "code #{i}",
+        :dti_rating => "code #{i}",
+        :borrower_type => "code #{i}",
+        :category => "code #{i}",
+        :amount => "code #{i}",
+        :description => "code #{i}",
+        :link => "code #{i}",
+        :secured_buyback => "code #{i}",
+        :secured_personal => "code #{i}",
+        :secured_collaretal => "code #{i}",
+        :security => "code #{i}",
+        :date_listed => "code #{i}",
+        :date_issued => "code #{i}",
+        :date_maturity => "code #{i}",
+        :amortization => "code #{i}",
+        :installment => "code #{i}",
+        :notes => "Notes #{i}"
+    }
+    Loan.create!(attr)
+  end
+
+  1.upto(20) do |i|
+    user_id =rand_user.id
+    attr = {
+        :country_id => rand_country.id,
+        :loan_id => rand_originator.id,
+        :user_id => user_id,
+        :currency_id => rand_currency.id,
+        :originator_id => rand_originator.id,
+        :user_account_id => user_account_by_user(user_id),
+        :platform_id => rand_platform.id,
+        :slice_name => "slice #{i}",
+        :market => UserLoan::MARKET_VALUES.sample,
+        :xirr => rand(10..100),
+        :investment_amount => rand(10..100),
+        :invest_mode => UserLoan::INVEST_MODE_VALUES.sample,
+        :position => UserLoan::POSITION_VALUES.sample,
+        :date_in => Date.today,
+        :date_out => Date.today,
+        :principal_remaining => rand(10..100),
+        :interest => rand(10..100),
+        :bonus => rand(10..100),
+        :tax => rand(10..100),
+        :loss => rand(10..100),
+        :fee => rand(10..100),
+        :contract_url => "url contract #{i}"
+    }
+    UserLoan.create!(attr)
+  end
 
 end
 
