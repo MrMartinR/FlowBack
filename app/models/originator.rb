@@ -13,4 +13,5 @@ class Originator < ApplicationRecord
   CUSTOMER_TYPE = ["Companies", "Individual"]
 
   has_many :loans
+  has_many :user_loans
 end
