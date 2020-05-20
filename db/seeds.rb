@@ -1,3 +1,31 @@
+def rand_float
+  rand(0..20)
+end
+
+def rand_int
+  rand(1..100)
+end
+
+def rand_bool
+  [true, false].sample
+end
+
+def rand_country
+  Country.order("RANDOM()").first
+end
+
+def rand_currency
+  Currency.order("RANDOM()").first
+end
+
+def rand_originator
+  Originator.order("RANDOM()").first
+end
+
+def rand_platform
+  Platform.order("RANDOM()").first
+end
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
@@ -120,17 +148,42 @@ end
                                })
   end
 
-  def rand_float
-    rand(0..20)
-  end
 
-  def rand_int
-    rand(1..100)
-  end
+  1.upto(20) do |i|
+  attr = {
+      :country_id => rand_country.id,
+      :currency_id => rand_currency.id,
+      :originator_id => rand_originator.id,
+      :platform_id => rand_platform.id,
+      :code => "code #{i}",
+      :internal_code => "code #{i}",
+      :name => "code #{i}",
+      :borrower => "code #{i}",
+      :gender => "code #{i}",
+      :air => "code #{i}",
+      :status => "code #{i}",
+      :xirr => "code #{i}",
+      :rating => "code #{i}",
+      :dti_rating => "code #{i}",
+      :borrower_type => "code #{i}",
+      :category => "code #{i}",
+      :amount => "code #{i}",
+      :description => "code #{i}",
+      :link => "code #{i}",
+      :secured_buyback => "code #{i}",
+      :secured_personal => "code #{i}",
+      :secured_collaretal => "code #{i}",
+      :security => "code #{i}",
+      :date_listed => "code #{i}",
+      :date_issued => "code #{i}",
+      :date_maturity => "code #{i}",
+      :amortization => "code #{i}",
+      :installment => "code #{i}",
+      :notes => "Notes #{i}"
+  }
+  Loan.create!(attr)
+end
 
-  def rand_bool
-    [true, false].sample
-  end
 end
 
 

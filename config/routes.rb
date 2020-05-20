@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :loans
   get 'pages/index'
   get 'pages/dashboard'
 
@@ -29,12 +30,14 @@ Rails.application.routes.draw do
             get 'search'
           end
         end
+        resources :loans
 
         match 'user_profile', to: 'users#user_profile', via: :get
         match 'update_profile', to: 'users#update_profile', via: :post
       end
     end
   end
-
+  # routing errors
+  match '*path', to: "errors#handle_root_not_found", via: [:get, :post, :put, :patch]
   root 'pages#index'
 end

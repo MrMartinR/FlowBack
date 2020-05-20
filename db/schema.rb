@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_18_040246) do
+ActiveRecord::Schema.define(version: 2020_05_19_070527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -72,6 +72,44 @@ ActiveRecord::Schema.define(version: 2020_05_18_040246) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "kind"
     t.float "fx_eur"
+  end
+
+  create_table "loans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.uuid "currency_id"
+    t.uuid "originator_id"
+    t.uuid "platform_id"
+    t.string "code"
+    t.string "internal_code"
+    t.string "name"
+    t.string "borrower"
+    t.string "gender"
+    t.float "air"
+    t.string "status"
+    t.float "xirr"
+    t.string "rating"
+    t.float "dti_rating"
+    t.string "borrower_type"
+    t.string "category"
+    t.float "amount"
+    t.text "description"
+    t.string "link"
+    t.boolean "secured_buyback"
+    t.boolean "secured_personal"
+    t.boolean "secured_collaretal"
+    t.text "security"
+    t.date "date_listed"
+    t.date "date_issued"
+    t.date "date_maturity"
+    t.string "amortization"
+    t.string "installment"
+    t.text "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_loans_on_country_id"
+    t.index ["currency_id"], name: "index_loans_on_currency_id"
+    t.index ["originator_id"], name: "index_loans_on_originator_id"
+    t.index ["platform_id"], name: "index_loans_on_platform_id"
   end
 
   create_table "originators", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
