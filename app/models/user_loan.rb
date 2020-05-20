@@ -44,6 +44,15 @@ class UserLoan < ApplicationRecord
 
   scope :by_user, -> (id_user) { where("user_id = ?", id_user) }
 
+  # relation
+  belongs_to :country
+  belongs_to :loan
+  belongs_to :user
+  belongs_to :currency
+  belongs_to :originator
+  belongs_to :user_account
+  belongs_to :platform
+
 
   # TODO
   def set_date_out

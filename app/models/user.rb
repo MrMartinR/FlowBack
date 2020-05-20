@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_many :user_accounts
   has_many :user_platforms
+  has_many :user_loans
 
   after_create :assign_default_role
 
