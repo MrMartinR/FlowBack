@@ -36,7 +36,7 @@ class Api::V1::UserLoansController < Api::BaseController
   end
 
   def create
-    @user_loan = UserLoan.new(user_loan_params)
+    @user_loan = @user.user_loans.new(user_loan_params)
 
     if @user_loan.save
       render :show, status: :created
@@ -59,10 +59,10 @@ class Api::V1::UserLoansController < Api::BaseController
 
   private
     def set_user_loan
-      @user_loan = UserLoan.find(params[:id])
+      @user_loan = @user.user_loans.find(params[:id])
     end
 
     def user_loan_params
-      params.require(:user_loan).permit(:country_id, :loan_id, :user_id, :currency_id, :originator_id, :user_account_id, :platform_id, :slice, :market, :xirr, :investment_amount, :invest_mode, :position, :date_in, :date_out, :principal_remaining, :interest, :bonus, :tax, :loss, :fee, :contract_url)
+      params.require(:user_loan).permit(:country_id, :loan_id, :currency_id, :originator_id, :user_account_id, :platform_id, :slice_name, :market, :xirr, :investment_amount, :invest_mode, :position, :date_in, :date_out, :principal_remaining, :interest, :bonus, :tax, :loss, :fee, :contract_url)
     end
 end
