@@ -1,5 +1,6 @@
 class Api::V1::UserLoansController < Api::BaseController
   before_action :authenticate_api_v1_user!
+  before_action :auth_admin!, only: :index_as_admin
   before_action :set_user_loan, only: [:show, :update, :destroy]
 
   def index
