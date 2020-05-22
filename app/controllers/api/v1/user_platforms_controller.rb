@@ -43,6 +43,7 @@ class Api::V1::UserPlatformsController < Api::BaseController
 
     # Only allow a list of trusted parameters through.
     def user_platform_params
-      params.require(:user_platform).permit(:user_id, :platform_id, :overview, :strategy, :user, :pass, :internal_id, :notes, :rating, :xirr, :total_loss, :air)
+      params.require(:user_platform).permit(:user_id, :platform_id, :overview, :strategy, :user, :pass, :internal_id, :notes, :rating, :xirr, :total_loss, :air).
+          merge(created_by: @user.id, updated_by: @user.id)
     end
 end
