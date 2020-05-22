@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_020840) do
+ActiveRecord::Schema.define(version: 2020_05_21_075107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -178,6 +178,43 @@ ActiveRecord::Schema.define(version: 2020_05_20_020840) do
     t.index ["contact_id"], name: "index_platforms_on_contact_id"
   end
 
+  create_table "properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.uuid "currency_id"
+    t.uuid "platform_id"
+    t.string "code"
+    t.string "name"
+    t.string "owner"
+    t.float "yield"
+    t.string "status"
+    t.float "xirr"
+    t.string "rating"
+    t.string "type"
+    t.string "category"
+    t.integer "shares"
+    t.text "description"
+    t.string "link"
+    t.text "security"
+    t.date "date_listed"
+    t.date "date_issued"
+    t.date "date_exited"
+    t.string "dividend"
+    t.string "period"
+    t.float "ltv_initial"
+    t.float "ltv"
+    t.float "share_value"
+    t.text "notes"
+    t.float "latitude"
+    t.float "longitude"
+    t.text "exit_strategy"
+    t.string "tenure"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_properties_on_country_id"
+    t.index ["currency_id"], name: "index_properties_on_currency_id"
+    t.index ["platform_id"], name: "index_properties_on_platform_id"
+  end
+
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -262,6 +299,8 @@ ActiveRecord::Schema.define(version: 2020_05_20_020840) do
     t.float "air"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "created_by"
+    t.uuid "updated_by"
     t.index ["platform_id"], name: "index_user_platforms_on_platform_id"
     t.index ["user_id"], name: "index_user_platforms_on_user_id"
   end
