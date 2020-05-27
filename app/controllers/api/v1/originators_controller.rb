@@ -49,6 +49,12 @@ class Api::V1::OriginatorsController < Api::BaseController
 
   # Only allow a list of trusted parameters through.
   def originator_params
-    params.require(:originator).permit(:name, :product_type_individuals, :product_type_companies, :length, :default_rate, :air, :xirr, :rating, :apr, :logo, :icon, :website)
+    merged_params = {updated_by: @user.id}
+    merged_params = {created_by: @user.id} if params[:action] == "create"
+
+    params.require(:originator).permit(:name, :product_type_individuals,
+                                       :product_type_companies, :length,
+                                       :default_rate, :air, :xirr, :rating,
+                                       :apr, :logo, :icon, :website).merge(merged_params)
   end
 end

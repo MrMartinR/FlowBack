@@ -42,6 +42,15 @@ class Api::V1::LoansController <  Api::BaseController
     end
 
     def loan_params
-      params.require(:loan).permit(:country_id, :currency_id, :originator_id, :platform_id, :code, :internal_code, :name, :borrower, :gender, :air, :status, :xirr, :rating, :dti_rating, :borrower_type, :category, :amount, :description, :link, :secured_buyback, :secured_personal, :secured_collaretal, :security, :date_listed, :date_issued, :date_maturity, :amortization, :installment, :notes)
+      merged_params = {updated_by: @user.id}
+      merged_params = {created_by: @user.id} if params[:action] == "create"
+
+      params.require(:loan).permit(:country_id, :currency_id, :originator_id,
+                                   :platform_id, :code, :internal_code, :name,
+                                   :borrower, :gender, :air, :status, :xirr, :rating,
+                                   :dti_rating, :borrower_type, :category, :amount,
+                                   :description, :link, :secured_buyback, :secured_personal,
+                                   :secured_collaretal, :security, :date_listed, :date_issued,
+                                   :date_maturity, :amortization, :installment, :notes).merge(merged_params)
     end
 end
