@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_28_060905) do
+ActiveRecord::Schema.define(version: 2020_06_01_071446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -228,6 +228,36 @@ ActiveRecord::Schema.define(version: 2020_05_28_060905) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+  end
+
+  create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.uuid "user_account_id"
+    t.uuid "user_account_related_id"
+    t.uuid "currency_id"
+    t.uuid "user_id"
+    t.uuid "loan_id"
+    t.uuid "property_id"
+    t.string "type"
+    t.string "ref"
+    t.date "date"
+    t.time "time"
+    t.string "category"
+    t.string "description"
+    t.float "amount"
+    t.text "notes"
+    t.integer "shares"
+    t.float "share_price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_transactions_on_country_id"
+    t.index ["currency_id"], name: "index_transactions_on_currency_id"
+    t.index ["loan_id"], name: "index_transactions_on_loan_id"
+    t.index ["property_id"], name: "index_transactions_on_property_id"
+    t.index ["type"], name: "index_transactions_on_type"
+    t.index ["user_account_id"], name: "index_transactions_on_user_account_id"
+    t.index ["user_account_related_id"], name: "index_transactions_on_user_account_related_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "user_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
