@@ -29,7 +29,7 @@ module Flow
     allow do
       origins '*'
       resource '*', :headers => :any,
-               :methods => [:get, :post, :options, :put],
+               :methods => [:get, :post, :options, :put, :delete],
                     expose: ['access-token', 'expiry', 'token-type', 'uid', 'client']
     end
   end
