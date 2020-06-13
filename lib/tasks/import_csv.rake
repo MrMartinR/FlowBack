@@ -3,12 +3,12 @@ task :import_data => :environment do
   # currencies export
   #Currency.delete_all
   path = Rails.root.to_s + '/public/currencies.csv'
-  puts path
+  # puts path
   CSV.foreach(path, 'r') do |row|
     # ...
     # skip header
     next if row[1].to_s == "fx_eur"
-    puts row
+    # puts row
     if Currency.where("name = ?", row[2]).blank?
       Currency.create(
                   id: row[0].to_s,
@@ -23,12 +23,12 @@ task :import_data => :environment do
 
   #Country.delete_all
   path = Rails.root.to_s + '/public/countries.csv'
-  puts path
+  # puts path
   CSV.foreach(path, 'r') do |row|
     # ...
     # skip header
     next if row[1].to_s == "currency_id"
-    puts row
+    # puts row
     if Country.where("name = ?", row[4]).blank?
       Country.create(
           id: row[0].to_s,
@@ -42,12 +42,12 @@ task :import_data => :environment do
   end
 
   path = Rails.root.to_s + '/public/accounts.csv'
-  puts path
+  # puts path
   CSV.foreach(path, 'r') do |row|
     # ...
     # skip header
     next if row[1].to_s == "currency_id"
-    puts row
+    # puts row
     if Account.where("name = ?", row[4]).blank?
       Account.create(
           platform_id: row[0].to_s,
