@@ -8,13 +8,11 @@ Ruby 2.6.5<br/>
 Rails 6.0.2.2<br/>
 Postgresql with pgcrypto extension enabled<br/>
 
-how to run:
-1. Check out the repository
-git clone git@github.com:FlowFintech/FlowBack.git
-<br/>
+how to run:<br/>
+1. Check out the repository<br/>
+git clone git@github.com:FlowFintech/FlowBack.git<br/>
 2. Edit database.yml file
-   (database configuration as required.)
-   <br/>
+   (database configuration as required.)<br/>   
 3. run 'bundle install'<br/>
    ( setup the library / gem that needed on this project using bundler)
    <br/>
