@@ -15,8 +15,7 @@ git clone git@github.com:FlowFintech/FlowBack.git
 2. Edit database.yml file
    (database configuration as required.)
    <br/>
-3. run 'bundle install'
-<br/>
+3. run 'bundle install'<br/>
    ( setup the library / gem that needed on this project using bundler)
    <br/>
 4. Create and setup the database<br/>
