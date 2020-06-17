@@ -10,23 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_20_020840) do
+ActiveRecord::Schema.define(version: 2020_06_16_024521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "currency_id"
-    t.uuid "country_id"
     t.string "category"
     t.string "name"
     t.string "icon"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "platform_id"
-    t.index ["country_id"], name: "index_accounts_on_country_id"
-    t.index ["currency_id"], name: "index_accounts_on_currency_id"
+    t.json "currency_id"
+    t.json "country_id"
     t.index ["platform_id"], name: "index_accounts_on_platform_id"
   end
 
@@ -106,6 +104,8 @@ ActiveRecord::Schema.define(version: 2020_05_20_020840) do
     t.text "notes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "created_by"
+    t.uuid "updated_by"
     t.index ["country_id"], name: "index_loans_on_country_id"
     t.index ["currency_id"], name: "index_loans_on_currency_id"
     t.index ["originator_id"], name: "index_loans_on_originator_id"
@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 2020_05_20_020840) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "customer_category"
+    t.uuid "created_by"
+    t.uuid "updated_by"
   end
 
   create_table "platform_originators", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -175,7 +177,46 @@ ActiveRecord::Schema.define(version: 2020_05_20_020840) do
     t.string "logo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "created_by"
+    t.uuid "updated_by"
     t.index ["contact_id"], name: "index_platforms_on_contact_id"
+  end
+
+  create_table "properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.uuid "currency_id"
+    t.uuid "platform_id"
+    t.string "code"
+    t.string "name"
+    t.string "owner"
+    t.float "yield"
+    t.string "status"
+    t.float "xirr"
+    t.string "rating"
+    t.string "type"
+    t.string "category"
+    t.integer "shares"
+    t.text "description"
+    t.string "link"
+    t.text "security"
+    t.date "date_listed"
+    t.date "date_issued"
+    t.date "date_exited"
+    t.string "dividend"
+    t.string "period"
+    t.float "ltv_initial"
+    t.float "ltv"
+    t.float "share_value"
+    t.text "notes"
+    t.float "latitude"
+    t.float "longitude"
+    t.text "exit_strategy"
+    t.string "tenure"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_properties_on_country_id"
+    t.index ["currency_id"], name: "index_properties_on_currency_id"
+    t.index ["platform_id"], name: "index_properties_on_platform_id"
   end
 
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -185,6 +226,36 @@ ActiveRecord::Schema.define(version: 2020_05_20_020840) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+  end
+
+  create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "country_id"
+    t.uuid "user_account_id"
+    t.uuid "user_account_related_id"
+    t.uuid "currency_id"
+    t.uuid "user_id"
+    t.uuid "loan_id"
+    t.uuid "property_id"
+    t.string "type"
+    t.string "ref"
+    t.date "date"
+    t.time "time"
+    t.string "category"
+    t.string "description"
+    t.float "amount"
+    t.text "notes"
+    t.integer "shares"
+    t.float "share_price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_transactions_on_country_id"
+    t.index ["currency_id"], name: "index_transactions_on_currency_id"
+    t.index ["loan_id"], name: "index_transactions_on_loan_id"
+    t.index ["property_id"], name: "index_transactions_on_property_id"
+    t.index ["type"], name: "index_transactions_on_type"
+    t.index ["user_account_id"], name: "index_transactions_on_user_account_id"
+    t.index ["user_account_related_id"], name: "index_transactions_on_user_account_related_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "user_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -262,6 +333,8 @@ ActiveRecord::Schema.define(version: 2020_05_20_020840) do
     t.float "air"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.uuid "created_by"
+    t.uuid "updated_by"
     t.index ["platform_id"], name: "index_user_platforms_on_platform_id"
     t.index ["user_id"], name: "index_user_platforms_on_user_id"
   end

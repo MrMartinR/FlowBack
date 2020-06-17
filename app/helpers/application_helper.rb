@@ -15,7 +15,7 @@ module ApplicationHelper
     if dt.class == Date
      dt.strftime('%d-%m-%Y')
     else
-      dt
+     dt
     end
   end
 end
