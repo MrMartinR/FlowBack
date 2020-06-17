@@ -1,5 +1,5 @@
 class Api::V1::AccountsController < Api::BaseController
-  before_action :authenticate_api_v1_user!
+  #before_action :authenticate_api_v1_user!, only: [:index, :show]
   before_action :admin_or_contributor! , except: [:index, :show]
   before_action :set_account, only: [:show, :update, :destroy]
 
@@ -27,7 +27,7 @@ class Api::V1::AccountsController < Api::BaseController
     @account = Account.new(account_params)
 
     if @account.save
-      render :show, status: :created, location: @account
+      render :show, status: :created#, location: @account
     else
       render json: @account.errors, status: :unprocessable_entity
     end
@@ -51,6 +51,6 @@ class Api::V1::AccountsController < Api::BaseController
     end
 
     def account_params
-      params.require(:account).permit(:currency_id, :country_id, :category, :name, :icon, :platform_id)
+      params.require(:account).permit( :platform_id, :name, :category,:currency_id => [], :country_id =>[])
     end
 end
