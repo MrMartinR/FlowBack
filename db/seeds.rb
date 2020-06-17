@@ -22,6 +22,10 @@ def rand_originator
   Originator.order("RANDOM()").first
 end
 
+def rand_loan
+  Loan.order("RANDOM()").first
+end
+
 def rand_platform
   Platform.order("RANDOM()").first
 end
@@ -66,7 +70,7 @@ user.add_role(:contributor)
   user = User.new({
                       :email => "test#{i}@example.com",
                       :password => "1234567",
-                      :username => "test#{i} uname"
+                      :username => "test#{i} uname1"
                   })
   user.save!
 end
@@ -98,12 +102,13 @@ end
 end
 
 1.upto(20) do |i|
+  user = User.order("RANDOM()").first.id
   UserAccount.create!({
                           :country_id => Country.order("RANDOM()").first.id,
                           :account_id => Account.order("RANDOM()").first.id,
                           :platform_id => Platform.order("RANDOM()").first.id,
                           :currency_id => Currency.order("RANDOM()").first.id,
-                          :user_id => User.order("RANDOM()").first.id,
+                          :user_id => user,
                           :category => "Category {i}",
                           :name => "User Account Name #{i}",
                           :total_fee => rand(0..100),
@@ -192,34 +197,37 @@ end
     Loan.create!(attr)
   end
 
-  1.upto(20) do |i|
-    user_id =rand_user.id
-    attr = {
-        :country_id => rand_country.id,
-        :loan_id => rand_originator.id,
-        :user_id => user_id,
-        :currency_id => rand_currency.id,
-        :originator_id => rand_originator.id,
-        :user_account_id => user_account_by_user(user_id),
-        :platform_id => rand_platform.id,
-        :slice_name => "slice #{i}",
-        :market => UserLoan::MARKET_VALUES.sample,
-        :xirr => rand(10..100),
-        :investment_amount => rand(10..100),
-        :invest_mode => UserLoan::INVEST_MODE_VALUES.sample,
-        :position => UserLoan::POSITION_VALUES.sample,
-        :date_in => Date.today,
-        :date_out => Date.today,
-        :principal_remaining => rand(10..100),
-        :interest => rand(10..100),
-        :bonus => rand(10..100),
-        :tax => rand(10..100),
-        :loss => rand(10..100),
-        :fee => rand(10..100),
-        :contract_url => "url contract #{i}"
-    }
-    UserLoan.create!(attr)
-  end
+  # 1.upto(20) do |i|
+  #   user_id =user
+  #   puts user_id
+  #   attr = {
+  #       :country_id => rand_country.id,
+  #       :loan_id => rand_loan.id,
+  #       :user_id => user_id,
+  #       :currency_id => rand_currency.id,
+  #       :originator_id => rand_originator.id,
+  #       # :user_account_id => user_account_by_user(user_id),
+  #       :platform_id => rand_platform.id,
+  #       :slice_name => "slice #{i}",
+  #       :market => UserLoan::MARKET_VALUES.sample,
+  #       :xirr => rand(10..100),
+  #       :investment_amount => rand(10..100),
+  #       :invest_mode => UserLoan::INVEST_MODE_VALUES.sample,
+  #       :position => UserLoan::POSITION_VALUES.sample,
+  #       :date_in => Date.today,
+  #       :date_out => Date.today,
+  #       :principal_remaining => rand(10..100),
+  #       :interest => rand(10..100),
+  #       :bonus => rand(10..100),
+  #       :tax => rand(10..100),
+  #       :loss => rand(10..100),
+  #       :fee => rand(10..100),
+  #       :contract_url => "url contract #{i}"
+  #   }
+  #   puts attr[:loan_id]
+  #   puts attr[:user_account_id]
+  #   UserLoan.create!(attr)
+  # end
 
 end
 
