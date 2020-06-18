@@ -7,18 +7,15 @@ json.data  @accounts do |account|
   json.category account.category
   json.icon account.icon
 
-  if account.currency_id
-    #json.currency account.currency, :id, :name
-    json.currency_id
-  else
-    json.currency nil
-  end
+  # if account.currency_id
+  #   #json.currency account.currency, :id, :name
+  #   json.currency_id
+  # else
+  #   json.currency nil
+  # end
+  json.currency_id account.currency_id
 
-  if account.country
-    json.country_id
-  else
-    json.country nil
-  end
+  json.country_id account.country_id
 end
 
 if params[:page]

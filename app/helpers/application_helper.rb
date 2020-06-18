@@ -13,7 +13,7 @@ module ApplicationHelper
 
   def date_format(dt)
     if dt.class == Date
-     dt.strftime('%d-%m-%Y')
+     dt.strftime('%Y-%m-%d')
     else
      dt
     end
