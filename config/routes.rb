@@ -39,7 +39,7 @@ Rails.application.routes.draw do
 
 
         match 'user_profile', to: 'users#user_profile', via: :get
-        match 'update_profile', to: 'users#update_profile', via: :post
+        match 'update_profile', to: 'users#update_profile', via: :post,constraints: { format: 'html' } 
       end
     end
   end
