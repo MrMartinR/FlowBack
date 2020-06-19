@@ -44,6 +44,9 @@ Rails.application.routes.draw do
     end
   end
   # routing errors
-  match '*path', to: "errors#handle_root_not_found", via: [:get, :post, :put, :patch]
+  #match '*path', to: "errors#handle_root_not_found", via: [:get, :post, :put, :patch]
+  get '*path', to: redirect('/'), constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
   root 'pages#index'
 end
