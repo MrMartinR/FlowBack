@@ -21,7 +21,7 @@ class Api::V1::CurrenciesController < Api::BaseController
     @currency = Currency.new(currency_params)
 
     if @currency.save
-      render :show, status: :created, location: @currency
+      render json: index
     else
       render json: @currency.errors, status: :unprocessable_entity
     end
@@ -51,6 +51,6 @@ class Api::V1::CurrenciesController < Api::BaseController
 
     # Only allow a list of trusted parameters through.
     def currency_params
-      params.require(:currency).permit(:name, :code, :symbol, :type, :decimal_places)
+      params.require(:currency).permit(:name, :code, :symbol, :kind, :decimal_places, :fx_eur)
     end
 end
