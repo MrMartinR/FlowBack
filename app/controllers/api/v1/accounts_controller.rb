@@ -5,11 +5,11 @@ class Api::V1::AccountsController < Api::BaseController
 
   def index
     if params[:page].blank?
-      @accounts = Account.includes(:currency, :country).order('accounts.name asc')
+      @entities = Account.select("accounts.id,  accounts.name, accounts.category, accounts.icon").order('accounts.name asc')
       res = json_response({ "entities": @entities, pages: @total_pages, page: 1 })
     else
-      @entities = Account.joins(:currency, :country)
-      .select("accounts.id, countries.name countr, currencies.name currenc, accounts.name, accounts.category, accounts.icon")
+      @entities = Account
+      .select("accounts.id,  accounts.name, accounts.category, accounts.icon, accounts.currency_id, accounts.country_id")
       .order('accounts.name asc')
       .paginate(page: params[:page],per_page: params[:per_page])
 
