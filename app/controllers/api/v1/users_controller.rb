@@ -32,12 +32,12 @@ class Api::V1::UsersController < Api::BaseController
   def update_profile
     @user = current_api_v1_user
 
-    if @user.update!(user_params)
+    if @user.update(user_params)
       @user.update_column(:country_id, params[:user][:country_id])
       @user.update_column(:currency_id, params[:user][:currency_id])
       render :user_profile, status: :ok
     else
-      render json: {success: false, status: 400, message: "Could not update profile"}
+      render json: {success: false, status: 400, message: "#{@user.errors.full_messages.join(',')}"}
     end
   end
 
@@ -61,7 +61,7 @@ class Api::V1::UsersController < Api::BaseController
   end
 
   def user_params
-    params.require(:user).permit(:uid, :username, :email,  :password, :password_confirmation, :current_password,:currency_id, :country_id, :avatar, :dob, :name, :surname)
+    params.require("user").permit(:uid, :username, :email,  "password", :password_confirmation, :current_password,:currency_id, :country_id, :avatar, :dob, :name, :surname)
   end
 
   rescue_from ActionController::UnpermittedParameters do |error|

@@ -39,11 +39,14 @@ Rails.application.routes.draw do
 
 
         match 'user_profile', to: 'users#user_profile', via: :get
-        match 'update_profile', to: 'users#update_profile', via: :post
+        match 'update_profile', to: 'users#update_profile', via: :post,constraints: { format: 'html' } 
       end
     end
   end
   # routing errors
-  match '*path', to: "errors#handle_root_not_found", via: [:get, :post, :put, :patch]
+  #match '*path', to: "errors#handle_root_not_found", via: [:get, :post, :put, :patch]
+  get '*path', to: redirect('/'), constraints: lambda { |req|
+    req.path.exclude? 'rails/active_storage'
+  }
   root 'pages#index'
 end
