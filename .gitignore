@@ -32,3 +32,6 @@ yarn-debug.log*
 
 .env.development.local
 .idea/
+
+*.sql
+*.dump
