@@ -21,8 +21,8 @@ default: &default
  # https://guides.rubyonrails.org/configuring.html#database-pooling
  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 15 } %>
  username: postgres
- password: FlowBack
- host: flowback_db_1
+ password: <%= ENV['PASSWORD'] || 'FlowBack' %>
+ host: <%= ENV['HOST'] || 'flowback_db_1' %>
  port: 5432
 
 development:
