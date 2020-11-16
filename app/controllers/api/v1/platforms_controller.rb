@@ -53,6 +53,13 @@ class Api::V1::PlatformsController < Api::BaseController
 
     # Only allow a list of trusted parameters through.
     def platform_params
-      params.require(:platform).permit(:contact_id, :category, :status, :liquidity, :term, :invest_mode, :min_investment, :secondary_market, :taxes, :cashflow_options, :protection_scheme, :cost, :profitable, :ifisa, :structure, :account_category, :welcome_bonus, :promo, :promo_end, :icon, :logo)
+      merged_params = {updated_by: @user.id}
+      merged_params = {created_by: @user.id} if params[:action] == "create"
+      params.require(:platform).permit(:contact_id, :category, :status,
+                                       :liquidity, :term, :invest_mode,
+                                       :min_investment, :secondary_market,
+                                       :taxes, :cashflow_options, :protection_scheme, :cost,
+                                       :profitable, :ifisa, :structure, :account_category,
+                                       :welcome_bonus, :promo, :promo_end, :icon, :logo).merge(merged_params)
     end
 end

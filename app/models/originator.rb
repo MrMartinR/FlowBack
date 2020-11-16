@@ -1,4 +1,6 @@
 class Originator < ApplicationRecord
+  self.implicit_order_column = "created_at"
+
   INDIVIDUAL_CATEGORY = ["Personal","Consolidation", "Refinancing", "Short Term",
                          "Vehicle Pawnbroking", "Mortage", "Bridge"
   ]
