@@ -1,24 +1,30 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Prerequisites
+The setups steps expect following tools installed on the system.
 
-Things you may want to cover:
+Github<br/>
+Ruby 2.6.5<br/>
+Rails 6.0.2.2<br/>
+Postgresql with pgcrypto extension enabled<br/>
 
-* Ruby version
+how to run:<br/>
+1. Check out the repository<br/>
+git clone git@github.com:FlowFintech/FlowBack.git<br/>
+2. Edit database.yml file
+   (database configuration as required.)<br/>   
+3. run 'bundle install'<br/>
+   ( setup the library / gem that needed on this project using bundler)
+   <br/>
+4. Create and setup the database<br/>
+Run the following commands to create and setup the database.
+<br/>
+bundle exec rake db:create<br/>
+bundle exec rake db:migrate<br/>
+bundle exec rake db:seed<br/>
 
-* System dependencies
+5. Start the Rails server<br/>
+You can start the rails server using the command given below.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+bundle exec rails s -p 3000<br/>
+And now you can visit / Access the API To this URL http://localhost:3000

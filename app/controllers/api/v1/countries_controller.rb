@@ -21,7 +21,7 @@ class Api::V1::CountriesController < Api::BaseController
     @country = Country.new(country_params)
 
     if @country.save
-      render :show, status: :created, location: @country
+      render json: index
     else
       render json: @country.errors, status: :unprocessable_entity
     end

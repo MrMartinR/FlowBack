@@ -1,4 +1,4 @@
-﻿id,fx_eur,name,code,symbol,type
+﻿id,fx_eur,name,code,symbol,kind
 13fb3c72-4227-4fa2-849a-b597a03d4494,1,Euro,EUR,€,Fiat
 d5731592-e36d-44ae-a99d-e99121bef77f,0.89703,Pound Sterling,GBP,£,Fiat
 444cc8b9-aeeb-4d5f-b9ae-7c58870f597e,71.5048,Russian Ruble,RUB,₽,Fiat

@@ -116,7 +116,8 @@ Rails.application.configure do
   config.action_mailer.asset_host = ENV['DOMAIN_NAME']
 
   config.action_mailer.smtp_settings = {
-      :address              => 'smtp.gmail.com',
+      :openssl_verify_mode => OpenSSL::SSL::VERIFY_NONE,
+      :address              => ENV["MAIL_SMTP_ADDRESS"],
       :port                 => 587,
       :authentication       => :plain,
       :user_name            => ENV['MAIL_USER'],

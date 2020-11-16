@@ -29,3 +29,9 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+.env.development.local
+.idea/
+
+*.sql
+*.dump

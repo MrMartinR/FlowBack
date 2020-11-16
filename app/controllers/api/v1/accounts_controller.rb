@@ -1,15 +1,23 @@
 class Api::V1::AccountsController < Api::BaseController
-  before_action :authenticate_api_v1_user!
+  #before_action :authenticate_api_v1_user!, only: [:index, :show]
   before_action :admin_or_contributor! , except: [:index, :show]
   before_action :set_account, only: [:show, :update, :destroy]
 
   def index
     if params[:page].blank?
-      @accounts = Account.includes(:currency, :country).order('accounts.name asc')
+      @entities = Account.select("accounts.id,  accounts.name, accounts.category, accounts.icon").order('accounts.name asc')
+      res = json_response({ "entities": @entities, pages: @total_pages, page: 1 })
     else
-      @accounts = Account.includes(:currency, :country).order('accounts.name asc').paginate(page: params[:page],per_page: params[:per_page])
-      @total_pages = Account.includes(:currency, :country).order('accounts.name asc').paginate(page: params[:page],per_page: params[:per_page]).total_pages
+      @entities = Account
+      .select("accounts.id,  accounts.name, accounts.category, accounts.icon, accounts.currency_id, accounts.country_id")
+      .order('accounts.name asc')
+      .paginate(page: params[:page],per_page: params[:per_page])
+
+      @pages = Account.includes(:currency, :country).order('accounts.name asc').paginate(page: params[:page],per_page: params[:per_page]).total_pages
+
+      res = json_response({ "entities": @entities, pages: @pages, page: params[:page].to_i })
     end
+    return res
   end
 
   def show
@@ -19,7 +27,7 @@ class Api::V1::AccountsController < Api::BaseController
     @account = Account.new(account_params)
 
     if @account.save
-      render :show, status: :created, location: @account
+      render :show, status: :created#, location: @account
     else
       render json: @account.errors, status: :unprocessable_entity
     end
@@ -43,6 +51,6 @@ class Api::V1::AccountsController < Api::BaseController
     end
 
     def account_params
-      params.require(:account).permit(:currency_id, :country_id, :category, :name, :icon, :platform_id)
+      params.require(:account).permit( :platform_id, :name, :category,:currency_id => [], :country_id =>[])
     end
 end
