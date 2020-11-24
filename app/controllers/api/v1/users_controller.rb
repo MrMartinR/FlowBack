@@ -33,8 +33,8 @@ class Api::V1::UsersController < Api::BaseController
     @user = current_api_v1_user
 
     if @user.update(user_params)
-      @user.update_column(:country_id, params[:user][:country_id])
-      @user.update_column(:currency_id, params[:user][:currency_id])
+      @user.update_column(:country_id, user_params[:country_id]) if user_params[:country_id].present?
+      @user.update_column(:currency_id, user_params[:currency_id]) if user_params[:currency_id].present?
       render :user_profile, status: :ok
     else
       render json: {success: false, status: 400, message: "#{@user.errors.full_messages.join(',')}"}
