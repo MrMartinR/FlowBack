@@ -1,4 +1,5 @@
 json.success true
+json.role @user.roles.try(:first).try(:name)
 
 json.data [@user] do |user|
   json.id user.id
@@ -8,7 +9,12 @@ json.data [@user] do |user|
   json.surname user.surname
   json.dob date_format(user.dob)
 
-  json.avatar_url user.avatar.attached? ? "#{request.protocol}#{request.host_with_port}"+Rails.application.routes.url_helpers.rails_representation_url(user.avatar.variant(resize: "400x400").processed, only_path: true) : gravatar_img_url(user.email)
+  if @user.avatar.attached?
+    json.avatar_url Rails.application.routes.url_helpers.rails_representation_url(user.avatar.variant(resize: "400x400").processed, only_path: true)
+  else
+    json.avatar_url gravatar_img_url(user.email)
+  end
+
   if user.currency
     json.currency user.currency, :id, :name, :code, :symbol, :kind, :decimal_places
   else
