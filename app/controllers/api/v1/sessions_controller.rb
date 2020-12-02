@@ -38,6 +38,7 @@ class Api::V1::SessionsController < DeviseTokenAuth::SessionsController
   def render_create_success
       render json: {
           success: true,
+          role: (@resource.roles.try(:first).try(:name)),
           data: @resource,
           token: @token
       }, status: 200
