@@ -8,6 +8,7 @@ class ImageAsset < ApplicationRecord
   scope :by_category, -> (text_category) { where("category = ?", text_category.upcase) if text_category.present?}
   scope :by_uid, -> (text_uid) { where("uid = ?", text_uid) if text_uid.present?}
 
+  before_validation { self.category = self.category.upcase }
   validates :category, :inclusion=> { :in => IMAGEASSET_CATEGORY }
   #before_save :check_category
 
