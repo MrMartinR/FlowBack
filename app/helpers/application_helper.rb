@@ -11,6 +11,14 @@ module ApplicationHelper
     image_src = "https://www.gravatar.com/avatar/#{hash}"
   end
 
+  def parser_json(str)
+    begin
+      JSON.parse(str)
+    rescue
+      str
+    end
+  end
+
   def date_format(dt)
     if dt.class == Date
      dt.strftime('%Y-%m-%d')
