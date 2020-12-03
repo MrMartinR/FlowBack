@@ -60,6 +60,6 @@ class Api::V1::PlatformsController < Api::BaseController
                                        :min_investment, :secondary_market,
                                        :taxes, :cashflow_options, :protection_scheme, :cost,
                                        :profitable, :ifisa, :structure, :account_category,
-                                       :welcome_bonus, :promo, :promo_end, :icon, :logo).merge(merged_params)
+                                       :welcome_bonus, :promo, :promo_end).merge(merged_params)
     end
 end
