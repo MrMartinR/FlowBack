@@ -16,7 +16,7 @@ Rails.application.routes.draw do
         resources :currencies
         resources :countries
         resources :settings
-        resources :icons, only: [:index, :create, :update]
+        resources :image_assets, :path => '/icons', only: [:index, :create, :update]
         resources :users, only: [:index,:update]
         resources :user_accounts do
           collection do
