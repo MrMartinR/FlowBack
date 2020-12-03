@@ -22,6 +22,6 @@ json.data [@platform] do |platform|
   json.welcome_bonus platform.welcome_bonus
   json.promo platform.promo
   json.promo_end platform.promo_end
-  json.icon platform.icon
-  json.logo platform.logo
+  #json.icon platform.icon
+  #json.logo platform.logo
 end
