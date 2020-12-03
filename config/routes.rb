@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :icons
   get 'pages/index'
   get 'pages/dashboard'
 
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
         resources :currencies
         resources :countries
         resources :settings
+        resources :icons, only: [:index, :create]
         resources :users, only: [:index,:update]
         resources :user_accounts do
           collection do
