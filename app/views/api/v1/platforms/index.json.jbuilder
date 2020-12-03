@@ -6,7 +6,7 @@ json.success true
 json.data @platforms do |platform|
       json.id platform.id
       json.contact_id platform.contact_id
-      json.category platform.category
+      json.category parser_json(platform.category)
       json.status platform.status
       json.liquidity platform.liquidity
       json.term platform.term
@@ -15,12 +15,12 @@ json.data @platforms do |platform|
       json.secondary_market platform.secondary_market
       json.taxes platform.taxes
       json.cashflow_options platform.cashflow_options
-      json.protection_scheme platform.protection_scheme
+      json.protection_scheme parser_json(platform.protection_scheme)
       json.cost platform.cost
       json.profitable platform.profitable
       json.ifisa platform.ifisa
       json.structure platform.structure
-      json.account_category platform.account_category
+      json.account_category parser_json(platform.account_category)
       json.welcome_bonus platform.welcome_bonus
       json.promo platform.promo
       json.promo_end platform.promo_end
