@@ -10,7 +10,7 @@ json.data @platforms do |platform|
       json.status platform.status
       json.liquidity platform.liquidity
       json.term platform.term
-      json.invest_mode platform.invest_mode
+      json.invest_mode parser_json(platform.invest_mode)
       json.min_investment platform.min_investment
       json.secondary_market platform.secondary_market
       json.taxes platform.taxes
