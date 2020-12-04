@@ -5,10 +5,10 @@ class Api::V1::PlatformsController < Api::BaseController
 
   def index
     if params[:page].blank?
-      @platforms = Platform.order('category asc')
+      @platforms = Platform.order('created_at asc')
     else
-      @platforms = Platform.order('category asc').paginate(page: params[:page], per_page: params[:per_page])
-      @total_pages = Platform.order('category asc').paginate(page: params[:page], per_page: params[:per_page]).total_pages
+      @platforms = Platform.order('created_at asc').paginate(page: params[:page], per_page: params[:per_page])
+      @total_pages = Platform.order('created_at asc').paginate(page: params[:page], per_page: params[:per_page]).total_pages
     end
   end
 
