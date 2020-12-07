@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :icons
   get 'pages/index'
   get 'pages/dashboard'
 
@@ -26,6 +25,7 @@ Rails.application.routes.draw do
         resources :originators
         resources :platform_originators
         resources :user_platforms
+        resources :contacts
         resources :platforms do
           collection do
             get 'search'
