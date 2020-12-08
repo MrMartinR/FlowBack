@@ -39,7 +39,7 @@ class Api::V1::ContactsController < Api::BaseController
     if @contact.update(contact_params)
       render :show, status: :ok, location: @contact
     else
-      render json: @contact.errors, status: :unprocessable_entity
+      json_response({success: false,message: @contact.errors}, :unprocessable_entity)
     end
   end
 
