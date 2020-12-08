@@ -5,7 +5,13 @@ class Api::V1::ContactsController < Api::BaseController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.all
+    page = params[:page] || 1
+    if @user.is_admin? || @user.is_contributor?
+      @contacts = Contact.all.paginate(page: page,per_page: params[:per_page])
+    else
+      @contacts = Contact.where(user_id: @user.id).
+        paginate(page: page,per_page: params[:per_page])
+    end
   end
 
   # GET /contacts/1
@@ -19,7 +25,7 @@ class Api::V1::ContactsController < Api::BaseController
     @contact = Contact.new(contact_params)
 
     if @contact.save
-      render :show, status: :created, location: @contact
+      render json: index
     else
       render json: @contact.errors, status: :unprocessable_entity
     end
