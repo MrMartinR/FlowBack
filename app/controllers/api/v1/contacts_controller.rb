@@ -6,12 +6,14 @@ class Api::V1::ContactsController < Api::BaseController
   # GET /contacts.json
   def index
     page = params[:page] || 1
-    if @user.is_admin? || @user.is_contributor?
-      @contacts = Contact.all.paginate(page: page,per_page: params[:per_page])
-    else
-      @contacts = Contact.where(user_id: @user.id).
-        paginate(page: page,per_page: params[:per_page])
-    end
+    # im not sure if user_id column is related with user tables
+    # if @user.is_admin? || @user.is_contributor?
+    #   @contacts = Contact.all.paginate(page: page,per_page: params[:per_page])
+    # else
+    #   @contacts = Contact.where(user_id: @user.id).
+    #     paginate(page: page,per_page: params[:per_page])
+    # end
+    @contacts = Contact.all.paginate(page: page,per_page: params[:per_page])
   end
 
   # GET /contacts/1
@@ -27,7 +29,7 @@ class Api::V1::ContactsController < Api::BaseController
     if @contact.save
       render json: index
     else
-      render json: @contact.errors, status: :unprocessable_entity
+      json_response({success: false,message: @contact.errors}, :unprocessable_entity)
     end
   end
 

@@ -38,6 +38,6 @@ class User < ApplicationRecord
   end
 
   def is_contributor?
-    self.has_role(:contributor)
+    self.has_role?(:contributor)
   end
 end
