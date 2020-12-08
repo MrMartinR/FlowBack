@@ -27,7 +27,7 @@ class Api::V1::ContactsController < Api::BaseController
     @contact = Contact.new(contact_params)
 
     if @contact.save
-      render json: index
+      render :show, status: :ok
     else
       json_response({success: false,message: @contact.errors}, :unprocessable_entity)
     end
@@ -37,7 +37,7 @@ class Api::V1::ContactsController < Api::BaseController
   # PATCH/PUT /contacts/1.json
   def update
     if @contact.update(contact_params)
-      render :show, status: :ok, location: @contact
+      render :show, status: :ok
     else
       json_response({success: false,message: @contact.errors}, :unprocessable_entity)
     end
@@ -57,6 +57,13 @@ class Api::V1::ContactsController < Api::BaseController
 
     # Only allow a list of trusted parameters through.
     def contact_params
-      params.require(:contact).permit(:country_id, :user_id, :created_by, :updated_by, :kind, :visibility, :category, :header, :name, :surname, :trade_name_nick, :founded, :description, :legal_form, :tags, :id_number, :image)
+      merged_params = {updated_by: @user.id}
+      merged_params = {created_by: @user.id} if params[:action] == "create"
+
+      params.require(:contact).permit(:country_id, :user_id, :kind, :visibility,
+                                      :category, :header, :name, :surname,
+                                      :trade_name_nick, :founded,
+                                      :description, :legal_form, :tags, :id_number, :image).
+        merge(merged_params)
     end
 end
