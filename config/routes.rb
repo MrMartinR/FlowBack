@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         resources :platform_originators
         resources :user_platforms
         resources :contacts
+        resources :contact_methods
         resources :platforms do
           collection do
             get 'search'
