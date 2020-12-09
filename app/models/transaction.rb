@@ -9,4 +9,10 @@ class Transaction < ApplicationRecord
   belongs_to :user
   belongs_to :loan
   #belongs_to :property
+
+  def self.transactions_list(params)
+    user_account_id = params[:user_account_id]
+
+    user_account_id.present? ? Transaction.where(user_account_id: user_account_id) : Transaction.all
+  end
 end
