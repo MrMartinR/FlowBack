@@ -5,7 +5,7 @@ class Api::V1::ContactMethodsController <  Api::BaseController
   # GET /contact_methods
   # GET /contact_methods.json
   def index
-    @contact_methods = ContactMethod.all
+    @contact_methods = ContactMethod.includes(:contact)
   end
 
   # GET /contact_methods/1
