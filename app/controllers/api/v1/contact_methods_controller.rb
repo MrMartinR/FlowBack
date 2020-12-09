@@ -2,41 +2,32 @@ class Api::V1::ContactMethodsController <  Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :set_contact_method, only: [:show, :update, :destroy]
 
-  # GET /contact_methods
-  # GET /contact_methods.json
   def index
-    @contact_methods = ContactMethod.all
+    @contact_methods = ContactMethod.includes(:contact).order('created_at desc').
+      paginate(page: params[:page],per_page: params[:per_page])
   end
 
-  # GET /contact_methods/1
-  # GET /contact_methods/1.json
   def show
   end
 
-  # POST /contact_methods
-  # POST /contact_methods.json
   def create
     @contact_method = ContactMethod.new(contact_method_params)
 
     if @contact_method.save
-      render :show, status: :created, location: @contact_method
+      render :show, status: :created
     else
-      render json: @contact_method.errors, status: :unprocessable_entity
+      json_response({success: false,message: @contact_method.errors}, :unprocessable_entity)
     end
   end
 
-  # PATCH/PUT /contact_methods/1
-  # PATCH/PUT /contact_methods/1.json
   def update
     if @contact_method.update(contact_method_params)
-      render :show, status: :ok, location: @contact_method
+      render :show, status: :ok
     else
-      render json: @contact_method.errors, status: :unprocessable_entity
+      json_response({success: false,message: @contact_method.errors}, :unprocessable_entity)
     end
   end
 
-  # DELETE /contact_methods/1
-  # DELETE /contact_methods/1.json
   def destroy
     @contact_method.destroy
   end
