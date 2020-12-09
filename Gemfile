@@ -32,7 +32,7 @@ gem "jbuilder", "~> 2.7"
 
 # For login, role
 
-gem 'devise'
+#gem 'devise'
 gem "rolify"
 # token based auth
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
