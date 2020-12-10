@@ -52,9 +52,9 @@ class Api::V1::OriginatorsController < Api::BaseController
     merged_params = {updated_by: @user.id}
     merged_params = {created_by: @user.id} if params[:action] == "create"
 
-    params.require(:originator).permit(:name, :product_type_individuals,
-                                       :product_type_companies, :length,
+    params.require(:originator).permit(:name, :product_category_individuals,
+                                       :product_category_companies, :length,
                                        :default_rate, :air, :xirr, :rating,
-                                       :apr, :logo, :icon, :website).merge(merged_params)
+                                       :apr, :logo, :icon, :contact_id).merge(merged_params)
   end
 end

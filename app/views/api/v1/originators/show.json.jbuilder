@@ -10,7 +10,7 @@ json.data [@originator] do |originator|
   json.id originator.id
   json.customer_category originator.customer_category
   json.product_category_individuals originator.product_category_individuals
-  json.product_category_companies originator.product_category_individuals
+  json.product_category_companies originator.product_category_companies
   json.length originator.length
   json.default_rate originator.default_rate
   json.air originator.air
