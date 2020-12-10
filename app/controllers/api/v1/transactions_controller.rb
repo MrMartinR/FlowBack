@@ -1,4 +1,4 @@
-class Api::V1::TransactionsController < ApplicationController
+class Api::V1::TransactionsController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :set_transaction, only: [:show, :update, :destroy]
 
