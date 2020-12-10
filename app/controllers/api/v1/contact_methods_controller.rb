@@ -5,6 +5,9 @@ class Api::V1::ContactMethodsController <  Api::BaseController
   def index
     @contact_methods = ContactMethod.includes(:contact).order('created_at desc').
       paginate(page: params[:page],per_page: params[:per_page])
+    @page = params[:page] || 1
+    @total_pages = ContactMethod.includes(:contact).order('created_at desc').
+      paginate(page: params[:page],per_page: params[:per_page]).total_pages
   end
 
   def show
