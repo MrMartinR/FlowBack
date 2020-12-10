@@ -2,6 +2,7 @@ class Contact < ApplicationRecord
   self.implicit_order_column = "created_at"
   # relation
   has_many :contact_methods
+  has_many :originators
   KIND_CATEGORY =  %W(COMPANY INDIVIDUAL)
   VISIBILITY_CATEGORY = %W(PUBLIC PRIVATE)
 

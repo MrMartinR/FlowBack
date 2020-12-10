@@ -1,14 +1,14 @@
 class Api::V1::OriginatorsController < Api::BaseController
   before_action :authenticate_api_v1_user!
-  before_action :admin_or_contributor!, except: :index
+  before_action :admin_or_contributor!#, except: :index
   before_action :set_originator, only: [:show, :update, :destroy]
 
 
   def index
     if params[:page].blank?
-      @originators = Originator.order('name asc')
+      @originators = Originator.order('created_at asc')
     else
-      @originators = Originator.order('name asc').paginate(page: params[:page],per_page: params[:per_page])
+      @originators = Originator.order('created_at asc').paginate(page: params[:page],per_page: params[:per_page])
       @total_pages = Originator.paginate(page: params[:page],per_page: params[:per_page]).total_pages
     end
   end
@@ -23,7 +23,7 @@ class Api::V1::OriginatorsController < Api::BaseController
     if @originator.save
       render :show, status: :created
     else
-      render json: @originator.errors, status: :unprocessable_entity
+      json_response({success: false,message: @originator.errors}, :unprocessable_entity)
     end
   end
 
@@ -31,7 +31,7 @@ class Api::V1::OriginatorsController < Api::BaseController
     if @originator.update(originator_params)
       render :show, status: :ok
     else
-      render json: @originator.errors, status: :unprocessable_entity
+      json_response({success: false,message: @originator.errors}, :unprocessable_entity)
     end
   end
 

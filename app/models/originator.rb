@@ -16,4 +16,5 @@ class Originator < ApplicationRecord
 
   has_many :loans
   has_many :user_loans
+  belongs_to :contact
 end
