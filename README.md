@@ -147,9 +147,10 @@ The system has three type of users.
 
 ## API Endpoints
 
-| API Endpoint             | Functionality |
-| ------------------------ | ------------- |
-| POST api/v1/auth/sign_in | Login a user  |
+| API Endpoint             | Functionality                                    |
+| ------------------------ | ------------------------------------------------ |
+| POST api/v1/auth/sign_in | Login a user                                     |
+| POST api/v1/auth/        | Register a user but only works for a normal user |
 
 ## Live Version
 
