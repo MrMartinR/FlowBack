@@ -20,7 +20,7 @@ json.data @originators do |originator|
   json.icon originator.icon
 
   if originator.contact.present?
-    json.contact originator.contact, :country_id, :user_id,  :kind, :visibility, :category, :header, :name, :surname, :trade_name_nick, :founded, :description, :legal_form, :tags, :id_number, :image
+    json.contact originator.contact
   else
     json.contact nil
   end
