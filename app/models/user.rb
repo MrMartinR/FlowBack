@@ -34,10 +34,10 @@ class User < ApplicationRecord
   end
 
   def is_admin?
-    self.has_role(:admin)
+    self.has_role?(:admin)
   end
 
   def is_contributor?
-    self.has_role(:contributor)
+    self.has_role?(:contributor)
   end
 end
