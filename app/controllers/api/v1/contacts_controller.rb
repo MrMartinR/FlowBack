@@ -13,7 +13,7 @@ class Api::V1::ContactsController < Api::BaseController
     #   @contacts = Contact.where(user_id: @user.id).
     #     paginate(page: page,per_page: params[:per_page])
     # end
-    @contacts = Contact.includes(:country).paginate(page: page,per_page: params[:per_page])
+    @contacts = Contact.includes(:user,:country).paginate(page: page,per_page: params[:per_page])
   end
 
   # GET /contacts/1
