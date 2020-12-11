@@ -3,6 +3,9 @@ class Contact < ApplicationRecord
   # relation
   has_many :contact_methods
   has_many :originators
+  belongs_to :country, optional: true
+  belongs_to :user, optional: true
+
   KIND_CATEGORY =  %W(COMPANY INDIVIDUAL)
   VISIBILITY_CATEGORY = %W(PUBLIC PRIVATE)
 

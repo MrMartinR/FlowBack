@@ -1,8 +1,9 @@
 class Api::V1::TransactionsController < ApplicationController
+  before_action :authenticate_api_v1_user!
   before_action :set_transaction, only: [:show, :update, :destroy]
 
   def index
-    @transactions = Transaction.all
+    @transactions = Transaction.transactions_list(params)
   end
 
   def show
