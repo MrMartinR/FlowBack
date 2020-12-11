@@ -27,6 +27,8 @@
 - [Prerequisites Installations](#prerequisites-installations)
 - [Technology used](#technology-used)
 - [Usage/Getting Started](#how-to-Use)
+- [Roles Claim](#Roles-Claim)
+- [API Endpoints](#API-Endpoints)
 - [Live Version](#live-version)
 - [Roadmap](#roadmap)
 - [Authors](#authors)
@@ -37,17 +39,34 @@
 
 This project implements a web application to track investments, personal finance, budget, retirements, Financial Independence Retire Early movement FIRE, all stuff related to Personal Finance.
 
+Specification summary:
+
+- RESTful api.
+- Api versioning.
+- Financial modules
+- Patterns and good practices.
+- Users management.
+- Secret/token api key.
+- Rspec testing.
+- Setup scripts.
+- Postgres database.
+- Json serialization.
+
 ## Screenshots
 
 #### Home
 
+image goes here
+
 ## Prerequisites Installations
 
-<p>If you want a copy of this project running on your machine you have to install:</p>
+- Install ruby version 2.3.0 and set it with your ruby environment manager
+  ([more info here](https://www.ruby-lang.org/en/documentation/installation/)).
 
-- <a href="https://www.ruby-lang.org/en/downloads/">Ruby</a>
-- <a href="https://git-scm.com/downloads">Git version control system</a>
-- <a href="https://www.postgresql.org/download/">Postgres</a>
+- Install Postgres and start the PostgreSQL server in the foreground
+  ([more info here](https://wiki.postgresql.org/wiki/Detailed_installation_guides)).
+
+<p>If you want a copy of this project running on your machine you have to install:</p>
 
 ## Technology used
 
@@ -96,15 +115,41 @@ NB: Defaults
 Help cookies
 
 - Go to your terminal in ubuntu and type: `sudo su - postgres`
-- Then `psql` to access - Postgresql
+- Then `psql` to access - Postgres
 - `\du` to list all user and their attributes
 - `ALTER ROLE username SUPERUSER` to alter the user.
+
+Create a postgres role to let rails manage the db:
+
+```
+rake db:create
+```
+
+Setup databases migrations:
+
+```
+rake db:migrate
+```
 
 Start the server and use the app
 
 ```Shell
 your@pc:~$ rails s
 ```
+
+## Roles Claim
+
+The system has three type of users.
+
+1. Admin
+2. User
+3. Contributor
+
+## API Endpoints
+
+| API Endpoint             | Functionality |
+| ------------------------ | ------------- |
+| POST api/v1/auth/sign_in | Login a user  |
 
 ## Live Version
 
@@ -130,4 +175,3 @@ Martin
 
 [contributor-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
 [contributor-url]: https://github.com/FlowFintech/FlowBack/graphs/contributors
-

@@ -22,7 +22,7 @@ default: &default
  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 15 } %>
  username: <%= ENV['USERNAME'] || 'postgres' %>
  password: <%= ENV['PASSWORD'] || 'FlowBack' %>
- host: <%= ENV['HOST'] || 'flowback_db_1' %>
+#  host: <%= ENV['HOST'] || 'flowback_db_1' %>
  port: 5432
 
 development:
