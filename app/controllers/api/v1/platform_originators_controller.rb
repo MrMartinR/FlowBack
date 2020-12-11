@@ -1,5 +1,5 @@
 class Api::V1::PlatformOriginatorsController < Api::BaseController
-  #before_action :authenticate_api_v1_user!
+  before_action :authenticate_api_v1_user!
   before_action :admin_or_contributor!#, except: :index
   before_action :set_platform_originator, only: [:show, :update, :destroy]
 
