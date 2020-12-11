@@ -66,15 +66,16 @@ user_contrib = User.new({
 user_contrib.add_role(:contributor)
 user_contrib.save
 # #
-#
-# 1.upto(10) do |i|
-#   user = User.new({
-#                       :email => "test#{i}@example.com",
-#                       :password => "1234567",
-#                       :username => "test#{i} uname1"
-#                   })
-#   user.save
-# end
+
+1.upto(10) do |i|
+  normal_user = User.new({
+                      :email => "test#{i}@example.com",
+                      :password => "1234567",
+                      :username => "test#{i} uname1"
+                  })
+  normal_user.add_role(:user)
+  normal_user.save
+end
 #
 # currency = Currency.find_or_create_by(
 #     id: '973ed305-2840-4993-8c59-d4f8a78c02b1',
