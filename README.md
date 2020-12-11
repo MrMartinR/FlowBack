@@ -147,6 +147,8 @@ The system has three type of users.
 
 ## API Endpoints
 
+- add the localhost url before the api prefix
+
 | API Endpoint             | Functionality                                    |
 | ------------------------ | ------------------------------------------------ |
 | POST api/v1/auth/sign_in | Login a user                                     |
