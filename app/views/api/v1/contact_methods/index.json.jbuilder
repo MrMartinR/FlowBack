@@ -11,3 +11,8 @@ json.data @contact_methods do |contact_method|
   json.data contact_method.data
   json.notes contact_method.notes
 end
+
+if params[:page]
+  json.page params[:page].to_i
+  json.total_pages @total_pages
+end
