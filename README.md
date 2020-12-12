@@ -148,10 +148,15 @@ The system has three type of users.
 ## API Endpoints
 
 - add the localhost url before the api prefix
+- Use Postman to view and run the endpoints
 
 | API Endpoint             | Functionality                                    |
 | ------------------------ | ------------------------------------------------ |
 | POST api/v1/auth/sign_in | Login a user                                     |
+| POST api/v1/auth/        | Register a user but only works for a normal user |
+| POST api/v1/auth/        | Register a user but only works for a normal user |
+| POST api/v1/auth/        | Register a user but only works for a normal user |
+| POST api/v1/auth/        | Register a user but only works for a normal user |
 | POST api/v1/auth/        | Register a user but only works for a normal user |
 
 ## Live Version
