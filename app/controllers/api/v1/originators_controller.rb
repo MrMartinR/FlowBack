@@ -55,6 +55,6 @@ class Api::V1::OriginatorsController < Api::BaseController
     params.require(:originator).permit(:name, :product_category_individuals,
                                        :product_category_companies, :length,
                                        :default_rate, :air, :xirr, :rating,
-                                       :apr, :logo, :icon, :contact_id).merge(merged_params)
+                                       :apr, :logo, :icon, :contact_id, :customer_category).merge(merged_params)
   end
 end
