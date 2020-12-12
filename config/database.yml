@@ -20,9 +20,9 @@ default: &default
  # For details on connection pooling, see Rails configuration guide
  # https://guides.rubyonrails.org/configuring.html#database-pooling
  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 15 } %>
- username: postgres
+ username: <%= ENV['USERNAME'] || 'postgres' %>
  password: <%= ENV['PASSWORD'] || 'FlowBack' %>
- host: <%= ENV['HOST'] || 'flowback_db_1' %>
+#  host: <%= ENV['HOST'] || 'flowback_db_1' %>
  port: 5432
 
 development:

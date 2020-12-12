@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_08_001733) do
+ActiveRecord::Schema.define(version: 2020_12_11_083437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -70,18 +70,22 @@ ActiveRecord::Schema.define(version: 2020_12_08_001733) do
     t.string "kind"
     t.string "visibility"
     t.json "category"
-    t.string "header"
+    t.string "company_name"
     t.string "name"
     t.string "surname"
-    t.string "trade_name_nick"
-    t.integer "founded"
+    t.string "trade_name"
     t.text "description"
     t.string "legal_form"
-    t.string "tags"
     t.string "id_number"
-    t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "has_icon", default: false
+    t.boolean "has_logo", default: false
+    t.boolean "has_picture", default: false
+    t.json "tags"
+    t.string "nick"
+    t.date "founded"
+    t.date "dob"
   end
 
   create_table "countries", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -228,40 +232,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_001733) do
     t.index ["contact_id"], name: "index_platforms_on_contact_id"
   end
 
-  create_table "properties", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "country_id"
-    t.uuid "currency_id"
-    t.uuid "platform_id"
-    t.string "code"
-    t.string "name"
-    t.string "owner"
-    t.float "yield"
-    t.string "status"
-    t.float "xirr"
-    t.string "rating"
-    t.string "kind"
-    t.string "category"
-    t.integer "shares"
-    t.string "description"
-    t.string "link"
-    t.string "security"
-    t.date "date_listed"
-    t.date "date_issued"
-    t.date "date_exited"
-    t.string "dividend"
-    t.string "period"
-    t.float "ltv_initial"
-    t.float "ltv"
-    t.float "share_value"
-    t.text "notes"
-    t.float "latitude"
-    t.float "longitude"
-    t.string "exit_strategy"
-    t.string "tenure"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -394,7 +364,6 @@ ActiveRecord::Schema.define(version: 2020_12_08_001733) do
     t.boolean "allow_password_change", default: false
     t.datetime "remember_created_at"
     t.string "username"
-    t.string "image"
     t.string "email"
     t.uuid "currency_id"
     t.uuid "country_id"
@@ -404,6 +373,7 @@ ActiveRecord::Schema.define(version: 2020_12_08_001733) do
     t.date "dob"
     t.string "name"
     t.string "surname"
+    t.uuid "contact_id"
     t.index ["country_id"], name: "index_users_on_country_id"
     t.index ["currency_id"], name: "index_users_on_currency_id"
     t.index ["email"], name: "index_users_on_email", unique: true
