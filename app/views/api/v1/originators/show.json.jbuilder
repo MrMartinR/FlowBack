@@ -17,8 +17,6 @@ json.data [@originator] do |originator|
   json.xirr originator.xirr
   json.rating originator.rating
   json.apr originator.apr
-  json.logo originator.logo
-  json.icon originator.icon
 
   if originator.contact.present?
     json.contact originator.contact
