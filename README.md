@@ -74,6 +74,7 @@ image goes here
 - Rails
 - GitHub
 - Postgresql
+- Devise_token_auth
 
 ## Usage/Getting Started
 
@@ -150,14 +151,38 @@ The system has three type of users.
 - add the localhost url before the api prefix
 - Use Postman to view and run the endpoints
 
+### Configure postman for requests with devise_token_auth token
+
+- Using cURL:
+
+```
+curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwAinzUqgLfsQ' -H 'client: W_xCQuggzNOVeCnNZbjKFw' -H "uid: email@domain.com"  http://127.0.0.1:3000/api/v1/user_accounts
+```
+
+- Using Postman:
+
+1. Create a new user with a POST request to your signup request, in this case is http://localhost:3000/api/v1/auth/sign_in and in Body with RAW format set the params you need to create a new user (like in the example) and click send. or login
+   <img src="./screenshots/register.png" alt="screenshot1"/>
+
+2. Now that you got the response of the request, the params you need are in the header of the request, click to Headers tab to see them.
+   <img src="./screenshots/header.png" alt="screenshot1"/>
+
+3. Then create a new request in Postman with the GET that requires the authorization and in Headers set the values access-token, client, uid from the header of the last request.
+   <img src="./screenshots/request.png" alt="screenshot1"/>
+
+### Endpoints
+
 | API Endpoint             | Functionality                                    |
 | ------------------------ | ------------------------------------------------ |
 | POST api/v1/auth/sign_in | Login a user                                     |
 | POST api/v1/auth/        | Register a user but only works for a normal user |
-| POST api/v1/auth/        | Register a user but only works for a normal user |
-| POST api/v1/auth/        | Register a user but only works for a normal user |
-| POST api/v1/auth/        | Register a user but only works for a normal user |
-| POST api/v1/auth/        | Register a user but only works for a normal user |
+| GET api/v1/user_accounts | Returns a list of User Accounts                  |
+| GET api/v1/accounts      | Returns a list of accounts                       |
+| POST api/v1/accounts     | Create a new accounts                            |
+| GET api/v1/currencies    | Returns a list of Currencies                     |
+| POST api/v1/currencies   | Create a new Currency                            |
+| GET api/v1/countries     | Returns a list of countries                      |
+| POST api/v1/countries    | Create a new Currency                            |
 
 ## Live Version
 
