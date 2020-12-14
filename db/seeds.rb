@@ -1,42 +1,42 @@
-# def rand_float
-#   rand(0..20)
-# end
-#
-# def rand_int
-#   rand(1..100)
-# end
-#
-# def rand_bool
-#   [true, false].sample
-# end
-#
-# def rand_country
-#   Country.order("RANDOM()").first
-# end
-#
-# def rand_currency
-#   Currency.order("RANDOM()").first
-# end
-#
-# def rand_originator
-#   Originator.order("RANDOM()").first
-# end
-#
-# def rand_loan
-#   Loan.order("RANDOM()").first
-# end
-#
-# def rand_platform
-#   Platform.order("RANDOM()").first
-# end
-#
-# def user_account_by_user(user_id)
-#   UserAccount.where(user_id: user_id).first
-# end
-#
-# def rand_user
-#   User.order("RANDOM()").first
-# end
+def rand_float
+  rand(0..20)
+end
+
+def rand_int
+  rand(1..100)
+end
+
+def rand_bool
+  [true, false].sample
+end
+
+def rand_country
+  Country.order("RANDOM()").first
+end
+
+def rand_currency
+  Currency.order("RANDOM()").first
+end
+
+def rand_originator
+  Originator.order("RANDOM()").first
+end
+
+def rand_loan
+  Loan.order("RANDOM()").first
+end
+
+def rand_platform
+  Platform.order("RANDOM()").first
+end
+
+def user_account_by_user(user_id)
+  UserAccount.where(user_id: user_id).first
+end
+
+def rand_user
+  User.order("RANDOM()").first
+end
 #
 # # This file should contain all the record creation needed to seed the database with its default values.
 # # The data can then be loaded with the rails db:seed command (or find_or_create_byd alongside the database with db:setup).
@@ -76,92 +76,97 @@ user_contrib.save
   normal_user.add_role(:user)
   normal_user.save
 end
+
+# create a currency 
+currency = Currency.find_or_create_by(
+    id: '973ed305-2840-4993-8c59-d4f8a78c02b1',
+    name: 'dollar',
+    code: 'USD',
+    decimal_places: 2,
+    symbol: '$',
+    fx_eur: 1.126
+)
+
+# create the country which the currecy belong to
+country = Country.find_or_create_by(
+    name: 'UNITED STATES OF AMERICA',
+    iso_code: 'US',
+    currency_id: currency.id
+)
+
+# an account has a currecy and county
+Account.find_or_create_by(
+    name: 'Test',
+    country_id: country.id,
+    currency_id: currency.id
+)
+
+1.upto(20) do |i|
+  Platform.find_or_create_by({
+                       :contact_id => "973ed305-2840-4993-8c59-d4f8a78c02b1",
+                       :category => "category#{i}",
+                       :status => "#{i}",
+                       :liquidity => "#{i}",
+                       :term => "#{i}",
+                       :invest_mode => "#{i}",
+                       :min_investment => "#{i}",
+                       :secondary_market => "#{i}",
+                       :taxes => "#{i}",
+                       :cashflow_options => "#{i}",
+                       :protection_scheme => "#{i}",
+                       :cost => "#{i}",
+                       :profitable => true,
+                       :ifisa => true,
+                       :structure => "structure#{i}",
+                       :account_category => "contact_id",
+                       :welcome_bonus => "welcome_bonus#{i}",
+                       :promo => "promo #{i}",
+                       :promo_end => Date.today + rand(1..100).days,
+                       :icon => "contact_id",
+                       :logo => "contact_id"
+                   })
+end
 #
-# currency = Currency.find_or_create_by(
-#     id: '973ed305-2840-4993-8c59-d4f8a78c02b1',
-#     name: 'dollar',
-#     code: 'USD',
-#     symbol: '$',
-#     fx_eur: 1.126
-# )
-#
-# country = Country.find_or_create_by(
-#     name: 'UNITED STATES OF AMERICA',
-#     iso_code: 'US',
-#     currency_id: currency.id
-# )
-#
-# Account.find_or_create_by(
-#     name: 'Test',
-#     country_id: country.id,
-#     currency_id: currency.id
-# )
-#
-# 1.upto(20) do |i|
-#   Platform.find_or_create_by({
-#                        :contact_id => "contact_id #{i}",
-#                        :category => "category #{i}",
-#                        :status => "#{i}",
-#                        :liquidity => "#{i}",
-#                        :term => "#{i}",
-#                        :invest_mode => "#{i}",
-#                        :min_investment => "#{i}",
-#                        :secondary_market => "#{i}",
-#                        :taxes => "#{i}",
-#                        :cashflow_options => "#{i}",
-#                        :protection_scheme => "#{i}",
-#                        :cost => "#{i}",
-#                        :profitable => true,
-#                        :ifisa => true,
-#                        :structure => "structure #{i}",
-#                        :account_category => "contact_id",
-#                        :welcome_bonus => "welcome_bonus #{i}",
-#                        :promo => "promo #{i}",
-#                        :promo_end => Date.today + rand(1..100).days,
-#                        :icon => "contact_id",
-#                        :logo => "contact_id"
-#                    })
-# end
-#
-# 1.upto(20) do |i|
-#   user = User.order("RANDOM()").first.id
-#   UserAccount.find_or_create_by({
-#                           :country_id => Country.order("RANDOM()").first.id,
-#                           :account_id => Account.order("RANDOM()").first.id,
-#                           :platform_id => Platform.order("RANDOM()").first.id,
-#                           :currency_id => Currency.order("RANDOM()").first.id,
-#                           :user_id => user,
-#                           :category => "Category {i}",
-#                           :name => "User Account Name #{i}",
-#                           :total_fee => rand(0..100),
-#                           :total_loss => rand(0..100),
-#                           :total_tax => rand(0..10),
-#                           :active => true,
-#                           :total_invest => rand(0..100),
-#                           :total_profit => rand(0..100),
-#                           :total_referral => rand(0..100),
-#                           :total_interest => rand(0..100),
-#                           :total_bonus => rand(0..100)
-#                       })
-#
-#   Originator.delete_all
-#   1.upto(20) do |i|
-#     Originator.find_or_create_by({
-#                           :name => "Originator #{i}",
-#                           :product_type_individuals => "Product Type individual #{i}",
-#                           :product_type_companies => "product_type_companies #{i}",
-#                           :length => "length #{i}",
-#                           :default_rate => rand(1..10),
-#                           :air => rand(1..10),
-#                           :xirr => rand(1..10),
-#                           :rating => rand(1..10),
-#                           :apr => rand(1..10),
-#                           :logo => "img #{i}",
-#                           :icon => "icon #{i}",
-#                           :website => "web #{i}"
-#                       })
-#
-#   end
+1.upto(20) do |i|
+  user = User.order("RANDOM()").first.id
+  UserAccount.find_or_create_by({
+                          :country_id => Country.order("RANDOM()").first.id,
+                          :account_id => Account.order("RANDOM()").first.id,
+                          :platform_id => Platform.order("RANDOM()").first.id,
+                          :currency_id => Currency.order("RANDOM()").first.id,
+                          :user_id => user,
+                          :category => "Category {i}",
+                          :name => "User Account Name #{i}",
+                          :total_fee => rand(0..100),
+                          :total_loss => rand(0..100),
+                          :total_tax => rand(0..10),
+                          :active => true,
+                          :total_invest => rand(0..100),
+                          :total_profit => rand(0..100),
+                          :total_referral => rand(0..100),
+                          :total_interest => rand(0..100),
+                          :total_bonus => rand(0..100)
+                      })
+  end
+
+  # Originator.delete_all
+  # 1.upto(20) do |i|
+  #   Originator.find_or_create_by({
+  #                         :name => "Originator #{i}",
+  #                         :product_type_individuals => "Product Type individual #{i}",
+  #                         :product_type_companies => "product_type_companies #{i}",
+  #                         :length => "length #{i}",
+  #                         :default_rate => rand(1..10),
+  #                         :air => rand(1..10),
+  #                         :xirr => rand(1..10),
+  #                         :rating => rand(1..10),
+  #                         :apr => rand(1..10),
+  #                         :logo => "img #{i}",
+  #                         :icon => "icon #{i}",
+  #                         :website => "web #{i}"
+  #                     })
+
+  # end
 #
 #   PlatformOriginator.delete_all
 #   1.upto(20) do |i|

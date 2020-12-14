@@ -1,9 +1,9 @@
 class Account < ApplicationRecord
- # belongs_to :country
- # belongs_to :currency
+ belongs_to :country
+ belongs_to :currency
 
-#  validates :country_id , presence: true
-#  validates :currency_id , presence: true
+ validates :country_id , presence: true
+ validates :currency_id , presence: true
  before_save :check_country_array
  before_save :check_currency_array
 

@@ -37,7 +37,14 @@
 
 ## About The Project
 
-This project implements a web application to track investments, personal finance, budget, retirements, Financial Independence Retire Early movement FIRE, all stuff related to Personal Finance.
+This project implements an investment management application to track investments, personal finance, budget, retirements, Financial Independence Retire Early movement FIRE, all stuff related to Personal Finance.
+
+### Background information
+
+When a business or an individual is in need of a loan, they reach out to loan originator. In most case, the loan originator does not have the money to give to this client. So, what the loan originator does is to float the loan and allow investors to fund it. The floating or display of a loan that need funding is done on a platform. In most case, the loan originator have their own platform.
+Now, the investor does not just invest in one platform but in multiple platforms and at times with different loan originator on the same platform(now referred to as a market place as it has more that one loan originator). These bring us to our application, `Flow`, an investment management application.
+
+Using Flow, an investor is able to take the information `after` investing in a platform and add it to our application for easier management. In the past, the investor would have numerous excel files that stored this data which is messy, not easily accessible and does not have that good user experience with tools such as sort, classify by, just ready available to them; so Flow.
 
 Specification summary:
 
@@ -132,9 +139,15 @@ Setup databases migrations:
 rake db:migrate
 ```
 
+Seed data for development
+
+```
+your@pc:~$ rake db:seed
+```
+
 Start the server and use the app
 
-```Shell
+```
 your@pc:~$ rails s
 ```
 
@@ -142,9 +155,9 @@ your@pc:~$ rails s
 
 The system has three type of users.
 
-1. Admin
-2. User
-3. Contributor
+1. Admin => This is the sole owner and add/remove a Contributor. Has full system access
+2. User => This is the investors who comes with his/her data after investing on platforms to utilize our system to manage this data and be of value to them.
+3. Contributor => This is a user(moderators) given privileges by the admin to add, edit, delete some for the information related to the core app functions eg add platforms data so when an investor come to use the system all they need to scroll from available options.
 
 ## API Endpoints
 
@@ -172,17 +185,17 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 
 ### Endpoints
 
-| API Endpoint             | Functionality                                    |
-| ------------------------ | ------------------------------------------------ |
-| POST api/v1/auth/sign_in | Login a user                                     |
-| POST api/v1/auth/        | Register a user but only works for a normal user |
-| GET api/v1/user_accounts | Returns a list of User Accounts                  |
-| GET api/v1/accounts      | Returns a list of accounts                       |
-| POST api/v1/accounts     | Create a new accounts                            |
-| GET api/v1/currencies    | Returns a list of Currencies                     |
-| POST api/v1/currencies   | Create a new Currency                            |
-| GET api/v1/countries     | Returns a list of countries                      |
-| POST api/v1/countries    | Create a new Currency                            |
+| API Endpoint             | Functionality                   | Status | User             |
+| ------------------------ | ------------------------------- | ------ | ---------------- |
+| POST api/v1/auth/sign_in | Login a user                    | OK     | ALL              |
+| POST api/v1/auth/        | Register a user                 | OK     | ALL              |
+| GET api/v1/user_accounts | Returns a list of User Accounts | OK     | Admin or contrib |
+| GET api/v1/accounts      | Returns a list of accounts      |
+| POST api/v1/accounts     | Create a new accounts           |
+| GET api/v1/currencies    | Returns a list of Currencies    |
+| POST api/v1/currencies   | Create a new Currency           |
+| GET api/v1/countries     | Returns a list of countries     |
+| POST api/v1/countries    | Create a new Currency           |
 
 ## Live Version
 
