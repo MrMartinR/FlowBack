@@ -77,29 +77,25 @@ user_contrib.save
   normal_user.save
 end
 
-# create a currency 
+# create a number of currencies
+# will assume the name and play with ramdon data
+1.upto(4) do |i|
 currency = Currency.find_or_create_by(
-    id: '973ed305-2840-4993-8c59-d4f8a78c02b1',
-    name: 'dollar',
-    code: 'USD',
+    id: "973ed30#{i}-2840-499#{i+1}-8c59-d4f8a78c0#{i+2}b1",
+    name: "dollar-#{i}",
+    code: "USD#{i}",
     decimal_places: 2,
-    symbol: '$',
+    symbol: "$#{i}",
     fx_eur: 1.126
 )
-
-# create the country which the currecy belong to
+# create a number of country which the currecy belong to
 country = Country.find_or_create_by(
-    name: 'UNITED STATES OF AMERICA',
-    iso_code: 'US',
-    currency_id: currency.id
+  name: "UNITED STATES OF AMERICA-#{i}",
+  iso_code: "US-#{i}",
+  currency_id: currency.id
 )
+end
 
-# an account has a currecy and county
-Account.find_or_create_by(
-    name: 'Test',
-    country_id: country.id,
-    currency_id: currency.id
-)
 
 1.upto(20) do |i|
   Platform.find_or_create_by({
@@ -126,28 +122,66 @@ Account.find_or_create_by(
                        :logo => "contact_id"
                    })
 end
-#
-1.upto(20) do |i|
-  user = User.order("RANDOM()").first.id
-  UserAccount.find_or_create_by({
-                          :country_id => Country.order("RANDOM()").first.id,
-                          :account_id => Account.order("RANDOM()").first.id,
-                          :platform_id => Platform.order("RANDOM()").first.id,
-                          :currency_id => Currency.order("RANDOM()").first.id,
-                          :user_id => user,
-                          :category => "Category {i}",
-                          :name => "User Account Name #{i}",
-                          :total_fee => rand(0..100),
-                          :total_loss => rand(0..100),
-                          :total_tax => rand(0..10),
-                          :active => true,
-                          :total_invest => rand(0..100),
-                          :total_profit => rand(0..100),
-                          :total_referral => rand(0..100),
-                          :total_interest => rand(0..100),
-                          :total_bonus => rand(0..100)
-                      })
-  end
+# an number of account with a platform,currecy and county
+# def countries 
+#   country_ids  = {}
+#   country_ids[:countries] = []
+#   1.upto(5) do |i|
+#     country_ids[:countries] << Country.order("RANDOM()").first.id
+#   end
+#   return country_ids
+# end
+# def currecies 
+#   currency_ids = {}
+#   currency_ids[:currecies] = []
+#   1.upto(5) do |i|
+#     currency_ids[:currecies] << Currency.order("RANDOM()").first.id
+#   end
+#   return currency_ids
+# end
+
+country_ids = ["c793f2f6-30d3-4f4e-8577-9c72b018a0d3","c793f2f6-30d3-4f4e-8577-9c72b018a0d3","33faa2a8-1bc4-4668-9481-cd7af673894c","213e25df-485a-4b45-bbbc-28b2def50091","c793f2f6-30d3-4f4e-8577-9c72b018a0d3"]
+currency_ids = ["213e25df-485a-4b45-bbbc-28b2def50091","213e25df-485a-4b45-bbbc-28b2def50091","810ed094-b408-46e7-898e-bf0235ca97f0","213e25df-485a-4b45-bbbc-28b2def50091","213e25df-485a-4b45-bbbc-28b2def50091"]
+1.upto(10) do |i|
+
+  a = Account.new
+  a.name = "paypal-#{i}"
+  a.category = "category#{i}"
+ 
+
+  a.country_id[:countries] = []
+  a.currency_id[:currencies] = []
+  a.country_id[:countries].push(country_ids)
+  a.currency_id[:currencies].push(currency_ids)
+  a.platform_id = Platform.order("RANDOM()").first.id
+  p a
+  a.save!
+
+end
+
+
+# # the normal user or the investor
+# 1.upto(20) do |i|
+#   user = User.order("RANDOM()").first.id
+#   UserAccount.find_or_create_by({
+#                           :country_id => Country.order("RANDOM()").first.id,
+#                           :account_id => Account.order("RANDOM()").first.id,
+#                           :platform_id => Platform.order("RANDOM()").first.id,
+#                           :currency_id => Currency.order("RANDOM()").first.id,
+#                           :user_id => user,
+#                           :category => "Category {i}",
+#                           :name => "User Account Name #{i}",
+#                           :total_fee => rand(0..100),
+#                           :total_loss => rand(0..100),
+#                           :total_tax => rand(0..10),
+#                           :active => true,
+#                           :total_invest => rand(0..100),
+#                           :total_profit => rand(0..100),
+#                           :total_referral => rand(0..100),
+#                           :total_interest => rand(0..100),
+#                           :total_bonus => rand(0..100)
+#                       })
+#   end
 
   # Originator.delete_all
   # 1.upto(20) do |i|
@@ -257,7 +291,7 @@ end
 #   # end
 #
 # end
-# p '=============== Done! ==============='
+p '=============== Done! ==============='
 #
 #
 #
