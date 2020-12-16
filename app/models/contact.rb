@@ -5,6 +5,9 @@ class Contact < ApplicationRecord
   has_many :originators
   belongs_to :country, optional: true
   belongs_to :user, optional: true
+  has_one :account
+  has_one :originators
+  has_one :platform
 
   KIND_CATEGORY =  %W(COMPANY INDIVIDUAL)
   VISIBILITY_CATEGORY = %W(PUBLIC PRIVATE)

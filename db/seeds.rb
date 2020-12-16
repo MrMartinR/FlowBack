@@ -96,32 +96,41 @@ country = Country.find_or_create_by(
 )
 end
 
+# 1.upto(20) do |i|
+#   Contact.find_or_create_by({
 
-1.upto(20) do |i|
-  Platform.find_or_create_by({
-                       :contact_id => "973ed305-2840-4993-8c59-d4f8a78c02b1",
-                       :category => "category#{i}",
-                       :status => "#{i}",
-                       :liquidity => "#{i}",
-                       :term => "#{i}",
-                       :invest_mode => "#{i}",
-                       :min_investment => "#{i}",
-                       :secondary_market => "#{i}",
-                       :taxes => "#{i}",
-                       :cashflow_options => "#{i}",
-                       :protection_scheme => "#{i}",
-                       :cost => "#{i}",
-                       :profitable => true,
-                       :ifisa => true,
-                       :structure => "structure#{i}",
-                       :account_category => "contact_id",
-                       :welcome_bonus => "welcome_bonus#{i}",
-                       :promo => "promo #{i}",
-                       :promo_end => Date.today + rand(1..100).days,
-                       :icon => "contact_id",
-                       :logo => "contact_id"
-                   })
-end
+#                        :kind => "COMPANY",
+#                        :visibility => "public",
+#                        :name => "paypal-#{i}"
+
+#                    })
+# end
+# 1.upto(20) do |i|
+#   Platform.find_or_create_by({
+#                        :contact_id => Contact.order("RANDOM()").first.id,
+#                        :category => "category#{i}",
+#                        :status => "#{i}",
+#                        :liquidity => "#{i}",
+#                        :term => "#{i}",
+#                        :invest_mode => "#{i}",
+#                        :min_investment => "#{i}",
+#                        :secondary_market => "#{i}",
+#                        :taxes => "#{i}",
+#                        :cashflow_options => "#{i}",
+#                        :protection_scheme => "#{i}",
+#                        :cost => "#{i}",
+#                        :profitable => true,
+#                        :ifisa => true,
+#                        :structure => "structure#{i}",
+#                        :account_category => "contact_id",
+#                        :welcome_bonus => "welcome_bonus#{i}",
+#                        :promo => "promo #{i}",
+#                        :promo_end => Date.today + rand(1..100).days,
+#                        :icon => "contact_id",
+#                        :logo => "contact_id"
+#                    })
+# end
+
 # an number of account with a platform,currecy and county
 def countries 
   country_ids= []
@@ -149,8 +158,7 @@ p("2",arr_curr)
 #   a = Account.new
 #   a.name = "paypal-#{i}"
 #   a.category = "category#{i}"
- 
-
+#   a.contact_id = Contact.order("RANDOM()").first.id
 #   a.country_id[:countries] = []
 #   a.currency_id[:currencies] = []
 #   a.country_id[:countries].push(country_ids)
