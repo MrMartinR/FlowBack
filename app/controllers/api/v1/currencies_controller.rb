@@ -35,7 +35,7 @@ class Api::V1::CurrenciesController < Api::BaseController
   # PATCH/PUT /currencies/1.json
   def update
     if @currency.update(currency_params)
-      render :show, status: :ok, location: @currency
+      render :show, status: :ok
     else
       render json: @currency.errors, status: :unprocessable_entity
     end
