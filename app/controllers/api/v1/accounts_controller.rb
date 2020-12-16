@@ -1,6 +1,6 @@
 class Api::V1::AccountsController < Api::BaseController
-  before_action :authenticate_api_v1_user!, only: %i[index show]
-  before_action :admin_or_contributor!, except: %i[index show]
+  before_action :authenticate_api_v1_user!
+  before_action :admin_or_contributor!
   # before_action :set_account, only: [:show, :update, :destroy]
 
   def index
