@@ -1,6 +1,6 @@
 class Api::V1::CurrenciesController < Api::BaseController
   before_action :authenticate_api_v1_user!
-  before_action :admin_or_contributor! , except: [:index, :show]
+  before_action :admin_or_contributor!, except: [:index, :show]
   before_action :set_currency, only: [:show, :update, :destroy]
 
 
@@ -12,18 +12,22 @@ class Api::V1::CurrenciesController < Api::BaseController
 
   # GET /currencies/1
   # GET /currencies/1.json
-  def show
-  end
+  def show; end
 
   # POST /currencies
   # POST /currencies.json
   def create
-    @currency = Currency.new(currency_params)
-
-    if @currency.save
-      render json: index
+    @find_currency = Currency.find_by(name: currency_params[:name])
+    if @find_currency.nil?
+      @currency = Currency.new(currency_params)
+      if @currency.save
+        render json: index
+      else
+        render json: @currency.errors, status: :unprocessable_entity
+      end
     else
-      render json: @currency.errors, status: :unprocessable_entity
+      @find_currency.errors.add(:show, message: 'Account already exist!')
+      render json: @find_currency.errors, status: :unprocessable_entity
     end
   end
 
