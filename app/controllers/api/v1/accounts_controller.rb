@@ -1,34 +1,37 @@
 class Api::V1::AccountsController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :admin_or_contributor!
-  before_action :set_account, only: [:show, :update, :destroy]
+  before_action :set_account, only: %i[show update destroy]
 
-=begin
-  This will get all the accounts data as well as corresponding relationship
-  
-=end
+  #   This will get all the accounts data as well as corresponding relationship
+  #
   def index
     @entities = []
-    Account.find_each do |account|
-      dt = Hash.new(0)
-      dt[:id] = account.id
-      dt[:contact] = account.contact
-      dt[:category] = account.category
-      dt[:platform] = account.platform
-      all_countries = []
-      account.country_id[0].each do |id|
-        all_countries << Country.find(id)
-      end
-      dt[:country] = all_countries
-      all_currencies = []
+    @check_tabel_count = Account.first
+    if @check_tabel_count.nil?
+      json_response({ "accounts": 'Accounts are empty, no records exist' })
+    else
+      Account.find_each do |account|
+        dt = Hash.new(0)
+        dt[:id] = account.id
+        dt[:contact] = account.contact
+        dt[:category] = account.category
+        dt[:platform] = account.platform
+        all_countries = []
+        account.country_id[0].each do |id|
+          all_countries << Country.find(id)
+        end
+        dt[:country] = all_countries
+        all_currencies = []
 
-      account.currency_id[0].each do |id|
-        all_currencies << Currency.find(id)
+        account.currency_id[0].each do |id|
+          all_currencies << Currency.find(id)
+        end
+        dt[:currency] = all_currencies
+        @entities << dt
       end
-      dt[:currency] = all_currencies
-      @entities << dt
+      json_response({ "accounts": @entities })
     end
-    json_response({ "accounts": @entities, pages: @total_pages, page: 1 })
   end
 
   #   The create allow an admin or a contributor to add an account
@@ -81,3 +84,4 @@ class Api::V1::AccountsController < Api::BaseController
     params.require(:account).permit(:platform_id, :contact_id, :category, currency_ids: [], country_ids: [])
   end
 end
+
