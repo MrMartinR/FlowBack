@@ -18,13 +18,13 @@ class Api::V1::AccountsController < Api::BaseController
         dt[:category] = account.category
         dt[:platform] = account.platform
         all_countries = []
-        account.country_id[0].each do |id|
+        account.country_id.each do |id|
           all_countries << Country.find(id)
         end
         dt[:country] = all_countries
         all_currencies = []
 
-        account.currency_id[0].each do |id|
+        account.currency_id.each do |id|
           all_currencies << Currency.find(id)
         end
         dt[:currency] = all_currencies
@@ -46,10 +46,8 @@ class Api::V1::AccountsController < Api::BaseController
       @account.platform_id = account_params[:platform_id]
       @account.category = account_params[:category]
       @account.contact_id = account_params[:contact_id]
-      @account.currency_id = []
-      @account.country_id = []
-      @account.country_id.push(account_params[:country_ids])
-      @account.currency_id.push(account_params[:currency_ids])
+      @account.country_id=account_params[:country_id]
+      @account.currency_id=account_params[:currency_id]
 
       if @account.save
         render :show, status: :created, data: @account
@@ -81,7 +79,7 @@ class Api::V1::AccountsController < Api::BaseController
   end
 
   def account_params
-    params.require(:account).permit(:platform_id, :contact_id, :category, currency_ids: [], country_ids: [])
+    params.require(:account).permit(:platform_id, :contact_id, :category, currency_id: [], country_id: [])
   end
 end
 
