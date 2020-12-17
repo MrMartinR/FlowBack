@@ -7,10 +7,21 @@ class Api::V1::ModifyCountriesController < Api::BaseController
     if @account && !update_account_params[:country_id].empty?
       update_account_params[:country_id].each do |i|
         @account.country_id << i
-        json_response({ "status": 'Country added' }) if @account.save
+        json_response({ "status": 'SUCCESS', "messages": 'Countrys added' }) if @account.save
       end
     else
-      json_response({ "status": 'The account was not found or the params are empty' })
+      json_response({ "status": 'FAIL', "messages": 'The account was not found or the params are empty' })
+    end
+  end
+
+  def destroy
+    if @account && !update_account_params[:country_id].empty?
+      update_account_params[:country_id].each do |i|
+        @account.country_id.delete(i)
+        json_response({ "status": 'SUCCESS', "messages": 'Country deleted' }) if @account.save
+      end
+    else
+      json_response({ "status": 'FAIL', "messages": 'The account was not found or the params are empty' })
     end
   end
 
@@ -24,4 +35,3 @@ class Api::V1::ModifyCountriesController < Api::BaseController
     params.require(:account).permit(country_id: [])
   end
 end
-
