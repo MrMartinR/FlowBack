@@ -1,4 +1,6 @@
 class Api::V1::ModifyCountriesController < Api::BaseController
+  before_action :authenticate_api_v1_user!
+  before_action :admin_or_contributor!
   before_action :set_account, only: %i[update destroy]
   # assumption:
   # 1. validation between existing and none existing is done on the frontend
