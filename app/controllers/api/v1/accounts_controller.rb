@@ -59,9 +59,21 @@ class Api::V1::AccountsController < Api::BaseController
       render json: @find_account.errors, status: :unprocessable_entity
     end
   end
+=begin
+The update the can take a  number of forms in our
+case in the case of countries and currecies
+  1. we can add a currency or a country, a push to the current array
+  2. we could be removing a currency or a country
+if i use update, and currency_id has one array, it will delete the existing one and replace it with out one entry which may not be the case. 
+  my approach:
+  am going to isolate the two
+  the below update will only update 
+  :platform_id, :contact_id, :category,
+  we will formulate two addational controllers that will only perform an update and destroy for country and currency
+=end
 
   def update
-    if @account.update!(account_params)
+    if @account.update!(account_update_params)
       render :show, status: :ok
     else
       render json: @account.errors, status: :unprocessable_entity
@@ -81,5 +93,7 @@ class Api::V1::AccountsController < Api::BaseController
   def account_params
     params.require(:account).permit(:platform_id, :contact_id, :category, currency_id: [], country_id: [])
   end
+  def account_update_params
+    params.require(:account).permit(:platform_id, :contact_id, :category)
+  end
 end
-
