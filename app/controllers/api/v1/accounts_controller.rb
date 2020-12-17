@@ -19,13 +19,13 @@ class Api::V1::AccountsController < Api::BaseController
         dt[:platform] = account.platform
         all_countries = []
         account.country_id.each do |id|
-          all_countries << Country.find(id)
+          all_countries << Country.find(id) unless id.nil?
         end
         dt[:country] = all_countries
         all_currencies = []
 
         account.currency_id.each do |id|
-          all_currencies << Currency.find(id)
+          all_currencies << Currency.find(id) unless id.nil?
         end
         dt[:currency] = all_currencies
         @entities << dt
@@ -46,8 +46,8 @@ class Api::V1::AccountsController < Api::BaseController
       @account.platform_id = account_params[:platform_id]
       @account.category = account_params[:category]
       @account.contact_id = account_params[:contact_id]
-      @account.country_id=account_params[:country_id]
-      @account.currency_id=account_params[:currency_id]
+      @account.country_id = account_params[:country_id]
+      @account.currency_id = account_params[:currency_id]
 
       if @account.save
         render :show, status: :created, data: @account
@@ -59,18 +59,16 @@ class Api::V1::AccountsController < Api::BaseController
       render json: @find_account.errors, status: :unprocessable_entity
     end
   end
-=begin
-The update the can take a  number of forms in our
-case in the case of countries and currecies
-  1. we can add a currency or a country, a push to the current array
-  2. we could be removing a currency or a country
-if i use update, and currency_id has one array, it will delete the existing one and replace it with out one entry which may not be the case. 
-  my approach:
-  am going to isolate the two
-  the below update will only update 
-  :platform_id, :contact_id, :category,
-  we will formulate two addational controllers that will only perform an update and destroy for country and currency
-=end
+  # The update the can take a  number of forms in our
+  # case in the case of countries and currecies
+  #   1. we can add a currency or a country, a push to the current array
+  #   2. we could be removing a currency or a country
+  # if i use update, and currency_id has one array, it will delete the existing one and replace it with out one entry which may not be the case.
+  #   my approach:
+  #   am going to isolate the two
+  #   the below update will only update
+  #   :platform_id, :contact_id, :category,
+  #   we will formulate two addational controllers that will only perform an update and destroy for country and currency
 
   def update
     if @account.update!(account_update_params)
@@ -93,6 +91,7 @@ if i use update, and currency_id has one array, it will delete the existing one 
   def account_params
     params.require(:account).permit(:platform_id, :contact_id, :category, currency_id: [], country_id: [])
   end
+
   def account_update_params
     params.require(:account).permit(:platform_id, :contact_id, :category)
   end
