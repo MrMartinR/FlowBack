@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       defaults format: :json do
         resources :accounts
         resources :currencies
+        resources :modify_countries
         resources :countries
         resources :settings
         resources :image_assets, :path => '/icons', only: [:index, :create, :update]
@@ -41,6 +42,7 @@ Rails.application.routes.draw do
         end
 
         resources :transactions
+        
 
 
         match 'user_profile', to: 'users#user_profile', via: :get
