@@ -2,9 +2,7 @@ json.success true
 
 json.data [@account] do | |
   json.id @account.id
-  json.name @account.name
   json.category @account.category
-  json.icon @account.icon
   json.platform_status @account.platform.status
 
   # if @account.currency_id
