@@ -8,21 +8,32 @@ json.data [@contact] do |contact|
   else
     json.country nil
   end
+  if contact.platform.present?
+    json.platform contact.platform
+  else
+    json.platform nil
+  end
+  if contact.originator.present?
+    json.originator contact.originator
+  else
+    json.originator nil
+  end
+  if contact.account.present?
+    json.account contact.account
+  else
+    json.account nil
+  end
+
 
   if contact.user_id.present?
     json.user contact.user
   else
     json.user nil
   end
-  json.has_icon contact.has_icon
-  json.has_logo contact.has_logo
-  json.has_picture contact.has_picture
-
   json.created_by contact.created_by
   json.updated_by contact.updated_by
   json.kind contact.kind
   json.visibility contact.visibility
-  json.category contact.category
   json.company_name contact.company_name
   json.name contact.name
   json.surname contact.surname

@@ -5,15 +5,12 @@ class Api::V1::ContactsController < Api::BaseController
   # GET /contacts
   # GET /contacts.json
   def index
-    page = params[:page] || 1
-    # im not sure if user_id column is related with user tables
-    # if @user.is_admin? || @user.is_contributor?
-    #   @contacts = Contact.all.paginate(page: page,per_page: params[:per_page])
-    # else
-    #   @contacts = Contact.where(user_id: @user.id).
-    #     paginate(page: page,per_page: params[:per_page])
-    # end
-    @contacts = Contact.includes(:user,:country).paginate(page: page,per_page: params[:per_page])
+    if @user.is_admin? || @user.is_contributor?
+      @contacts= Contact.where(visibility:"PUBLIC")
+    end
+    if !@user.is_admin? && !@user.is_contributor?
+      @contacts= Contact.where(id: @user.id)
+    end
   end
 
   # GET /contacts/1

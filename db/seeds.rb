@@ -101,35 +101,37 @@ end
 
                        :kind => "COMPANY",
                        :visibility => "public",
-                       :name => "paypal-#{i}"
+                       :name => "paypal-#{i}",
+                       :country_id => Country.order("RANDOM()").first.id,
+                       :user_id => User.order("RANDOM()").first.id
 
                    })
 end
-# 1.upto(20) do |i|
-#   Platform.find_or_create_by({
-#                        :contact_id => Contact.order("RANDOM()").first.id,
-#                        :category => "category#{i}",
-#                        :status => "#{i}",
-#                        :liquidity => "#{i}",
-#                        :term => "#{i}",
-#                        :invest_mode => "#{i}",
-#                        :min_investment => "#{i}",
-#                        :secondary_market => "#{i}",
-#                        :taxes => "#{i}",
-#                        :cashflow_options => "#{i}",
-#                        :protection_scheme => "#{i}",
-#                        :cost => "#{i}",
-#                        :profitable => true,
-#                        :ifisa => true,
-#                        :structure => "structure#{i}",
-#                        :account_category => "contact_id",
-#                        :welcome_bonus => "welcome_bonus#{i}",
-#                        :promo => "promo #{i}",
-#                        :promo_end => Date.today + rand(1..100).days,
-#                        :icon => "contact_id",
-#                        :logo => "contact_id"
-#                    })
-# end
+1.upto(20) do |i|
+  Platform.find_or_create_by({
+                       :contact_id => Contact.order("RANDOM()").first.id,
+                       :category => "category#{i}",
+                       :status => "#{i}",
+                       :liquidity => "#{i}",
+                       :term => "#{i}",
+                       :invest_mode => "#{i}",
+                       :min_investment => "#{i}",
+                       :secondary_market => "#{i}",
+                       :taxes => "#{i}",
+                       :cashflow_options => "#{i}",
+                       :protection_scheme => "#{i}",
+                       :cost => "#{i}",
+                       :profitable => true,
+                       :ifisa => true,
+                       :structure => "structure#{i}",
+                       :account_category => "contact_id",
+                       :welcome_bonus => "welcome_bonus#{i}",
+                       :promo => "promo #{i}",
+                       :promo_end => Date.today + rand(1..100).days,
+                       :icon => "contact_id",
+                       :logo => "contact_id"
+                   })
+end
 
 # an number of account with a platform,currecy and county
 # def countries 
@@ -153,21 +155,21 @@ end
 # p("2",arr_curr)
 # country_ids = ["c793f2f6-30d3-4f4e-8577-9c72b018a0d3","c793f2f6-30d3-4f4e-8577-9c72b018a0d3","33faa2a8-1bc4-4668-9481-cd7af673894c","213e25df-485a-4b45-bbbc-28b2def50091","c793f2f6-30d3-4f4e-8577-9c72b018a0d3"]
 # currency_ids = ["213e25df-485a-4b45-bbbc-28b2def50091","213e25df-485a-4b45-bbbc-28b2def50091","810ed094-b408-46e7-898e-bf0235ca97f0","213e25df-485a-4b45-bbbc-28b2def50091","213e25df-485a-4b45-bbbc-28b2def50091"]
-# 1.upto(10) do |i|
+1.upto(10) do |i|
 
-#   a = Account.new
-#   a.name = "paypal-#{i}"
-#   a.category = "category#{i}"
-#   a.contact_id = Contact.order("RANDOM()").first.id
-#   a.country_id[:countries] = []
-#   a.currency_id[:currencies] = []
-#   a.country_id[:countries].push(country_ids)
-#   a.currency_id[:currencies].push(currency_ids)
-#   a.platform_id = Platform.order("RANDOM()").first.id
-#   p a
-#   a.save!
+  a = Account.new
+  a.category = "category#{i}"
+  a.contact_id = Contact.order("RANDOM()").first.id
+  a.country_id[:countries] = []
+  a.currency_id[:currencies] = []
+  country_ids = Country.order("RANDOM()").first.id
+  currency_ids = Currency.order("RANDOM()").first.id
+  a.country_id[:countries].push(country_ids)
+  a.currency_id[:currencies].push(currency_ids)
+  a.platform_id = Platform.order("RANDOM()").first.id
+  a.save!
 
-# end
+end
 
 
 # # the normal user or the investor
