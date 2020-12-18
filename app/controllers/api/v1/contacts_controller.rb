@@ -42,17 +42,23 @@ class Api::V1::ContactsController < Api::BaseController
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
   def update
-    if @contact.update(contact_params)
-      render :show, status: :ok
-    else
-      json_response({success: false,message: @contact.errors}, :unprocessable_entity)
-    end
+      if @contact.update(contact_params)
+        render :show, status: :ok
+      else
+        json_response({success: false,message: @contact.errors}, :unprocessable_entity)
+      end
+   
   end
 
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
-    @contact.destroy
+    if @contact.destroy
+      json_response({success: true,message: "Contact deleted"})
+    else
+      json_response({success: false,message: @contact.errors}, :unprocessable_entity)
+    end
+
   end
 
   private
@@ -69,7 +75,7 @@ class Api::V1::ContactsController < Api::BaseController
       params.require(:contact).permit(:country_id, :user_id, :kind, :visibility,
                                       :category, :header, :name, :surname,
                                       :trade_name_nick, :founded,
-                                      :description, :legal_form, :tags, :id_number, :image).
+                                      :description, :legal_form, :tags, :id_number).
         merge(merged_params)
     end
 end
