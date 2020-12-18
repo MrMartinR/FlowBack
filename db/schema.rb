@@ -168,8 +168,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_172838) do
     t.float "xirr"
     t.string "rating"
     t.float "apr"
-    t.string "logo"
-    t.string "icon"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "customer_category"
