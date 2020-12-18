@@ -185,23 +185,28 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 
 ### Endpoints
 
-| API Endpoint                        | Functionality                               | Status | User             |
-| ----------------------------------- | ------------------------------------------- | ------ | ---------------- |
-| POST api/v1/auth/sign_in            | Login a user                                | OK     | ALL              |
-| POST api/v1/auth/                   | Register a user                             | OK     | ALL              |
-| GET api/v1/user_accounts            | Returns a list of User Accounts             | OK     | investor user    |
-| GET api/v1/accounts                 | Returns a list of accounts                  | OK     | Admin or contrib |
-| POST api/v1/accounts                | Create a new accounts                       | Ok     | Admin or Contrib |
-| PUT api/v1/accounts/:id             | Update an account but nt currency & country | Ok     | Admin or Contrib |
-| DELETE api/v1/accounts/:id          | Delete an account                           | Ok     | Admin or Contrib |
-| PUT api/v1/modify_countries/:id     | Update an account countries                 | Ok     | Admin or Contrib |
-| DELETE api/v1/modify_countries/:id  | Delete an account countries                 | Ok     | Admin or Contrib |
-| PUT api/v1/modify_currencies/:id    | Update an account currencies                | Ok     | Admin or Contrib |
-| DELETE api/v1/modify_currencies/:id | Delete an account currencies                | Ok     | Admin or Contrib |
-| GET api/v1/currencies               | Returns a list of Currencies                |
-| POST api/v1/currencies              | Create a new Currency                       |
-| GET api/v1/countries                | Returns a list of countries                 |
-| POST api/v1/countries               | Create a new Currency                       |
+| API Endpoint                        | Functionality                              | Status | User                       |
+| ----------------------------------- | ------------------------------------------ | ------ | -------------------------- |
+| POST api/v1/auth/sign_in            | Login a user                               | OK     | ALL                        |
+| POST api/v1/auth/                   | Register a user                            | OK     | ALL                        |
+| GET api/v1/user_accounts            | Returns a list of User Accounts            | OK     | User                       |
+| GET api/v1/accounts                 | Returns a list of accounts                 | OK     | Admin or contrib           |
+| POST api/v1/accounts                | Create a new accounts                      | Ok     | Admin or Contrib           |
+| PUT api/v1/accounts/:id             | Update an account bt nt currency & country | Ok     | Admin or Contrib           |
+| DELETE api/v1/accounts/:id          | Delete an account                          | Ok     | Admin or Contrib           |
+| PUT api/v1/modify_countries/:id     | Update an account countries                | Ok     | Admin or Contrib           |
+| DELETE api/v1/modify_countries/:id  | Delete an account countries                | Ok     | Admin or Contrib           |
+| PUT api/v1/modify_currencies/:id    | Update an account currencies               | Ok     | Admin or Contrib           |
+| DELETE api/v1/modify_currencies/:id | Delete an account currencies               | Ok     | Admin or Contrib           |
+| GET api/v1/currencies               | Returns a list of Currencies               |
+| POST api/v1/currencies              | Create a new Currency                      |
+| GET api/v1/countries                | Returns a list of countries                |
+| POST api/v1/countries               | Create a new Currency                      |
+| POST api/v1/contacts                | Create a new contact                       | OK     | Admin, Contrib or User     |
+| GET api/v1/contacts                 | GET all public contact                     | OK     | Admin, Contrib or User-own |
+| GET api/v1/contacts/:id             | Get a contact                              | OK     | Admin, Contrib or User-own |
+| PUT api/v1/contacts/:id             | Update a contact                           | OK     | Admin, Contrib or User-own |
+| DELETE api/v1/contacts/:id          | Delete a contact                           | OK     | Admin, Contrib or User-own |
 
 ## Live Version
 
