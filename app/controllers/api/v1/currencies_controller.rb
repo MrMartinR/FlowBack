@@ -44,8 +44,11 @@ class Api::V1::CurrenciesController < Api::BaseController
   # DELETE /currencies/1
   # DELETE /currencies/1.json
   def destroy
-    @currency.destroy
-    render plain: "The currency was deleted"
+    if @currency.destroy
+      json_response({ success: true, message: 'The currency was deleted' })
+    else
+      json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+    end
   end
 
   private
