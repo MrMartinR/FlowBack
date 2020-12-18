@@ -8,7 +8,7 @@ class Api::V1::ContactsController < Api::BaseController
     if @user.is_admin? || @user.is_contributor?
       @contacts = []
       Contact.find_each do |contact|
-        if !contact.user.nil? && (contact.user.is_admin? || contact.user.is_contributor? || contact.visibility = 'PUBLIC')
+        if !contact.user.nil? && (contact.created_by == @user.id || contact.visibility = 'PUBLIC')
           @contacts << contact
         end
       end
