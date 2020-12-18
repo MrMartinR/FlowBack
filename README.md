@@ -208,6 +208,7 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 | PUT api/v1/contacts/:id             | Update a contact                           | OK     | Admin, Contrib or User-own |
 | DELETE api/v1/contacts/:id          | Delete a contact                           | OK     | Admin, Contrib or User-own |
 
+
 ## Live Version
 
 This is the link to the live preview. Feel free to visit.<br>

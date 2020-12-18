@@ -1,6 +1,6 @@
 class Api::V1::CurrenciesController < Api::BaseController
   before_action :authenticate_api_v1_user!
-  before_action :admin_or_contributor! , except: [:index, :show]
+  before_action :admin_or_contributor!, except: [:index, :show]
   before_action :set_currency, only: [:show, :update, :destroy]
 
 
@@ -12,18 +12,22 @@ class Api::V1::CurrenciesController < Api::BaseController
 
   # GET /currencies/1
   # GET /currencies/1.json
-  def show
-  end
+  def show; end
 
   # POST /currencies
   # POST /currencies.json
   def create
-    @currency = Currency.new(currency_params)
-
-    if @currency.save
-      render json: index
+    @find_currency = Currency.find_by(name: currency_params[:name])
+    if @find_currency.nil?
+      @currency = Currency.new(currency_params)
+      if @currency.save
+        render json: index
+      else
+        render json: @currency.errors, status: :unprocessable_entity
+      end
     else
-      render json: @currency.errors, status: :unprocessable_entity
+      @find_currency.errors.add(:show, message: 'Currency already exists!')
+      render json: @find_currency.errors, status: :unprocessable_entity
     end
   end
 
@@ -31,7 +35,7 @@ class Api::V1::CurrenciesController < Api::BaseController
   # PATCH/PUT /currencies/1.json
   def update
     if @currency.update(currency_params)
-      render :show, status: :ok, location: @currency
+      render :show, status: :ok
     else
       render json: @currency.errors, status: :unprocessable_entity
     end
@@ -40,7 +44,11 @@ class Api::V1::CurrenciesController < Api::BaseController
   # DELETE /currencies/1
   # DELETE /currencies/1.json
   def destroy
-    @currency.destroy
+    if @currency.destroy
+      json_response({ success: true, message: 'The currency was deleted' })
+    else
+      json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+    end
   end
 
   private
