@@ -26,7 +26,7 @@ class Api::V1::CurrenciesController < Api::BaseController
         render json: @currency.errors, status: :unprocessable_entity
       end
     else
-      @find_currency.errors.add(:show, message: 'Account already exist!')
+      @find_currency.errors.add(:show, message: 'Currency already exists!')
       render json: @find_currency.errors, status: :unprocessable_entity
     end
   end
@@ -45,6 +45,7 @@ class Api::V1::CurrenciesController < Api::BaseController
   # DELETE /currencies/1.json
   def destroy
     @currency.destroy
+    render plain: "The currency was deleted"
   end
 
   private
