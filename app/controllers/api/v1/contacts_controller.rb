@@ -6,7 +6,16 @@ class Api::V1::ContactsController < Api::BaseController
   # GET /contacts.json
   def index
     if @user.is_admin? || @user.is_contributor?
-      @contacts= Contact.where(visibility:"PUBLIC")
+      @contacts= []
+      Contact.find_each do |contact|
+        if !contact.user.nil?
+          if contact.user.is_admin? || contact.user.is_contributor? ||contact.visibility = "PUBLIC"
+            @contacts << contact
+          end
+
+        end
+
+      end
     end
     if !@user.is_admin? && !@user.is_contributor?
       @contacts= Contact.where(id: @user.id)

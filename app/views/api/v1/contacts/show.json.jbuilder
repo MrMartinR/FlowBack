@@ -6,29 +6,29 @@ json.data [@contact] do |contact|
   if contact.country.present?
     json.country contact.country
   else
-    json.country nil
+    json.country "not found"
   end
   if contact.platform.present?
     json.platform contact.platform
   else
-    json.platform nil
+    json.platform "not found"
   end
   if contact.originator.present?
     json.originator contact.originator
   else
-    json.originator nil
+    json.originator "not found"
   end
   if contact.account.present?
     json.account contact.account
   else
-    json.account nil
+    json.account "not found"
   end
 
 
   if contact.user_id.present?
     json.user contact.user
   else
-    json.user nil
+    json.user "not found"
   end
   json.created_by contact.created_by
   json.updated_by contact.updated_by
