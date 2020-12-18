@@ -199,8 +199,8 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 | PUT api/v1/modify_currencies/:id    | Update an account currencies                | Ok     | Admin or Contrib |
 | DELETE api/v1/modify_currencies/:id | Delete an account currencies                | Ok     | Admin or Contrib |
 | GET api/v1/currencies               | Returns a list of Currencies                | Ok     | Admin or Contrib
-  |
 | POST api/v1/currencies              | Create a new Currency                       | Ok     | Admin or Contrib
+
 | GET api/v1/countries                | Returns a list of countries                 |
 | POST api/v1/countries               | Create a new Currency                       |
 
