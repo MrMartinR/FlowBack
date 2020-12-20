@@ -41,23 +41,23 @@ This project implements an investment management application to track investment
 
 ### Background information
 
-When a business or an individual is in need of a loan, they reach out to loan originator. In most case, the loan originator does not have the money to give to this client. So, what the loan originator does is to float the loan and allow investors to fund it. The floating or display of a loan that need funding is done on a platform. In most case, the loan originator have their own platform.
-Now, the investor does not just invest in one platform but in multiple platforms and at times with different loan originator on the same platform(now referred to as a market place as it has more that one loan originator). These bring us to our application, `Flow`, an investment management application.
+When a business or an individual is in need of a loan, they reach out to loan originator. In most case, the loan originator does not have the money to give to this client. So, what the loan originator does is to float the loan and allow investors to fund it. The floating or display of a loan that need funding is done on a platform. Sometimes, the loan originator have their own platform.
+Now, the investor does not just invest in one platform but in multiple platforms and at times with different loan originator on the same platform (now referred to as a market place as it has more that one loan originator). These bring us to our application, `Flow`, an investment management application.
 
 Using Flow, an investor is able to take the information `after` investing in a platform and add it to our application for easier management. In the past, the investor would have numerous excel files that stored this data which is messy, not easily accessible and does not have that good user experience with tools such as sort, classify by, just ready available to them; so Flow.
 
-Specification summary:
+Specification Summary:
 
-- RESTful api.
-- Api versioning.
-- Financial modules
-- Patterns and good practices.
-- Users management.
-- Secret/token api key.
-- Rspec testing.
-- Setup scripts.
-- Postgres database.
-- Json serialization.
+- RESTful API.
+- API Versioning.
+- Financial Modules.
+- Patterns and Good Practices.
+- Users Management.
+- Secret/Token API Key.
+- Rspec Testing.
+- Setup Scripts.
+- Postgres Database.
+- JSON Serialization.
 
 ## Screenshots
 
@@ -67,7 +67,7 @@ image goes here
 
 ## Prerequisites Installations
 
-- Install ruby version 2.3.0 and set it with your ruby environment manager
+- Install ruby version 2.6.5 and set it with your ruby environment manager
   ([more info here](https://www.ruby-lang.org/en/documentation/installation/)).
 
 - Install Postgres and start the PostgreSQL server in the foreground
@@ -80,7 +80,7 @@ image goes here
 - Ruby
 - Rails
 - GitHub
-- Postgresql
+- PostgreSQL
 - Devise_token_auth
 
 ## Usage/Getting Started
@@ -161,7 +161,7 @@ The system has three type of users.
 
 ## API Endpoints
 
-- add the localhost url before the api prefix
+- Add the localhost url before the api prefix
 - Use Postman to view and run the endpoints
 
 ### Configure postman for requests with devise_token_auth token
@@ -185,6 +185,9 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 
 ### Endpoints
 
+Here you can find the API Documentation
+([API Documentation ](https://app.swaggerhub.com/apis/Flow-Fintech/FlowAPI/1.0.0/)).
+
 | API Endpoint                        | Functionality                              | Status | User                       |
 | ----------------------------------- | ------------------------------------------ | ------ | -------------------------- |
 | POST api/v1/auth/sign_in            | Login a user                               | OK     | ALL                        |
@@ -207,7 +210,6 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 | GET api/v1/contacts/:id             | Get a contact                              | OK     | Admin, Contrib or User-own |
 | PUT api/v1/contacts/:id             | Update a contact                           | OK     | Admin, Contrib or User-own |
 | DELETE api/v1/contacts/:id          | Delete a contact                           | OK     | Admin, Contrib or User-own |
-
 
 ## Live Version
 
