@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_172838) do
+ActiveRecord::Schema.define(version: 2020_12_21_115057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_172838) do
     t.uuid "updated_by"
     t.string "kind"
     t.string "visibility"
-    t.json "category"
     t.string "company_name"
     t.string "name"
     t.string "surname"
@@ -78,9 +77,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_172838) do
     t.string "id_number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "has_icon", default: false
-    t.boolean "has_logo", default: false
-    t.boolean "has_picture", default: false
     t.json "tags"
     t.string "nick"
     t.date "founded"
@@ -160,13 +156,6 @@ ActiveRecord::Schema.define(version: 2020_12_16_172838) do
   end
 
   create_table "originators", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "product_category_individuals"
-    t.string "product_category_companies"
-    t.string "length"
-    t.float "default_rate"
-    t.float "air"
-    t.float "xirr"
-    t.string "rating"
     t.float "apr"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -174,6 +163,8 @@ ActiveRecord::Schema.define(version: 2020_12_16_172838) do
     t.uuid "created_by"
     t.uuid "updated_by"
     t.uuid "contact_id"
+    t.string "product_category_consumer"
+    t.string "product_category_business"
   end
 
   create_table "platform_originators", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
