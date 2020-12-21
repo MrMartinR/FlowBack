@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_153057) do
+ActiveRecord::Schema.define(version: 2020_12_21_160000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -199,7 +199,6 @@ ActiveRecord::Schema.define(version: 2020_12_21_153057) do
     t.string "min_investment"
     t.string "secondary_market"
     t.string "taxes"
-    t.string "cashflow_options"
     t.string "cost"
     t.boolean "profitable"
     t.boolean "ifisa"
@@ -216,6 +215,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_153057) do
     t.string "account_category"
     t.string "structure"
     t.string "sm_notes"
+    t.jsonb "cashflow_options"
     t.index ["contact_id"], name: "index_platforms_on_contact_id"
   end
 
