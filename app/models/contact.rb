@@ -2,11 +2,10 @@ class Contact < ApplicationRecord
   self.implicit_order_column = "created_at"
   # relation
   has_many :contact_methods
-  has_many :originators
   belongs_to :country, optional: true
   belongs_to :user, optional: true
   has_one :account
-  has_one :originators
+  has_one :originator
   has_one :platform
 
   KIND_CATEGORY =  %W(COMPANY INDIVIDUAL)

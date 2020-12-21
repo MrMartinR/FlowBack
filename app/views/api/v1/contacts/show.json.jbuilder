@@ -1,4 +1,4 @@
-#json.array! @contacts, partial: "contacts/contact", as: :contact
+# json.array! @contacts, partial: "contacts/contact", as: :contact
 json.success true
 
 json.data [@contact] do |contact|
@@ -6,23 +6,33 @@ json.data [@contact] do |contact|
   if contact.country.present?
     json.country contact.country
   else
-    json.country nil
+    json.country 'not found'
+  end
+  if contact.platform.present?
+    json.platform contact.platform
+  else
+    json.platform 'not found'
+  end
+  if contact.originator.present?
+    json.originator contact.originator
+  else
+    json.originator 'not found'
+  end
+  if contact.account.present?
+    json.account contact.account
+  else
+    json.account 'not found'
   end
 
   if contact.user_id.present?
     json.user contact.user
   else
-    json.user nil
+    json.user 'not found'
   end
-  json.has_icon contact.has_icon
-  json.has_logo contact.has_logo
-  json.has_picture contact.has_picture
-
   json.created_by contact.created_by
   json.updated_by contact.updated_by
   json.kind contact.kind
   json.visibility contact.visibility
-  json.category contact.category
   json.company_name contact.company_name
   json.name contact.name
   json.surname contact.surname
@@ -37,4 +47,3 @@ json.data [@contact] do |contact|
 end
 # json.extract! contact,
 # json.url contact_url(contact, format: :json)
-
