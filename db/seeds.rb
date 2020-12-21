@@ -101,37 +101,35 @@ end
 
                        :kind => "COMPANY",
                        :visibility => "public",
-                       :name => "paypal-#{i}",
-                       :country_id => Country.order("RANDOM()").first.id,
-                       :user_id => User.order("RANDOM()").first.id
+                       :name => "paypal-#{i}"
 
                    })
 end
-1.upto(20) do |i|
-  Platform.find_or_create_by({
-                       :contact_id => Contact.order("RANDOM()").first.id,
-                       :category => "category#{i}",
-                       :status => "#{i}",
-                       :liquidity => "#{i}",
-                       :term => "#{i}",
-                       :invest_mode => "#{i}",
-                       :min_investment => "#{i}",
-                       :secondary_market => "#{i}",
-                       :taxes => "#{i}",
-                       :cashflow_options => "#{i}",
-                       :protection_scheme => "#{i}",
-                       :cost => "#{i}",
-                       :profitable => true,
-                       :ifisa => true,
-                       :structure => "structure#{i}",
-                       :account_category => "contact_id",
-                       :welcome_bonus => "welcome_bonus#{i}",
-                       :promo => "promo #{i}",
-                       :promo_end => Date.today + rand(1..100).days,
-                       :icon => "contact_id",
-                       :logo => "contact_id"
-                   })
-end
+# 1.upto(20) do |i|
+#   Platform.find_or_create_by({
+#                        :contact_id => Contact.order("RANDOM()").first.id,
+#                        :category => "category#{i}",
+#                        :status => "#{i}",
+#                        :liquidity => "#{i}",
+#                        :term => "#{i}",
+#                        :invest_mode => "#{i}",
+#                        :min_investment => "#{i}",
+#                        :secondary_market => "#{i}",
+#                        :taxes => "#{i}",
+#                        :cashflow_options => "#{i}",
+#                        :protection_scheme => "#{i}",
+#                        :cost => "#{i}",
+#                        :profitable => true,
+#                        :ifisa => true,
+#                        :structure => "structure#{i}",
+#                        :account_category => "contact_id",
+#                        :welcome_bonus => "welcome_bonus#{i}",
+#                        :promo => "promo #{i}",
+#                        :promo_end => Date.today + rand(1..100).days,
+#                        :icon => "contact_id",
+#                        :logo => "contact_id"
+#                    })
+# end
 
 # an number of account with a platform,currecy and county
 # def countries 
@@ -198,7 +196,7 @@ end
   # Originator.delete_all
   # 1.upto(20) do |i|
   #   Originator.find_or_create_by({
-  #                         :name => "Originator #{i}",
+  #                 
   #                         :product_type_individuals => "Product Type individual #{i}",
   #                         :product_type_companies => "product_type_companies #{i}",
   #                         :length => "length #{i}",

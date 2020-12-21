@@ -210,6 +210,11 @@ Here you can find the API Documentation
 | GET api/v1/contacts/:id             | Get a contact                              | OK     | Admin, Contrib or User-own |
 | PUT api/v1/contacts/:id             | Update a contact                           | OK     | Admin, Contrib or User-own |
 | DELETE api/v1/contacts/:id          | Delete a contact                           | OK     | Admin, Contrib or User-own |
+| POST api/v1/originators             | Create a new originators                   | OK     | Admin, Contrib             |
+| GET api/v1/originators              | GET all originators                        | OK     | ALL                        |
+| GET api/v1/originators/:id          | Get an originators                         | OK     | ALL                        |
+| PUT api/v1/originators/:id          | Update originator                          | OK     | Admin, Contrib             |
+| DELETE api/v1/originators/:id       | Delete originator                          | OK     | Admin, Contrib             |
 
 ## Live Version
 
