@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_115057) do
+ActiveRecord::Schema.define(version: 2020_12_21_153057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -206,8 +206,6 @@ ActiveRecord::Schema.define(version: 2020_12_21_115057) do
     t.string "welcome_bonus"
     t.string "promo"
     t.date "promo_end"
-    t.string "icon"
-    t.string "logo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "created_by"
@@ -217,6 +215,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_115057) do
     t.string "protection_scheme"
     t.string "account_category"
     t.string "structure"
+    t.string "sm_notes"
     t.index ["contact_id"], name: "index_platforms_on_contact_id"
   end
 
