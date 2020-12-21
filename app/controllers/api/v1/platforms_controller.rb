@@ -4,20 +4,7 @@ class Api::V1::PlatformsController < Api::BaseController
   before_action :set_platform, only: [:show, :update, :destroy]
 
   def index
-    if params[:page].blank?
-      @platforms = Platform.order('created_at asc')
-    else
-      @platforms = Platform.order('created_at asc').paginate(page: params[:page], per_page: params[:per_page])
-      @total_pages = Platform.order('created_at asc').paginate(page: params[:page], per_page: params[:per_page]).total_pages
-    end
-  end
-
-  def search
-    @search = Platform.ransack(params[:q])
-    @platforms = @search.result(distinct: true).paginate(page: params[:page], per_page: params[:per_page])
-    @search.build_condition
-
-    render :index
+    @platforms = Platform.order('created_at asc')
   end
 
   def show
@@ -42,7 +29,11 @@ class Api::V1::PlatformsController < Api::BaseController
   end
 
   def destroy
-    @platform.destroy
+    if @platform.destroy
+      json_response({success:true, message:"Platform deleted"})
+    else
+      json_response({success:false, :message => @platform.errors},:unprocessable_entity)
+    end
   end
 
   private
@@ -60,6 +51,6 @@ class Api::V1::PlatformsController < Api::BaseController
                                        :min_investment, :secondary_market,
                                        :taxes, :cashflow_options, :protection_scheme, :cost,
                                        :profitable, :ifisa, :structure, :account_category,
-                                       :welcome_bonus, :promo, :promo_end).merge(merged_params)
+                                       :welcome_bonus, :promo, :promo_end, :sm_notes).merge(merged_params)
     end
 end

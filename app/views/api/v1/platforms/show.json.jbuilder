@@ -22,6 +22,11 @@ json.data [@platform] do |platform|
   json.welcome_bonus platform.welcome_bonus
   json.promo platform.promo
   json.promo_end platform.promo_end
-  #json.icon platform.icon
-  #json.logo platform.logo
+  json.sm_notes platform.sm_notes
+  if platform.contact.present?
+    json.contact platform.contact
+  else
+    json.contact "Not Found"
+  end
+  
 end
