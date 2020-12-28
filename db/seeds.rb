@@ -48,63 +48,63 @@ end
 # #
 #
 # admin user
-user_admin = User.new({
-                    :email => "admin@flowapp.com",
-                    :password => "flowapp12345678",
-                    :username => "FLOW APP ADMIN"
-                })
+# user_admin = User.new({
+#                     :email => "admin@flowapp.com",
+#                     :password => "flowapp12345678",
+#                     :username => "FLOW APP ADMIN"
+#                 })
 
-user_admin.add_role(:admin)
-user_admin.save
-# contributor
-user_contrib = User.new({
-                    :email => "contrib@flowapp.com",
-                    :password => "flowapp12345678",
-                    :username => "FLOW APP CONTRIBUTOR"
-                })
+# user_admin.add_role(:admin)
+# user_admin.save
+# # contributor
+# user_contrib = User.new({
+#                     :email => "contrib@flowapp.com",
+#                     :password => "flowapp12345678",
+#                     :username => "FLOW APP CONTRIBUTOR"
+#                 })
 
-user_contrib.add_role(:contributor)
-user_contrib.save
-# #
+# user_contrib.add_role(:contributor)
+# user_contrib.save
+# # #
 
-1.upto(10) do |i|
-  normal_user = User.new({
-                      :email => "test#{i}@example.com",
-                      :password => "1234567",
-                      :username => "test#{i} uname1"
-                  })
-  normal_user.add_role(:user)
-  normal_user.save
-end
+# 1.upto(10) do |i|
+#   normal_user = User.new({
+#                       :email => "test#{i}@example.com",
+#                       :password => "1234567",
+#                       :username => "test#{i} uname1"
+#                   })
+#   normal_user.add_role(:user)
+#   normal_user.save
+# end
 
 # create a number of currencies
 # will assume the name and play with ramdon data
-1.upto(4) do |i|
-currency = Currency.find_or_create_by(
-    id: "973ed30#{i}-2840-499#{i+1}-8c59-d4f8a78c0#{i+2}b1",
-    name: "dollar-#{i}",
-    code: "USD#{i}",
-    decimal_places: 2,
-    symbol: "$#{i}",
-    fx_eur: 1.126
-)
+# 1.upto(4) do |i|
+# currency = Currency.find_or_create_by(
+#     id: "973ed30#{i}-2840-499#{i+1}-8c59-d4f8a78c0#{i+2}b1",
+#     name: "dollar-#{i}",
+#     code: "USD#{i}",
+#     decimal_places: 2,
+#     symbol: "$#{i}",
+#     fx_eur: 1.126
+# )
 # create a number of country which the currecy belong to
-country = Country.find_or_create_by(
-  name: "UNITED STATES OF AMERICA-#{i}",
-  iso_code: "US-#{i}",
-  currency_id: currency.id
-)
-end
+# country = Country.find_or_create_by(
+#   name: "UNITED STATES OF AMERICA-#{i}",
+#   iso_code: "US-#{i}",
+#   currency_id: currency.id
+# )
+# end
 
-1.upto(20) do |i|
-  Contact.find_or_create_by({
+# 1.upto(20) do |i|
+#   Contact.find_or_create_by({
 
-                       :kind => "COMPANY",
-                       :visibility => "public",
-                       :name => "paypal-#{i}"
+#                        :kind => "COMPANY",
+#                        :visibility => "public",
+#                        :name => "paypal-#{i}"
 
-                   })
-end
+#                    })
+# end
 # 1.upto(20) do |i|
 #   Platform.find_or_create_by({
 #                        :contact_id => Contact.order("RANDOM()").first.id,
@@ -153,21 +153,21 @@ end
 # p("2",arr_curr)
 # country_ids = ["c793f2f6-30d3-4f4e-8577-9c72b018a0d3","c793f2f6-30d3-4f4e-8577-9c72b018a0d3","33faa2a8-1bc4-4668-9481-cd7af673894c","213e25df-485a-4b45-bbbc-28b2def50091","c793f2f6-30d3-4f4e-8577-9c72b018a0d3"]
 # currency_ids = ["213e25df-485a-4b45-bbbc-28b2def50091","213e25df-485a-4b45-bbbc-28b2def50091","810ed094-b408-46e7-898e-bf0235ca97f0","213e25df-485a-4b45-bbbc-28b2def50091","213e25df-485a-4b45-bbbc-28b2def50091"]
-1.upto(10) do |i|
+# 1.upto(10) do |i|
 
-  a = Account.new
-  a.category = "category#{i}"
-  a.contact_id = Contact.order("RANDOM()").first.id
-  a.country_id[:countries] = []
-  a.currency_id[:currencies] = []
-  country_ids = Country.order("RANDOM()").first.id
-  currency_ids = Currency.order("RANDOM()").first.id
-  a.country_id[:countries].push(country_ids)
-  a.currency_id[:currencies].push(currency_ids)
-  a.platform_id = Platform.order("RANDOM()").first.id
-  a.save!
+#   a = Account.new
+#   a.category = "category#{i}"
+#   a.contact_id = Contact.order("RANDOM()").first.id
+#   a.country_id[:countries] = []
+#   a.currency_id[:currencies] = []
+#   country_ids = Country.order("RANDOM()").first.id
+#   currency_ids = Currency.order("RANDOM()").first.id
+#   a.country_id[:countries].push(country_ids)
+#   a.currency_id[:currencies].push(currency_ids)
+#   a.platform_id = Platform.order("RANDOM()").first.id
+#   a.save!
 
-end
+# end
 
 
 # # the normal user or the investor
@@ -213,25 +213,25 @@ end
   # end
 #
 #   PlatformOriginator.delete_all
-#   1.upto(20) do |i|
-#     PlatformOriginator.find_or_create_by({
-#                                    :originator_id => Originator.order('random()').first.id,
-#                                    :platform_id => Platform.order('random()').first.id,
-#                                    :status => "Acvite",
-#                                    :skin_game => rand_float,
-#                                    :grace_period => rand_int,
-#                                    :rating => rand_int,
-#                                    :length => "Length",
-#                                    :apr => rand_float,
-#                                    :structure => "structure",
-#                                    :notes => "notes for Platform originator",
-#                                    :buyback => "buyback" + rand_int.to_s,
-#                                    :buyback_principal => rand_bool,
-#                                    :buyback_interest => rand_bool,
-#                                    :buyback_activation => rand_int
-#                                })
-#   end
-#
+  1.upto(20) do |i|
+    PlatformOriginator.find_or_create_by({
+                                   :originator_id => Originator.order('random()').first.id,
+                                   :platform_id => Platform.order('random()').first.id,
+                                   :status => "Acvite",
+                                   :skin_game => rand_float,
+                                   :grace_period => rand_int,
+                                   :rating => rand_int,
+                                   :length => "Length",
+                                   :apr => rand_float,
+                                   :structure => "structure",
+                                   :notes => "notes for Platform originator",
+                                   :buyback => "buyback" + rand_int.to_s,
+                                   :buyback_principal => rand_bool,
+                                   :buyback_interest => rand_bool,
+                                   :buyback_activation => rand_int
+                               })
+  end
+
 #
 #   1.upto(20) do |i|
 #     attr = {

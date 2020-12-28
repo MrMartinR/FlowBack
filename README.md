@@ -188,38 +188,43 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 Here you can find the API Documentation
 ([API Documentation ](https://app.swaggerhub.com/apis/Flow-Fintech/FlowAPI/1.0.0/)).
 
-| API Endpoint                        | Functionality                              | Status | User                       |
-| ----------------------------------- | ------------------------------------------ | ------ | -------------------------- |
-| POST api/v1/auth/sign_in            | Login a user                               | OK     | ALL                        |
-| POST api/v1/auth/                   | Register a user                            | OK     | ALL                        |
-| GET api/v1/user_accounts            | Returns a list of User Accounts            | OK     | User                       |
-| GET api/v1/accounts                 | Returns a list of accounts                 | OK     | Admin or contrib           |
-| POST api/v1/accounts                | Create a new accounts                      | Ok     | Admin or Contrib           |
-| PUT api/v1/accounts/:id             | Update an account bt nt currency & country | Ok     | Admin or Contrib           |
-| DELETE api/v1/accounts/:id          | Delete an account                          | Ok     | Admin or Contrib           |
-| PUT api/v1/modify_countries/:id     | Update an account countries                | Ok     | Admin or Contrib           |
-| DELETE api/v1/modify_countries/:id  | Delete an account countries                | Ok     | Admin or Contrib           |
-| PUT api/v1/modify_currencies/:id    | Update an account currencies               | Ok     | Admin or Contrib           |
-| DELETE api/v1/modify_currencies/:id | Delete an account currencies               | Ok     | Admin or Contrib           |
-| GET api/v1/currencies               | Returns a list of Currencies               |
-| POST api/v1/currencies              | Create a new Currency                      |
-| GET api/v1/countries                | Returns a list of countries                |
-| POST api/v1/countries               | Create a new Currency                      |
-| POST api/v1/contacts                | Create a new contact                       | OK     | Admin, Contrib or User     |
-| GET api/v1/contacts                 | GET all public contact                     | OK     | Admin, Contrib or User-own |
-| GET api/v1/contacts/:id             | Get a contact                              | OK     | Admin, Contrib or User-own |
-| PUT api/v1/contacts/:id             | Update a contact                           | OK     | Admin, Contrib or User-own |
-| DELETE api/v1/contacts/:id          | Delete a contact                           | OK     | Admin, Contrib or User-own |
-| POST api/v1/originators             | Create a new originators                   | OK     | Admin, Contrib             |
-| GET api/v1/originators              | GET all originators                        | OK     | ALL                        |
-| GET api/v1/originators/:id          | Get an originators                         | OK     | ALL                        |
-| PUT api/v1/originators/:id          | Update originator                          | OK     | Admin, Contrib             |
-| DELETE api/v1/originators/:id       | Delete originator                          | OK     | Admin, Contrib             |
-| POST api/v1/platforms               | Create a new platform                      | OK     | Admin, Contrib             |
-| GET api/v1/platforms                | GET all platforms                          | OK     | ALL                        |
-| GET api/v1/platforms/:id            | Get an platforms                           | OK     | ALL                        |
-| PUT api/v1/platforms/:id            | Update a platforms                         | OK     | Admin, Contrib             |
-| DELETE api/v1/platforms/:id         | Delete a platforms                         | OK     | Admin, Contrib             |
+| API Endpoint                           | Functionality                              | Status | User                       |
+| -------------------------------------- | ------------------------------------------ | ------ | -------------------------- |
+| POST api/v1/auth/sign_in               | Login a user                               | OK     | ALL                        |
+| POST api/v1/auth/                      | Register a user                            | OK     | ALL                        |
+| GET api/v1/user_accounts               | Returns a list of User Accounts            | OK     | User                       |
+| GET api/v1/accounts                    | Returns a list of accounts                 | OK     | Admin or contrib           |
+| POST api/v1/accounts                   | Create a new accounts                      | Ok     | Admin or Contrib           |
+| PUT api/v1/accounts/:id                | Update an account bt nt currency & country | Ok     | Admin or Contrib           |
+| DELETE api/v1/accounts/:id             | Delete an account                          | Ok     | Admin or Contrib           |
+| PUT api/v1/modify_countries/:id        | Update an account countries                | Ok     | Admin or Contrib           |
+| DELETE api/v1/modify_countries/:id     | Delete an account countries                | Ok     | Admin or Contrib           |
+| PUT api/v1/modify_currencies/:id       | Update an account currencies               | Ok     | Admin or Contrib           |
+| DELETE api/v1/modify_currencies/:id    | Delete an account currencies               | Ok     | Admin or Contrib           |
+| GET api/v1/currencies                  | Returns a list of Currencies               |
+| POST api/v1/currencies                 | Create a new Currency                      |
+| GET api/v1/countries                   | Returns a list of countries                |
+| POST api/v1/countries                  | Create a new Currency                      |
+| POST api/v1/contacts                   | Create a new contact                       | OK     | Admin, Contrib or User     |
+| GET api/v1/contacts                    | Get all public contact                     | OK     | Admin, Contrib or User-own |
+| GET api/v1/contacts/:id                | Get a contact                              | OK     | Admin, Contrib or User-own |
+| PUT api/v1/contacts/:id                | Update a contact                           | OK     | Admin, Contrib or User-own |
+| DELETE api/v1/contacts/:id             | Delete a contact                           | OK     | Admin, Contrib or User-own |
+| POST api/v1/originators                | Create a new originators                   | OK     | Admin, Contrib             |
+| GET api/v1/originators                 | Get all originators                        | OK     | ALL                        |
+| GET api/v1/originators/:id             | Get an originators                         | OK     | ALL                        |
+| PUT api/v1/originators/:id             | Update originator                          | OK     | Admin, Contrib             |
+| DELETE api/v1/originators/:id          | Delete originator                          | OK     | Admin, Contrib             |
+| POST api/v1/platforms                  | Create a new platform                      | OK     | Admin, Contrib             |
+| GET api/v1/platforms                   | Get all platforms                          | OK     | ALL                        |
+| GET api/v1/platforms/:id               | Get an platforms                           | OK     | ALL                        |
+| PUT api/v1/platforms/:id               | Update a platforms                         | OK     | Admin, Contrib             |
+| DELETE api/v1/platforms/:id            | Delete a platforms                         | OK     | Admin, Contrib             |
+| POST api/v1/platform_originators       | Create a new platform originator           | OK     | Admin, Contrib             |
+| GET api/v1/platform_originators        | Get all platform originators               | OK     | ALL                        |
+| GET api/v1/platform_originators/:id    | Get a platform originator                  | OK     | ALL                        |
+| PUT api/v1/platform_originators/:id    | Update a platform_originator               | OK     | Admin, Contrib             |
+| DELETE api/v1/platform_originators/:id | Delete a platform_originators              | OK     | Admin, Contrib             |
 
 ## Live Version
 
