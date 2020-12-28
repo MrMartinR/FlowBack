@@ -1,14 +1,10 @@
 class Api::V1::LoansController <  Api::BaseController
   before_action :authenticate_api_v1_user!
+  before_action :admin_or_contributor! , except: [:index, :show]
   before_action :set_loan, only: [:show, :update, :destroy]
 
   def index
-    if params[:page].blank?
-      @loans = Loan.order('created_at desc')
-    else
-      @loans = Loan.order('created_at desc').paginate(page: params[:page],per_page: params[:per_page])
-      @total_pages = Loan.paginate(page: params[:page],per_page: params[:per_page]).total_pages
-    end
+    @loans = Loan.includes(:country, :currency, :platform_originator).order('created_at desc')
   end
 
   def show
@@ -33,9 +29,14 @@ class Api::V1::LoansController <  Api::BaseController
   end
 
   def destroy
-    @loan.destroy
+   
+    if @loan.destroy
+      json_response({ success: true, message: 'Loan  deleted' })
+    else
+      json_response({ success: false, message: @loan.errors }, :unprocessable_entity)
+    end
   end
-
+ 
   private
     def set_loan
       @loan = Loan.find(params[:id])
@@ -45,12 +46,12 @@ class Api::V1::LoansController <  Api::BaseController
       merged_params = {updated_by: @user.id}
       merged_params = {created_by: @user.id} if params[:action] == "create"
 
-      params.require(:loan).permit(:country_id, :currency_id, :originator_id,
-                                   :platform_id, :code, :internal_code, :name,
+      params.require(:loan).permit(:country_id, :currency_id, :platform_originator_id, :code, :internal_code, :name,
                                    :borrower, :gender, :air, :status, :xirr, :rating,
                                    :dti_rating, :borrower_type, :category, :amount,
-                                   :description, :link, :secured_buyback, :secured_personal,
-                                   :secured_collaretal, :security, :date_listed, :date_issued,
-                                   :date_maturity, :amortization, :installment, :notes).merge(merged_params)
+                                   :description, :link, :security_details, :date_listed, :date_issued,
+                                   :date_maturity, :amortization, :installment, :notes,
+                                   protection_scheme: []
+                                  ).merge(merged_params)
     end
 end

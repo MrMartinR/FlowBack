@@ -230,6 +230,11 @@ Here you can find the API Documentation
 | GET api/v1/contact_methods/:id         | Get a contact_methods                      | OK     | Admin, Contrib or User-own |
 | PUT api/v1/contact_methods/:id         | Update a contact_methods                   | OK     | Admin, Contrib or User-own |
 | DELETE api/v1/contact_methods/:id      | Delete a contact_methods                   | OK     | Admin, Contrib or User-own |
+| POST api/v1/loans                      | Create a new loan                          | OK     | Admin, Contrib             |
+| GET api/v1/loans                       | Get all loans                              | OK     | ALL                        |
+| GET api/v1/loans/:id                   | Get a loan                                 | OK     | ALL                        |
+| PUT api/v1/loans/:id                   | Update a loan                              | OK     | Admin, Contrib             |
+| DELETE api/v1/loans/:id                | Delete a loan                              | OK     | Admin, Contrib             |
 
 ## Live Version
 
