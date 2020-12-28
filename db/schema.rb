@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_160000) do
+ActiveRecord::Schema.define(version: 2020_12_28_060936) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -186,7 +186,7 @@ ActiveRecord::Schema.define(version: 2020_12_21_160000) do
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "created_by"
     t.uuid "updated_by"
-    t.json "currency_id"
+    t.jsonb "currency_id", default: {}
     t.index ["originator_id"], name: "index_platform_originators_on_originator_id"
     t.index ["platform_id"], name: "index_platform_originators_on_platform_id"
   end

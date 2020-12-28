@@ -46,3 +46,4 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
       params.require(:platform_originator).permit(:originator_id, :platform_id, :status, :skin_game, :grace_period, :rating, :length, :apr, :structure, :notes, :buyback, :buyback_principal, :buyback_interest, :buyback_activation)
     end
 end
+
