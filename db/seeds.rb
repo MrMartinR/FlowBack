@@ -213,24 +213,24 @@ end
   # end
 #
 #   PlatformOriginator.delete_all
-  1.upto(20) do |i|
-    PlatformOriginator.find_or_create_by({
-                                   :originator_id => Originator.order('random()').first.id,
-                                   :platform_id => Platform.order('random()').first.id,
-                                   :status => "Acvite",
-                                   :skin_game => rand_float,
-                                   :grace_period => rand_int,
-                                   :rating => rand_int,
-                                   :length => "Length",
-                                   :apr => rand_float,
-                                   :structure => "structure",
-                                   :notes => "notes for Platform originator",
-                                   :buyback => "buyback" + rand_int.to_s,
-                                   :buyback_principal => rand_bool,
-                                   :buyback_interest => rand_bool,
-                                   :buyback_activation => rand_int
-                               })
-  end
+  # 1.upto(20) do |i|
+  #   PlatformOriginator.find_or_create_by({
+  #                                  :originator_id => Originator.order('random()').first.id,
+  #                                  :platform_id => Platform.order('random()').first.id,
+  #                                  :status => "Acvite",
+  #                                  :skin_game => rand_float,
+  #                                  :grace_period => rand_int,
+  #                                  :rating => rand_int,
+  #                                  :length => "Length",
+  #                                  :apr => rand_float,
+  #                                  :structure => "structure",
+  #                                  :notes => "notes for Platform originator",
+  #                                  :buyback => "buyback" + rand_int.to_s,
+  #                                  :buyback_principal => rand_bool,
+  #                                  :buyback_interest => rand_bool,
+  #                                  :buyback_activation => rand_int
+  #                              })
+  # end
 
 #
 #   1.upto(20) do |i|
