@@ -225,6 +225,11 @@ Here you can find the API Documentation
 | GET api/v1/platform_originators/:id    | Get a platform originator                  | OK     | ALL                        |
 | PUT api/v1/platform_originators/:id    | Update a platform_originator               | OK     | Admin, Contrib             |
 | DELETE api/v1/platform_originators/:id | Delete a platform_originators              | OK     | Admin, Contrib             |
+| POST api/v1/contact_methods            | Create a new contact_method                | OK     | Admin, Contrib or User     |
+| GET api/v1/contact_methods             | Get all public and own contact_methods     | OK     | Admin, Contrib or User-own |
+| GET api/v1/contact_methods/:id         | Get a contact_methods                      | OK     | Admin, Contrib or User-own |
+| PUT api/v1/contact_methods/:id         | Update a contact_methods                   | OK     | Admin, Contrib or User-own |
+| DELETE api/v1/contact_methods/:id      | Delete a contact_methods                   | OK     | Admin, Contrib or User-own |
 
 ## Live Version
 
