@@ -215,6 +215,11 @@ Here you can find the API Documentation
 | GET api/v1/originators/:id          | Get an originators                         | OK     | ALL                        |
 | PUT api/v1/originators/:id          | Update originator                          | OK     | Admin, Contrib             |
 | DELETE api/v1/originators/:id       | Delete originator                          | OK     | Admin, Contrib             |
+| POST api/v1/platforms               | Create a new platform                      | OK     | Admin, Contrib             |
+| GET api/v1/platforms                | GET all platforms                          | OK     | ALL                        |
+| GET api/v1/platforms/:id            | Get an platforms                           | OK     | ALL                        |
+| PUT api/v1/platforms/:id            | Update a platforms                         | OK     | Admin, Contrib             |
+| DELETE api/v1/platforms/:id         | Delete a platforms                         | OK     | Admin, Contrib             |
 
 ## Live Version
 
