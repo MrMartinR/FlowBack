@@ -6,8 +6,8 @@ json.data [@platform_originator] do |po|
   #:id, :originator_id, :platform_id, :status, :skin_game, :grace_period, :rating, :length, :apr, :structure,
   # :notes, :buyback, :buyback_principal, :buyback_interest, :buyback_activation, :created_at, :updated_at
   json.id po.id
-  json.originator_id po.originator_id
-  json.platform_id po.platform_id
+  json.originator po.originator
+  json.platform po.platform
   json.status po.status
   json.skin_game po.skin_game
   json.grace_period po.grace_period
