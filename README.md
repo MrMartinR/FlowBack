@@ -245,6 +245,11 @@ Here you can find the API Documentation
 | GET api/v1/transactions/:id            | Get a transactions under user_account        | OK     | Admin, Contrib or User own |
 | PUT api/v1/transactions/:id            | Update a transactions under user_account     | OK     | Admin, Contrib or User own |
 | DELETE api/v1/transactions/:id         | Delete a transactions under user_account     | OK     | Admin, Contrib or User own |
+| POST api/v1/user_loans                 | Create a new user_loan                       | OK     | User own                   |
+| GET api/v1/user_loans                  | Get all user_loans                           | OK     | User own                   |
+| GET api/v1/user_loans/:id              | Get a user_loan                              | OK     | User own                   |
+| PUT api/v1/user_loans/:id              | Update a user_loan                           | OK     | User own                   |
+| DELETE api/v1/user_loans/:id           | Delete a user_loan                           | OK     | User own                   |
 
 ## Live Version
 

@@ -2,10 +2,17 @@
 json.success true
 
 json.data @user_loans do |user_loan|
-  json.partial! "api/v1/user_loans/user_loan", user_loan: user_loan
+  json.id user_loan.id
+  json.loan user_loan.loan
+  json.user_account user_loan.user_account
+  json.slice_name user_loan.slice_name
+  json.market user_loan.market
+  json.xirr user_loan.xirr
+  json.investment_amount user_loan.investment_amount
+  json.invest_mode user_loan.invest_mode
+  json.position user_loan.position
+  json.date_in user_loan.date_in
+  json.date_out user_loan.date_out
 end
 
-if params[:page]
-  json.page params[:page].to_i
-  json.total_pages @total_pages
-end
+
