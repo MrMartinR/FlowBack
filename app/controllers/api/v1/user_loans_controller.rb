@@ -63,6 +63,7 @@ class Api::V1::UserLoansController < Api::BaseController
     end
 
     def user_loan_params
-      params.require(:user_loan).permit(:country_id, :loan_id, :currency_id, :originator_id, :user_account_id, :platform_id, :slice_name, :market, :xirr, :investment_amount, :invest_mode, :position, :date_in, :date_out, :principal_remaining, :interest, :bonus, :tax, :loss, :fee, :contract_url)
+      params.require(:user_loan).permit(:loan_id, :user_account_id, :slice_name, :market, :xirr, :investment_amount, :invest_mode, :position, :date_in, :date_out)
     end
+
 end
