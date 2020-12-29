@@ -53,6 +53,7 @@ class Api::V1::UserAccountsController < Api::BaseController
 
     # Only allow a list of trusted parameters through.
     def user_account_params
-      params.require(:user_account).permit(:country_id, :account_id, :platform_id, :currency_id, :user_id, :category, :name, :total_fee, :total_loss, :total_tax, :active, :total_invest, :total_profit, :total_referral, :total_interest, :total_bonus)
+      params.require(:user_account).permit(:country_id, :account_id, :currency_id, :user_id, :category, :name,  :active)
     end
 end
+
