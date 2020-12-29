@@ -1,13 +1,13 @@
 class Api::V1::TransactionsController < Api::BaseController
   before_action :authenticate_api_v1_user!
-  before_action :set_transaction, only: [:show, :update, :destroy]
+  before_action :set_transaction, only: %i[show update destroy]
 
   def index
-    @transactions = Transaction.transactions_list(params)
+    @transactions = Transaction.where(user_account_id: index_params[:user_account_id]).includes(:user_account,
+                                                                                                :loan).order('created_at desc')
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @transaction = Transaction.new(transaction_params)
@@ -28,15 +28,26 @@ class Api::V1::TransactionsController < Api::BaseController
   end
 
   def destroy
-    @transaction.destroy
+    if @transaction.destroy
+      json_response({ success: true, message: 'Transaction  deleted' })
+    else
+      json_response({ success: false, message: @transaction.errors }, :unprocessable_entity)
+    end
   end
 
   private
-    def set_transaction
-      @transaction = Transaction.find(params[:id])
-    end
 
-    def transaction_params
-      params.require(:transaction).permit(:country_id, :user_account_id, :user_account_related_id, :currency_id, :user_id, :loan_id, :property_id, :kind, :ref, :date, :time, :category, :description, :amount, :notes, :shares, :share_price)
-    end
+  def set_transaction
+    @transaction = Transaction.find(params[:id])
+  end
+
+  def transaction_params
+    params.require(:transaction).permit(:user_account_id, :loan_id, :property_id, :kind, :ref, :date, :time,
+                                        :category, :description, :amount, :notes, :shares, :share_price)
+  end
+
+  def index_params
+    params.require(:transaction).permit(:user_account_id)
+  end
 end
+
