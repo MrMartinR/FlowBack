@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_29_074030) do
+ActiveRecord::Schema.define(version: 2020_12_29_095655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -224,11 +224,7 @@ ActiveRecord::Schema.define(version: 2020_12_29_074030) do
   end
 
   create_table "transactions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "country_id"
     t.uuid "user_account_id"
-    t.uuid "user_account_related_id"
-    t.uuid "currency_id"
-    t.uuid "user_id"
     t.uuid "loan_id"
     t.uuid "property_id"
     t.string "kind"
@@ -246,14 +242,10 @@ ActiveRecord::Schema.define(version: 2020_12_29_074030) do
     t.uuid "transaction_related_id"
     t.uuid "created_by"
     t.uuid "updated_by"
-    t.index ["country_id"], name: "index_transactions_on_country_id"
-    t.index ["currency_id"], name: "index_transactions_on_currency_id"
     t.index ["kind"], name: "index_transactions_on_kind"
     t.index ["loan_id"], name: "index_transactions_on_loan_id"
     t.index ["property_id"], name: "index_transactions_on_property_id"
     t.index ["user_account_id"], name: "index_transactions_on_user_account_id"
-    t.index ["user_account_related_id"], name: "index_transactions_on_user_account_related_id"
-    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "user_accounts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
