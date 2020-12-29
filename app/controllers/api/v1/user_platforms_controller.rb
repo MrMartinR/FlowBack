@@ -46,7 +46,8 @@ class Api::V1::UserPlatformsController < Api::BaseController
       merged_params = {updated_by: @user.id}
       merged_params = {created_by: @user.id} if params[:action] == "create"
 
-      params.require(:user_platform).permit(:user_id, :platform_id, :overview, :strategy, :user, :pass, :internal_id, :notes, :rating, :xirr, :total_loss, :air).
+      params.require(:user_platform).permit(:user_id, :platform_id, :overview, :strategy, :user, :pass, :internal_id, :notes, :rating).
           merge(merged_params)
     end
 end
+
