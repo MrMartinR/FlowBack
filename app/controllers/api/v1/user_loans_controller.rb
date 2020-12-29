@@ -28,7 +28,11 @@ class Api::V1::UserLoansController < Api::BaseController
   end
 
   def destroy
-    @user_loan.destroy
+    if  @user_loan.destroy
+      json_response({ success: true, message: 'User loan deleted' })
+    else
+      json_response({ success: false, message: @user_loan.errors }, :unprocessable_entity)
+    end
   end
 
   private
