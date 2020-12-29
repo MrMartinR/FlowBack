@@ -7,8 +7,8 @@ json.data @user_platforms do |user_platform|
   json.platform user_platform.platform
   json.overview user_platform.overview
   json.strategy user_platform.strategy
-  json.user user_platform.user_id
-  json.pass user_platform.pass
+  json.login_user user_platform.login_user
+  json.login_pass user_platform.login_pass
   json.internal_id user_platform.internal_id
   json.notes user_platform.notes
   json.rating user_platform.rating
