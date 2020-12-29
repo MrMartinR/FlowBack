@@ -24,16 +24,6 @@ class Api::V1::UserLoansController < Api::BaseController
   def show
   end
 
-  def index_as_admin
-    if params[:page].blank?
-      @user_loans = UserLoan.order('created_at desc')
-    else
-      @user_loans = UserLoan.order('created_at desc').paginate(page: params[:page], per_page: params[:per_page])
-      @total_pages = UserLoan.order('created_at desc').paginate(page: params[:page], per_page: params[:per_page]).total_pages
-    end
-
-    render :index
-  end
 
   def create
     @user_loan = @user.user_loans.new(user_loan_params)
