@@ -33,9 +33,9 @@ class UserLoan < ApplicationRecord
   # so, I guess this has to be a path to the file.
 
 
-  MARKET_VALUES = ["Primary", "Secondary"]
-  INVEST_MODE_VALUES = ["Manual", "Preset", "Auto"]
-  POSITION_VALUES = ["In", "Out"]
+  MARKET_VALUES = ["primary", "secondary"]
+  INVEST_MODE_VALUES = ["manual", "preset", "auto"]
+  POSITION_VALUES = ["in", "out"]
 
   validates :market, inclusion: {in: MARKET_VALUES}
   validates :invest_mode, inclusion: {in: INVEST_MODE_VALUES}
@@ -47,6 +47,7 @@ class UserLoan < ApplicationRecord
   # relation
   belongs_to :loan
   belongs_to :user_account
+  belong_to :user
 
 
   # TODO

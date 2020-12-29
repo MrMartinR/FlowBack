@@ -44,7 +44,8 @@ class Api::V1::UserLoansController < Api::BaseController
     end
 
     def user_loan_params
-      params.require(:user_loan).permit(:loan_id, :user_account_id, :slice_name, :market, :xirr, :investment_amount, :invest_mode, :position, :date_in, :date_out)
+      merge_params = { user_id: @user.id }
+      params.require(:user_loan).permit(:loan_id, :user_account_id, :slice_name, :market, :xirr, :investment_amount, :invest_mode, :position, :date_in, :date_out).merge(merge_params)
     end
 
 end
