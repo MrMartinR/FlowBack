@@ -250,6 +250,11 @@ Here you can find the API Documentation
 | GET api/v1/user_loans/:id              | Get a user_loan                              | OK     | User own                   |
 | PUT api/v1/user_loans/:id              | Update a user_loan                           | OK     | User own                   |
 | DELETE api/v1/user_loans/:id           | Delete a user_loan                           | OK     | User own                   |
+| POST api/v1/user_platforms             | Create a new user_platforms                  | OK     | User own                   |
+| GET api/v1/user_platforms              | Get all user_platforms                       | OK     | User own                   |
+| GET api/v1/user_platforms/:id          | Get a user_platforms                         | OK     | User own                   |
+| PUT api/v1/user_platforms/:id          | Update a user_platforms                      | OK     | User own                   |
+| DELETE api/v1/user_platforms/:id       | Delete a user_platforms                      | OK     | User own                   |
 
 ## Live Version
 
