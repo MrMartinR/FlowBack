@@ -3,8 +3,7 @@ class Api::V1::UserAccountsController < Api::BaseController
   before_action :set_user_account, only: [:show, :update, :destroy]
 
   def index
-    @user_accounts = @user.user_accounts.order('name asc').
-        paginate(page: params[:page], per_page: params[:per_page])
+    @user_accounts = @user.user_accounts.includes(:country, :account, :currency,:user, :user_loans ).order('name asc')
   end
 
  
@@ -40,7 +39,8 @@ class Api::V1::UserAccountsController < Api::BaseController
 
     # Only allow a list of trusted parameters through.
     def user_account_params
-      params.require(:user_account).permit(:country_id, :account_id, :currency_id, :user_id, :category, :name,  :active)
+      merged_params = { user_id: @user.id }
+      params.require(:user_account).permit(:country_id, :account_id, :currency_id, :category, :name,  :active).merge(merged_params)
     end
 end
 
