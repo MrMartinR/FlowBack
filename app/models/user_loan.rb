@@ -49,13 +49,4 @@ class UserLoan < ApplicationRecord
   belongs_to :user_account
   belong_to :user
 
-
-  # TODO
-  def set_date_out
-    # This is a calculated value. Maximum date from transactions if user_loans::position = "Out"
-  end
-
-  def set_principal_remaining
-
-  end
 end
