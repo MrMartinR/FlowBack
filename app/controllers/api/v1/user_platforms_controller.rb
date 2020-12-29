@@ -1,18 +1,12 @@
 class Api::V1::UserPlatformsController < Api::BaseController
   before_action :authenticate_api_v1_user!
-  before_action :set_user_platform, only: [:show, :update, :destroy]
+  before_action :set_user_platform, only: %i[show update destroy]
 
   def index
-    if params[:page].blank?
-      @user_platforms = @user.user_platforms.order('created_at desc')
-    else
-      @user_platforms = @user.user_platforms.order('created_at desc').paginate(page: params[:page],per_page: params[:per_page])
-      @total_pages = @user.user_platforms.paginate(page: params[:page],per_page: params[:per_page]).total_pages
-    end
+    @user_platforms = @user.user_platforms.order('created_at desc')
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @user_platform = @user.user_platforms.new(user_platform_params)
@@ -20,7 +14,7 @@ class Api::V1::UserPlatformsController < Api::BaseController
     if @user_platform.save
       render :show, status: :created
     else
-      json_response({success:false, :message => @user_platform.errors},:unprocessable_entity)
+      json_response({ success: false, message: @user_platform.errors }, :unprocessable_entity)
     end
   end
 
@@ -28,25 +22,32 @@ class Api::V1::UserPlatformsController < Api::BaseController
     if @user_platform.update(user_platform_params)
       render :show, status: :ok
     else
-      json_response({success:false, :message => @user_platform.errors},:unprocessable_entity)
+      json_response({ success: false, message: @user_platform.errors }, :unprocessable_entity)
     end
   end
 
   def destroy
-    @user_platform.destroy
+    if @user_platform.destroy
+      json_response({ success: true, message: 'User platform  deleted' })
+    else
+      json_response({ success: false, message: @user_platform.errors }, :unprocessable_entity)
+    end
   end
 
   private
-    def set_user_platform
-      @user_platform = @user.user_platforms.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def user_platform_params
-      merged_params = {updated_by: @user.id}
-      merged_params = {created_by: @user.id} if params[:action] == "create"
+  def set_user_platform
+    @user_platform = @user.user_platforms.find(params[:id])
+  end
 
-      params.require(:user_platform).permit(:user_id, :platform_id, :overview, :strategy, :user, :pass, :internal_id, :notes, :rating, :xirr, :total_loss, :air).
-          merge(merged_params)
-    end
+  # Only allow a list of trusted parameters through.
+  def user_platform_params
+    merged_params = { updated_by: @user.id }
+    merged_params = { created_by: @user.id } if params[:action] == 'create'
+    merged_params = { user_id: @user.id }
+
+    params.require(:user_platform).permit(:platform_id, :overview, :strategy, :login_user, :login_pass,
+                                          :internal_id, :notes, :rating)
+          .merge(merged_params)
+  end
 end
