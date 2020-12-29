@@ -235,6 +235,11 @@ Here you can find the API Documentation
 | GET api/v1/loans/:id                   | Get a loan                                 | OK     | ALL                        |
 | PUT api/v1/loans/:id                   | Update a loan                              | OK     | Admin, Contrib             |
 | DELETE api/v1/loans/:id                | Delete a loan                              | OK     | Admin, Contrib             |
+| POST api/v1/user_accounts              | Create a new user_accounts                 | OK     | Admin, Contrib or User own |
+| GET api/v1/user_accounts               | Get all user user_accounts                 | OK     | Admin, Contrib or User own |
+| GET api/v1/user_accounts/:id           | Get a user user_accounts                   | OK     | Admin, Contrib or User own |
+| PUT api/v1/user_accounts/:id           | Update a user_accounts                     | OK     | Admin, Contrib or User own |
+| DELETE api/v1/user_accounts/:id        | Delete a user_accounts                     | OK     | Admin, Contrib or User own |
 
 ## Live Version
 
