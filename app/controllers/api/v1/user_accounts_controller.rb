@@ -7,13 +7,7 @@ class Api::V1::UserAccountsController < Api::BaseController
         paginate(page: params[:page], per_page: params[:per_page])
   end
 
-  def search
-    @search = @user.user_accounts.includes(:country, :currency).ransack(params[:q])
-    @user_accounts = @search.result(distinct: false).order('name asc').paginate(page: params[:page], per_page: params[:per_page])
-    render :index
-  end
-
-
+ 
   def show
   end
 
