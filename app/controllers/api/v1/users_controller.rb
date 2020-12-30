@@ -7,19 +7,20 @@ class Api::V1::UsersController < Api::BaseController
     
     @users = User.order('username asc')
   end
-
+# ignore this for now
   def show
     @user = current_api_v1_user if !current_api_v1_user.has_role?(:admin)
   end
 
   def user_profile
     @user = current_api_v1_user
+    
   end
 
   def update
     if current_api_v1_user == @user || current_api_v1_user.has_role?(:admin)
       if @user.update!(user_params)
-        render json: show
+        render :user_profile
       else
         render json: {success: false,status: 400, message: "Could not update profile"}
       end
@@ -43,7 +44,7 @@ class Api::V1::UsersController < Api::BaseController
   def destroy
     @user.destroy
   end
-
+# ignore this for now
   def create
     @user = current_api_v1_user
     if @user.update(user_params)

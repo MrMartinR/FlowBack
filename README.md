@@ -255,6 +255,10 @@ Here you can find the API Documentation
 | GET api/v1/user_platforms/:id          | Get a user_platforms                         | OK     | User own                   |
 | PUT api/v1/user_platforms/:id          | Update a user_platforms                      | OK     | User own                   |
 | DELETE api/v1/user_platforms/:id       | Delete a user_platforms                      | OK     | User own                   |
+| GET api/v1/users                       | Get all users                                | OK     | Admin                      |
+| GET api/v1/user_profile                | Get logged in user profile                   | OK     | Admin, Contrib or User     |
+| POST api/v1/update_profile             | Update the currency and country in profile   | OK     | Admin, Contrib or User     |
+| PUT api/v1/users/:id                   | Update user profile                          | OK     | Admin, Contrib or User     |
 
 ## Live Version
 
