@@ -4,9 +4,8 @@ class Api::V1::UsersController < Api::BaseController
   before_action :find_user, only: [:show, :update, :destroy]
 
   def index
-    @page = params[:page] || 1
-    @total_pages = User.paginate(page: params[:page],per_page: params[:per_page]).total_pages
-    @users = User.order('username asc').paginate(page: params[:page],per_page: params[:per_page])
+    
+    @users = User.order('username asc')
   end
 
   def show
