@@ -18,6 +18,9 @@
   </p>
 </p>
 
+# [Ruby StyleGuide](docs/StyleGuide-Ruby.adoc)
+
+
 <!-- TABLE OF CONTENTS -->
 
 ## Table of Contents
