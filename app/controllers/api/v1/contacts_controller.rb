@@ -10,13 +10,10 @@ class Api::V1::ContactsController < Api::BaseController
   # GET /contacts
   # GET /contacts.json
   def index
-    if @user.is_admin? || @user.is_contributor?
-      @contacts = []
-      Contact.find_each do |contact|
-        @contacts << contact if contact.user.nil? || contact.user.id == @user.id 
-      end
+    @contacts = []
+    Contact.find_each do |contact|
+      @contacts << contact if contact.user.nil? || contact.user.id == @user.id
     end
-    @contacts = Contact.where(id: @user.id) if !@user.is_admin? && !@user.is_contributor?
   end
 
   # GET /contacts/1
@@ -54,10 +51,24 @@ class Api::V1::ContactsController < Api::BaseController
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
   def update
-    if @contact.update(contact_params)
+    if @contact.visibility == 'PUBLIC'
+      if @user.is_admin? || @user.is_contributor?
+        if @contact.update(contact_params)
+          render :show, status: :ok
+        else
+          json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+        end
+      else
+        json_response({ success: false, message: 'Only admin or contrib can update a public contact' },
+                      :unprocessable_entity)
+
+      end
+
+    elsif @contact.update(contact_params)
       render :show, status: :ok
     else
       json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+
     end
   end
 
@@ -80,9 +91,9 @@ class Api::V1::ContactsController < Api::BaseController
 
   # Only allow a list of trusted parameters through.
   def contact_params
-    merged_params = { updated_by: @user.id, user_id: @user.id  }
+    merged_params = { updated_by: @user.id, user_id: @user.id }
     merged_params = { created_by: @user.id } if params[:action] == 'create'
-   
+
     params.require(:contact).permit(:country_id, :user_id, :kind, :visibility,
                                     :name, :surname,
                                     :trade_name, :nick, :founded,
@@ -90,3 +101,4 @@ class Api::V1::ContactsController < Api::BaseController
           .merge(merged_params)
   end
 end
+
