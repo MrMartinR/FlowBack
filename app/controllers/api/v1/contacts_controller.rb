@@ -65,9 +65,9 @@ class Api::V1::ContactsController < Api::BaseController
     merged_params = { created_by: @user.id } if params[:action] == 'create'
 
     params.require(:contact).permit(:country_id, :user_id, :kind, :visibility,
-                                    :category, :header, :name, :surname,
-                                    :trade_name_nick, :founded,
-                                    :description, :legal_form, :tags, :id_number)
+                                      :name, :surname,
+                                    :trade_name,:nick, :founded,
+                                    :description, :legal_form, :tags, :id_number, :dob)
           .merge(merged_params)
   end
 end
