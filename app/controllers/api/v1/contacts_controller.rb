@@ -1,19 +1,19 @@
 class Api::V1::ContactsController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :set_contact, only: %i[show update destroy]
+  # pointers
+  # 1. only admin can create and edit a contact
+  # 2. all users can view a public contact
+  # 3. Users can only view their private contacts if created_by is user
+  # 4. in general user can  view public ones + their own private contacts
 
   # GET /contacts
   # GET /contacts.json
   def index
-    if @user.is_admin? || @user.is_contributor?
-      @contacts = []
-      Contact.find_each do |contact|
-        if !contact.user.nil? && (contact.created_by == @user.id || contact.visibility = 'PUBLIC')
-          @contacts << contact
-        end
-      end
+    @contacts = []
+    Contact.find_each do |contact|
+      @contacts << contact if contact.user.nil? || contact.user.id == @user.id
     end
-    @contacts = Contact.where(id: @user.id) if !@user.is_admin? && !@user.is_contributor?
   end
 
   # GET /contacts/1
@@ -23,22 +23,52 @@ class Api::V1::ContactsController < Api::BaseController
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new(contact_params)
+    if contact_params[:visibility] == 'PUBLIC'
+      if @user.is_admin? || @user.is_contributor?
+        @contact = Contact.new(contact_params)
+        @contact.user_id = nil
+        if @contact.save
+          render :show, status: :ok
+        else
+          json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+        end
+      else
+        json_response({ success: false, message: 'Only admin or contrib can create a public contact' },
+                      :unprocessable_entity)
 
-    if @contact.save
-      render :show, status: :ok
+      end
     else
-      json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+      @contact = Contact.new(contact_params)
+      @contact.user_id = @user.id
+      if @contact.save
+        render :show, status: :ok
+      else
+        json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+      end
     end
   end
 
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
   def update
-    if @contact.update(contact_params)
+    if @contact.visibility == 'PUBLIC'
+      if @user.is_admin? || @user.is_contributor?
+        if @contact.update(contact_params)
+          render :show, status: :ok
+        else
+          json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+        end
+      else
+        json_response({ success: false, message: 'Only admin or contrib can update a public contact' },
+                      :unprocessable_entity)
+
+      end
+
+    elsif @contact.update(contact_params)
       render :show, status: :ok
     else
       json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+
     end
   end
 
@@ -61,13 +91,14 @@ class Api::V1::ContactsController < Api::BaseController
 
   # Only allow a list of trusted parameters through.
   def contact_params
-    merged_params = { updated_by: @user.id }
+    merged_params = { updated_by: @user.id, user_id: @user.id }
     merged_params = { created_by: @user.id } if params[:action] == 'create'
 
     params.require(:contact).permit(:country_id, :user_id, :kind, :visibility,
-                                    :category, :header, :name, :surname,
-                                    :trade_name_nick, :founded,
-                                    :description, :legal_form, :tags, :id_number)
+                                    :name, :surname,
+                                    :trade_name, :nick, :founded,
+                                    :description, :legal_form, :tags, :id_number, :dob)
           .merge(merged_params)
   end
 end
+
