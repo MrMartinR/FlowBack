@@ -10,14 +10,14 @@ class Api::V1::SettingsController < Api::BaseController
     if @user.update(user_params)
       render json: index
     else
-      render json: {status: 400, message: "Could not update profile"}
+      render json: { status: 400, message: "Could not update profile" }
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:uid, :username, :email,  :password, :password_confirmation, :current_password,:currency_id, :country_id)
+    params.require(:user).permit(:uid, :username, :email, :password, :password_confirmation, :current_password, :currency_id, :country_id)
   end
 
   rescue_from ActionController::UnpermittedParameters do |error|

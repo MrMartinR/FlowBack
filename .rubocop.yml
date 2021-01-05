@@ -6,11 +6,13 @@ AllCops:
     - "Guardfile"
     - "Rakefile"
     - "node_modules/**/*"
+    - "test/**/*"
+    - "lib/**/*" # will be looked into later
 
   DisplayCopNames: true
 
 Layout/LineLength:
-  Max: 120
+  Max: 200
 Metrics/MethodLength:
   Include:
     - "app/controllers/*"

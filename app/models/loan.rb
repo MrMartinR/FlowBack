@@ -6,4 +6,3 @@ class Loan < ApplicationRecord
   has_many :user_loans
   belongs_to :platform_originator
 end
- 

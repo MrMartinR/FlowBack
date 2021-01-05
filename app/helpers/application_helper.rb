@@ -1,4 +1,3 @@
-
 module ApplicationHelper
   # include MD5 gem, should be part of standard ruby install
   require 'digest/md5'
@@ -21,9 +20,9 @@ module ApplicationHelper
 
   def date_format(dt)
     if dt.class == Date
-     dt.strftime('%Y-%m-%d')
+      dt.strftime('%Y-%m-%d')
     else
-     dt
+      dt
     end
   end
 end

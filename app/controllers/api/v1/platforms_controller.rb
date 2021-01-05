@@ -1,5 +1,5 @@
 class Api::V1::PlatformsController < Api::BaseController
-  before_action  :authenticate_api_v1_user!
+  before_action :authenticate_api_v1_user!
   before_action :admin_or_contributor!, except: [:index, :show]
   before_action :set_platform, only: [:show, :update, :destroy]
 
@@ -16,7 +16,7 @@ class Api::V1::PlatformsController < Api::BaseController
     if @platform.save
       render :show, status: :created
     else
-      json_response({success:false, :message => @platform.errors},:unprocessable_entity)
+      json_response({ success: false, :message => @platform.errors }, :unprocessable_entity)
     end
   end
 
@@ -24,33 +24,34 @@ class Api::V1::PlatformsController < Api::BaseController
     if @platform.update(platform_params)
       render :show, status: :ok
     else
-      json_response({success:false, :message => @platform.errors},:unprocessable_entity)
+      json_response({ success: false, :message => @platform.errors }, :unprocessable_entity)
     end
   end
 
   def destroy
     if @platform.destroy
-      json_response({success:true, message:"Platform deleted"})
+      json_response({ success: true, message: "Platform deleted" })
     else
-      json_response({success:false, :message => @platform.errors},:unprocessable_entity)
+      json_response({ success: false, :message => @platform.errors }, :unprocessable_entity)
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_platform
-      @platform = Platform.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def platform_params
-      merged_params = {updated_by: @user.id}
-      merged_params = {created_by: @user.id} if params[:action] == "create"
-      params.require(:platform).permit(:contact_id, :category, :status,
-                                       :liquidity, :term, :invest_mode,
-                                       :min_investment, :secondary_market,
-                                       :taxes, :cashflow_options, :protection_scheme, :cost,
-                                       :profitable, :ifisa, :structure, :account_category,
-                                       :welcome_bonus, :promo, :promo_end, :sm_notes).merge(merged_params)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_platform
+    @platform = Platform.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def platform_params
+    merged_params = { updated_by: @user.id }
+    merged_params = { created_by: @user.id } if params[:action] == "create"
+    params.require(:platform).permit(:contact_id, :category, :status,
+                                     :liquidity, :term, :invest_mode,
+                                     :min_investment, :secondary_market,
+                                     :taxes, :cashflow_options, :protection_scheme, :cost,
+                                     :profitable, :ifisa, :structure, :account_category,
+                                     :welcome_bonus, :promo, :promo_end, :sm_notes).merge(merged_params)
+  end
 end

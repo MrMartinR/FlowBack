@@ -4,6 +4,5 @@ class Transaction < ApplicationRecord
 
   belongs_to :user_account
   belongs_to :loan
-  #belongs_to :property 
-
+  # belongs_to :property
 end

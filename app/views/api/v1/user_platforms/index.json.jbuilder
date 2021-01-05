@@ -1,4 +1,4 @@
-#json.array! @user_platforms, partialjson. "user_platforms/user_platform", asjson. json.user_platform
+# json.array! @user_platforms, partialjson. "user_platforms/user_platform", asjson. json.user_platform
 json.success true
 
 json.data @user_platforms do |user_platform|
@@ -12,5 +12,4 @@ json.data @user_platforms do |user_platform|
   json.internal_id user_platform.internal_id
   json.notes user_platform.notes
   json.rating user_platform.rating
-  
 end

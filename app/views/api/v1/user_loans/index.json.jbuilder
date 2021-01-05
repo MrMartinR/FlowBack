@@ -1,4 +1,4 @@
-#json.array! @loans, partial: "loans/loan", as: :loan
+# json.array! @loans, partial: "loans/loan", as: :loan
 json.success true
 
 json.data @user_loans do |user_loan|
@@ -14,5 +14,3 @@ json.data @user_loans do |user_loan|
   json.date_in user_loan.date_in
   json.date_out user_loan.date_out
 end
-
-

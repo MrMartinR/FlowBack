@@ -47,4 +47,3 @@ class Api::V1::UserAccountsController < Api::BaseController
                                          :active).merge(merged_params)
   end
 end
-

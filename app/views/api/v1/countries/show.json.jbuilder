@@ -17,4 +17,3 @@ json.data [@country] do |country|
     json.type country.currency.kind
   end
 end
-

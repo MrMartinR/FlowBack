@@ -3,7 +3,6 @@ class Api::V1::CurrenciesController < Api::BaseController
   before_action :admin_or_contributor!, except: [:index, :show]
   before_action :set_currency, only: [:show, :update, :destroy]
 
-
   # GET /currencies
   # GET /currencies.json
   def index
@@ -52,13 +51,14 @@ class Api::V1::CurrenciesController < Api::BaseController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_currency
-      @currency = Currency.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def currency_params
-      params.require(:currency).permit(:name, :code, :symbol, :kind, :decimal_places, :fx_eur)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_currency
+    @currency = Currency.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def currency_params
+    params.require(:currency).permit(:name, :code, :symbol, :kind, :decimal_places, :fx_eur)
+  end
 end

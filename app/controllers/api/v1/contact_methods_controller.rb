@@ -36,10 +36,7 @@ class Api::V1::ContactMethodsController < Api::BaseController
     else
       json_response({ success: false, message: 'You can not update a contact method you did not create and neither are you an admin or a contributor ' }, :unprocessable_entity)
 
-      
     end
-    
-   
   end
 
   def destroy
@@ -51,9 +48,8 @@ class Api::V1::ContactMethodsController < Api::BaseController
       end
     else
       json_response({ success: false, message: 'You can not delete a contact method you did not create and neither are you an admin or a contributor ' }, :unprocessable_entity)
-      
+
     end
-    
   end
 
   private
@@ -71,4 +67,3 @@ class Api::V1::ContactMethodsController < Api::BaseController
                                            :notes).merge(merged_params)
   end
 end
-

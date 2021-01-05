@@ -7,4 +7,3 @@ json.data do | |
   json.country_id @user.country_id
   json.currency_id @user.currency_id
 end
-

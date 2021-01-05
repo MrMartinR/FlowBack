@@ -7,7 +7,7 @@ class Api::V1::PasswordsController < DeviseTokenAuth::PasswordsController
   end
 
   def render_edit_error
-    render json: {success: false, code: 404, message: "Not Found"}
+    render json: { success: false, code: 404, message: "Not Found" }
   end
 
   private

@@ -1,6 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
   def create
-
   end
 
   def update
@@ -14,6 +13,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def account_update_params
-    params.require(:user).permit(:uid, :username, :email,  :password, :password_confirmation, :current_password,:currency_id, :country_id)
+    params.require(:user).permit(:uid, :username, :email, :password, :password_confirmation, :current_password, :currency_id, :country_id)
   end
 end

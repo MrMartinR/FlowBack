@@ -14,4 +14,3 @@ json.data @contact_methods do |contact_method|
   json.data contact_method.data
   json.notes contact_method.notes
 end
-

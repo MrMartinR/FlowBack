@@ -1,4 +1,4 @@
-#json.array! @user_accounts, partial: "user_accounts/user_account", as: :user_account
+# json.array! @user_accounts, partial: "user_accounts/user_account", as: :user_account
 json.success true
 
 json.data @user_accounts do |user_account|
@@ -11,5 +11,4 @@ json.data @user_accounts do |user_account|
   json.name user_account.name
   json.active user_account.active
   json.loans user_account.user_loans
-  
 end

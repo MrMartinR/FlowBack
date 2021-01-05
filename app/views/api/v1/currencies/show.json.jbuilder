@@ -1,5 +1,5 @@
-#json.partial! "currencies/currency", currency: @currency
-#json.array! @currencies, partial: "api/v1/currencies/currency", as: :currency
+# json.partial! "currencies/currency", currency: @currency
+# json.array! @currencies, partial: "api/v1/currencies/currency", as: :currency
 json.success true
 
 json.data [@currency] do |currency|
@@ -11,6 +11,3 @@ json.data [@currency] do |currency|
   json.fx_eur currency.fx_eur
   json.type currency.kind
 end
-
-
-

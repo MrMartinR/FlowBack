@@ -16,9 +16,9 @@ gem "puma", "~> 4.1"
 # Use SCSS for stylesheets
 gem "sass-rails", ">= 6"
 
-#[Martin] I commented this gem because we are not using react in the backend
+# [Martin] I commented this gem because we are not using react in the backend
 # Integrate React.js with Rails views and controllers, the asset pipeline, or webpacker.
-#gem 'react-rails'
+# gem 'react-rails'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
@@ -32,7 +32,7 @@ gem "jbuilder", "~> 2.7"
 
 # For login, role
 
-#gem 'devise'
+# gem 'devise'
 gem "rolify"
 # token based auth
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
@@ -53,8 +53,8 @@ gem "mini_racer"
 gem "will_paginate", "~> 3.1.0"
 
 # api doc
-#gem 'swagger-docs'
-#gem 'rswag'
+# gem 'swagger-docs'
+# gem 'rswag'
 # image processing
 gem "image_processing", "~> 1.0"
 gem "active_storage_validations"
@@ -69,7 +69,7 @@ group :development, :test do
 end
 
 group :development do
-  #gem "rspec"
+  # gem "rspec"
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem "web-console", ">= 3.3.0"
   gem "listen", ">= 3.0.5", "< 3.2"
@@ -87,7 +87,7 @@ group :test do
 end
 
 group :production do
-  #[Martin] I commented this two gem because they are duplicated
+  # [Martin] I commented this two gem because they are duplicated
   gem "pg", ">= 0.18", "< 2.0"
   gem "rails", "~> 6.0.2", ">= 6.0.2.2"
 end

@@ -1,4 +1,4 @@
-#json.partial! "contact_methods/contact_method", contact_method: @contact_method
+# json.partial! "contact_methods/contact_method", contact_method: @contact_method
 json.success true
 
 json.data [@contact_method] do |contact_method|

@@ -4,7 +4,7 @@ class Api::V1::ImageAssetsController < Api::BaseController
   def index
     uuid_regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
     if params[:uid].present? && uuid_regex.match?(params[:uid].to_s.downcase).eql?(false)
-      return render json: { success:false, message: "Wrong Format uuid !" }, status: :unprocessable_entity
+      return render json: { success: false, message: "Wrong Format uuid !" }, status: :unprocessable_entity
     else
       @icons = ImageAsset.by_category(params[:category]).by_uid(params[:uid])
     end
@@ -36,11 +36,12 @@ class Api::V1::ImageAssetsController < Api::BaseController
   end
 
   private
-    def set_icon
-      @icon = ImageAsset.find(params[:id])
-    end
 
-    def icon_params
-      params.require(:icon).permit(:id, :uid, :category, :logo, :icn)
-    end
+  def set_icon
+    @icon = ImageAsset.find(params[:id])
+  end
+
+  def icon_params
+    params.require(:icon).permit(:id, :uid, :category, :logo, :icn)
+  end
 end

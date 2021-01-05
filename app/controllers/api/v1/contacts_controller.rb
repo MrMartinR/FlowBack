@@ -98,7 +98,6 @@ class Api::V1::ContactsController < Api::BaseController
                                     :name, :surname,
                                     :trade_name, :nick, :founded,
                                     :description, :legal_form, :tags, :id_number, :dob)
-          .merge(merged_params)
+      .merge(merged_params)
   end
 end
-

@@ -1,14 +1,14 @@
 class User < ApplicationRecord
-  #IMAGE FORMAT (JPEG, PNG, GIF, SVG)
+  # IMAGE FORMAT (JPEG, PNG, GIF, SVG)
   rolify
   self.implicit_order_column = "created_at"
 
-  devise :database_authenticatable, :registerable,:recoverable, :rememberable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable
   include DeviseTokenAuth::Concerns::User
   # validations
   validates :username, presence: true, length: { minimum: 3 }
   validates_uniqueness_of :username
-  validates :avatar, attached: false, content_type: ['image/png', 'image/jpg', 'image/jpeg','image/gif'], size: { less_than: 2.megabytes , message: 'is not given between size' }#,
+  validates :avatar, attached: false, content_type: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'], size: { less_than: 2.megabytes, message: 'is not given between size' } # ,
   # relation
   belongs_to :currency, optional: true
   belongs_to :country, optional: true

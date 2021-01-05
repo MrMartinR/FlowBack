@@ -50,4 +50,3 @@ class Api::V1::TransactionsController < Api::BaseController
     params.require(:transaction).permit(:user_account_id)
   end
 end
-

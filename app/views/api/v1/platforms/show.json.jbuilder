@@ -1,4 +1,4 @@
-#json.partial! "platforms/platform", platform: @platform
+# json.partial! "platforms/platform", platform: @platform
 json.success true
 
 json.data [@platform] do |platform|
@@ -28,5 +28,4 @@ json.data [@platform] do |platform|
   else
     json.contact "Not Found"
   end
-  
 end

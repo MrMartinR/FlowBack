@@ -1,5 +1,4 @@
 class Api::V1::RegistrationsController < DeviseTokenAuth::RegistrationsController
-
   # swagger_api :create do
   #   summary "To create user"
   #   notes "Implementation notes, such as required params, example queries for apis are written here."
@@ -23,8 +22,8 @@ class Api::V1::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
 
     # give redirect value from params priority
     @redirect_url = params.fetch(
-        :confirm_success_url,
-        DeviseTokenAuth.default_confirm_success_url
+      :confirm_success_url,
+      DeviseTokenAuth.default_confirm_success_url
     )
 
     # success redirect url is required
@@ -86,19 +85,18 @@ class Api::V1::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
   private
 
   def render_create_success
-      render json: {
-          success: true,
-          data: @resource,
-          token: @token
-      }, status: 200
+    render json: {
+      success: true,
+      data: @resource,
+      token: @token
+    }, status: 200
     end
 
   def sign_up_params
-    params.require(:user).permit(:username, :email, :uid,:password, :password_confirmation)
+    params.require(:user).permit(:username, :email, :uid, :password, :password_confirmation)
   end
 
   def account_update_params
-    params.require(:user).permit(:username, :email,:uid, :password, :password_confirmation)
+    params.require(:user).permit(:username, :email, :uid, :password, :password_confirmation)
   end
-
 end

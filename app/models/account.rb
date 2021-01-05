@@ -1,14 +1,13 @@
 class Account < ApplicationRecord
-#  belongs_to :country
-#  belongs_to :currency
-belongs_to :platform
-belongs_to :contact
+  #  belongs_to :country
+  #  belongs_to :currency
+  belongs_to :platform
+  belongs_to :contact
 
-#  validates :country_id , presence: true
-#  validates :currency_id , presence: true
-#  before_save :check_country_array
-#  before_save :check_currency_array
-
+  #  validates :country_id , presence: true
+  #  validates :currency_id , presence: true
+  #  before_save :check_country_array
+  #  before_save :check_currency_array
 
   # def check_country_array
   #   begin

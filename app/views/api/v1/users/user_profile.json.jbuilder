@@ -36,5 +36,3 @@ json.data [@user] do |user|
     json.country 'Not found'
   end
 end
-
-
