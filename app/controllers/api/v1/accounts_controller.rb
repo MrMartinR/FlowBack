@@ -7,8 +7,8 @@ class Api::V1::AccountsController < Api::BaseController
   #
   def index
     @entities = []
-    @check_tabel_count = Account.first
-    if @check_tabel_count.nil?
+    @check_table_count = Account.first
+    if @check_table_count.nil?
       json_response({ "accounts": 'Accounts are empty, no records exist' })
     else
       Account.find_each do |account|
