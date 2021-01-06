@@ -8,21 +8,20 @@ module ApplicationHelper
     hash = Digest::MD5.hexdigest(email_address)
     # compile URL which can be used in <img src="RIGHT_HERE"...
     image_src = "https://www.gravatar.com/avatar/#{hash}"
+    image_src
   end
 
   def parser_json(str)
-    begin
-      JSON.parse(str)
-    rescue
-      str
-    end
+    JSON.parse(str)
+  rescue StandardError
+    str
   end
 
-  def date_format(dt)
-    if dt.class == Date
-      dt.strftime('%Y-%m-%d')
+  def date_format(date)
+    if date.class == Date
+      date.strftime('%Y-%m-%d')
     else
-      dt
+      date
     end
   end
 end
