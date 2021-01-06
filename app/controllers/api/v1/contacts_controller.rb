@@ -1,11 +1,6 @@
 class Api::V1::ContactsController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :set_contact, only: %i[show update destroy]
-  # pointers
-  # 1. only admin can create and edit a contact
-  # 2. all users can view a public contact
-  # 3. Users can only view their private contacts if created_by is user
-  # 4. in general user can  view public ones + their own private contacts
 
   # GET /contacts
   # GET /contacts.json

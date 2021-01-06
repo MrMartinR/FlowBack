@@ -9,12 +9,12 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
       dt = data_return(account)
       @platform_originators << dt
     end
-    json_response({ "success": true, "data": @platform_originators })
+    json_response({ success: true, message: @platform_originators })
   end
 
   def show
     @data = data_return(@platform_originator)
-    json_response({ success: true, "data": @data })
+    json_response({ success: true, message: @data })
   end
 
   def create
@@ -22,7 +22,7 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
 
     if @platform_originator.save
       @data = data_return(@platform_originator)
-      json_response({ success: true, "data": @data })
+      json_response({ success: true, message: @data })
 
     else
       json_response({ success: false, message: @platform_originator.errors }, :unprocessable_entity)
@@ -33,7 +33,7 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
     if @platform_originator.update(platform_originator_params)
       @data = data_return(@platform_originator)
 
-      json_response({ success: true, "data": @data })
+      json_response({ success: true, message: @data })
     else
       json_response({ success: false, message: @platform_originator.errors }, :unprocessable_entity)
     end
