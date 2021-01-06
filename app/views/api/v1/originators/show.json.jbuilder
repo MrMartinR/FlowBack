@@ -14,6 +14,6 @@ json.data [@originator] do |originator|
   if originator.contact.present?
     json.contact originator.contact
   else
-    json.contact nil
+    json.contact 'Not found'
   end
 end
