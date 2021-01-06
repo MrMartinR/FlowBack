@@ -88,8 +88,8 @@ end
 
 group :production do
   # [Martin] I commented this two gem because they are duplicated
-  gem 'pg', '>= 0.18', '< 2.0'
-  gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
+  # gem 'pg', '>= 0.18', '< 2.0'
+  # gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

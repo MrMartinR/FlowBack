@@ -7,7 +7,6 @@ AllCops:
     - "Rakefile"
     - "node_modules/**/*"
     - "test/**/*"
-    - "lib/**/*" # will be looked into later
 
   DisplayCopNames: true
 

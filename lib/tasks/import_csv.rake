@@ -1,4 +1,4 @@
-task :import_data => :environment do
+task import_data: :environment do
   require 'csv'
   # currencies export
   # Currency.delete_all
@@ -7,10 +7,10 @@ task :import_data => :environment do
   CSV.foreach(path, 'r') do |row|
     # ...
     # skip header
-    next if row[1].to_s == "fx_eur"
+    next if row[1].to_s == 'fx_eur'
 
     # puts row
-    if Currency.where("name = ?", row[2]).blank?
+    if Currency.where('name = ?', row[2]).blank?
       Currency.create(
         id: row[0].to_s,
         # fx_eur: nil,
@@ -28,10 +28,10 @@ task :import_data => :environment do
   CSV.foreach(path, 'r') do |row|
     # ...
     # skip header
-    next if row[1].to_s == "currency_id"
+    next if row[1].to_s == 'currency_id'
 
     # puts row
-    if Country.where("name = ?", row[4]).blank?
+    if Country.where('name = ?', row[4]).blank?
       Country.create(
         id: row[0].to_s,
         # fx_eur: nil,
@@ -48,10 +48,10 @@ task :import_data => :environment do
   CSV.foreach(path, 'r') do |row|
     # ...
     # skip header
-    next if row[1].to_s == "currency_id"
+    next if row[1].to_s == 'currency_id'
 
     # puts row
-    if Account.where("name = ?", row[4]).blank?
+    if Account.where('name = ?', row[4]).blank?
       Account.create(
         platform_id: row[0].to_s,
         # fx_eur: nil,
