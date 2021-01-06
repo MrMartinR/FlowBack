@@ -3,7 +3,6 @@ class Api::V1::AccountsController < Api::BaseController
   before_action :admin_or_contributor!
   before_action :set_account, only: %i[show update destroy]
 
- 
   def index
     @entities = []
     @check_table_count = Account.first
@@ -33,7 +32,6 @@ class Api::V1::AccountsController < Api::BaseController
     end
   end
 
-
   def create
     @find_account = Account.find_by(contact_id: account_params[:contact_id])
     if @find_account.nil?
@@ -54,7 +52,7 @@ class Api::V1::AccountsController < Api::BaseController
       render json: @find_account.errors, status: :unprocessable_entity
     end
   end
- 
+
   def update
     if @account.update!(account_update_params)
       render :show, status: :ok
