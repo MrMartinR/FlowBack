@@ -24,7 +24,7 @@ class Api::V1::ContactsController < Api::BaseController
   # POST /contacts.json
   def create
     if contact_params[:visibility] == 'PUBLIC'
-      if @user.is_admin? || @user.is_contributor?
+      if @user.admin? || @user.contributor?
         @contact = Contact.new(contact_params)
         @contact.user_id = nil
         if @contact.save
@@ -52,7 +52,7 @@ class Api::V1::ContactsController < Api::BaseController
   # PATCH/PUT /contacts/1.json
   def update
     if @contact.visibility == 'PUBLIC'
-      if @user.is_admin? || @user.is_contributor?
+      if @user.admin? || @user.contributor?
         if @contact.update(contact_params)
           render :show, status: :ok
         else

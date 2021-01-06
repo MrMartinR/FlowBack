@@ -11,7 +11,7 @@ class Api::V1::ContactMethodsController < Api::BaseController
   def create
     get_contact_creator_id = Contact.find(contact_method_params[:contact_id]).created_by
     get_contact_creator = User.find(get_contact_creator_id)
-    if get_contact_creator_id == @user.id || get_contact_creator.is_admin? || get_contact_creator.is_contributor?
+    if get_contact_creator_id == @user.id || get_contact_creator.admin? || get_contact_creator.contributor?
       @contact_method = ContactMethod.new(contact_method_params)
 
       if @contact_method.save
@@ -27,7 +27,7 @@ class Api::V1::ContactMethodsController < Api::BaseController
   end
 
   def update
-    if @contact_method.created_by == @user.id || @user.is_admin? || @user.is_contributor?
+    if @contact_method.created_by == @user.id || @user.admin? || @user.contributor?
       if @contact_method.update(contact_method_params)
         render :show, status: :ok
       else
@@ -40,7 +40,7 @@ class Api::V1::ContactMethodsController < Api::BaseController
   end
 
   def destroy
-    if @contact_method.created_by == @user.id || @user.is_admin? || @user.is_contributor?
+    if @contact_method.created_by == @user.id || @user.admin? || @user.contributor?
       if @contact_method.destroy
         json_response({ success: true, message: 'Contact method deleted' })
       else

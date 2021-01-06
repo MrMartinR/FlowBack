@@ -33,15 +33,11 @@ class User < ApplicationRecord
     add_role(:user) if roles.blank?
   end
 
-  # rubocop:disable Naming/PredicateName
-  def is_admin?
+  def admin?
     has_role?(:admin)
   end
-  # rubocop:enable Naming/PredicateName
 
-  # rubocop:disable Naming/PredicateName
-  def is_contributor?
+  def contributor?
     has_role?(:contributor)
   end
-  # rubocop:enable Naming/PredicateName
 end
