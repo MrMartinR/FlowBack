@@ -27,9 +27,7 @@ class Api::V1::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
     )
 
     # success redirect url is required
-    if confirmable_enabled? && !@redirect_url
-      return render_create_error_missing_confirm_success_url
-    end
+    return render_create_error_missing_confirm_success_url if confirmable_enabled? && !@redirect_url
 
     # if whitelist is set, validate redirect_url against whitelist
     return render_create_error_redirect_url_not_allowed if blacklisted_redirect_url?(@redirect_url)
@@ -90,7 +88,7 @@ class Api::V1::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
       data: @resource,
       token: @token
     }, status: 200
-    end
+  end
 
   def sign_up_params
     params.require(:user).permit(:username, :email, :uid, :password, :password_confirmation)

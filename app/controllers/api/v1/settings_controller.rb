@@ -10,7 +10,7 @@ class Api::V1::SettingsController < Api::BaseController
     if @user.update(user_params)
       render json: index
     else
-      render json: { status: 400, message: "Could not update profile" }
+      render json: { status: 400, message: 'Could not update profile' }
     end
   end
 
@@ -21,8 +21,8 @@ class Api::V1::SettingsController < Api::BaseController
   end
 
   rescue_from ActionController::UnpermittedParameters do |error|
-    message = "Invalid parameter: %s. " % error.params.to_sentence
+    message = "Invalid parameter: #{error.params.to_sentence}"
     message << 'Please verify that the parameter name is valid and the values are the correct type.'
-    render_error 'param_error', :status => :bad_request, :locals => { :exception => error, :message => message }
+    render_error 'param_error', status: :bad_request, locals: { exception: error, message: message }
   end
 end

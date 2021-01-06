@@ -1,17 +1,16 @@
 class Api::V1::ImageAssetsController < Api::BaseController
-  before_action :set_icon, only: [:show, :update, :destroy]
+  before_action :set_icon, only: %i[show update destroy]
 
   def index
     uuid_regex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
     if params[:uid].present? && uuid_regex.match?(params[:uid].to_s.downcase).eql?(false)
-      return render json: { success: false, message: "Wrong Format uuid !" }, status: :unprocessable_entity
+      render json: { success: false, message: 'Wrong Format uuid !' }, status: :unprocessable_entity
     else
       @icons = ImageAsset.by_category(params[:category]).by_uid(params[:uid])
     end
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @icon = ImageAsset.new(icon_params)

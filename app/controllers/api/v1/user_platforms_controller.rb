@@ -42,12 +42,12 @@ class Api::V1::UserPlatformsController < Api::BaseController
 
   # Only allow a list of trusted parameters through.
   def user_platform_params
-    merged_params = { updated_by: @user.id }
-    merged_params = { created_by: @user.id } if params[:action] == 'create'
+    merged_params_one = { updated_by: @user.id }
+    merged_params_two = { created_by: @user.id } if params[:action] == 'create'
     merged_params = { user_id: @user.id }
 
     params.require(:user_platform).permit(:platform_id, :overview, :strategy, :login_user, :login_pass,
                                           :internal_id, :notes, :rating)
-      .merge(merged_params)
+      .merge(merged_params, merged_params_one, merged_params_two)
   end
 end

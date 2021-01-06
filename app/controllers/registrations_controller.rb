@@ -1,6 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-  def create
-  end
+  def create; end
 
   def update
     super
@@ -8,7 +7,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   protected
 
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     settings_path # Or :prefix_to_your_route
   end
 

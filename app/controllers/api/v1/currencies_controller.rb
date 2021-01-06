@@ -1,7 +1,7 @@
 class Api::V1::CurrenciesController < Api::BaseController
   before_action :authenticate_api_v1_user!
-  before_action :admin_or_contributor!, except: [:index, :show]
-  before_action :set_currency, only: [:show, :update, :destroy]
+  before_action :admin_or_contributor!, except: %i[index show]
+  before_action :set_currency, only: %i[show update destroy]
 
   # GET /currencies
   # GET /currencies.json

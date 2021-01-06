@@ -1,7 +1,7 @@
 class Api::V1::CountriesController < Api::BaseController
   before_action :authenticate_api_v1_user!, :admin_or_contributor!
-  before_action :admin_or_contributor!, except: [:index, :show]
-  before_action :set_country, only: [:show, :update, :destroy]
+  before_action :admin_or_contributor!, except: %i[index show]
+  before_action :set_country, only: %i[show update destroy]
 
   # GET /countries
   # GET /countries.json
@@ -12,8 +12,7 @@ class Api::V1::CountriesController < Api::BaseController
 
   # GET /countries/1
   # GET /countries/1.json
-  def show
-  end
+  def show; end
 
   # POST /countries
   # POST /countries.json
