@@ -1,5 +1,5 @@
 class Loan < ApplicationRecord
-  self.implicit_order_column = "created_at"
+  self.implicit_order_column = 'created_at'
 
   belongs_to :country
   belongs_to :currency

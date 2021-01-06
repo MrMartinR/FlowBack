@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # IMAGE FORMAT (JPEG, PNG, GIF, SVG)
   rolify
-  self.implicit_order_column = "created_at"
+  self.implicit_order_column = 'created_at'
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable
   include DeviseTokenAuth::Concerns::User
@@ -30,14 +30,18 @@ class User < ApplicationRecord
   end
 
   def assign_default_role
-    self.add_role(:user) if self.roles.blank?
+    add_role(:user) if roles.blank?
   end
 
+  # rubocop:disable Naming/PredicateName
   def is_admin?
-    self.has_role?(:admin)
+    has_role?(:admin)
   end
+  # rubocop:enable Naming/PredicateName
 
+  # rubocop:disable Naming/PredicateName
   def is_contributor?
-    self.has_role?(:contributor)
+    has_role?(:contributor)
   end
+  # rubocop:enable Naming/PredicateName
 end

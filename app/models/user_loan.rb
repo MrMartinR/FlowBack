@@ -32,16 +32,16 @@ class UserLoan < ApplicationRecord
   # Nobody will view/download the file, the load speed is not relevant.
   # so, I guess this has to be a path to the file.
 
-  MARKET_VALUES = ["primary", "secondary"]
-  INVEST_MODE_VALUES = ["manual", "preset", "auto"]
-  POSITION_VALUES = ["in", "out"]
+  MARKET_VALUES = %w[primary secondary].freeze
+  INVEST_MODE_VALUES = %w[manual preset auto].freeze
+  POSITION_VALUES = %w[in out].freeze
 
   validates :market, inclusion: { in: MARKET_VALUES }
   validates :invest_mode, inclusion: { in: INVEST_MODE_VALUES }
   validates :position, inclusion: { in: POSITION_VALUES }
   validates :xirr, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than: 0, less_than: 101 }
 
-  scope :by_user, ->(id_user) { where("user_id = ?", id_user) }
+  scope :by_user, ->(id_user) { where('user_id = ?', id_user) }
 
   # relation
   belongs_to :loan
