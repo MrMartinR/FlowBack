@@ -8,12 +8,12 @@ json.data @users do |user|
   if user.currency
     json.currency user.currency, :id, :name
   else
-    json.currency "Not found"
+    json.currency 'Not found'
   end
 
   if user.country
     json.country user.country, :id, :name
   else
-    json.country "Not found"
+    json.country 'Not found'
   end
 end

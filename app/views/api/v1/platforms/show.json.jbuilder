@@ -26,6 +26,6 @@ json.data [@platform] do |platform|
   if platform.contact.present?
     json.contact platform.contact
   else
-    json.contact "Not Found"
+    json.contact 'Not Found'
   end
 end
