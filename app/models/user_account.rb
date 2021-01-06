@@ -6,4 +6,3 @@ class UserAccount < ApplicationRecord
 
   has_many :user_loans
 end
- 

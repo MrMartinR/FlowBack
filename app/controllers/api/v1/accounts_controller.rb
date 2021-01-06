@@ -84,7 +84,6 @@ class Api::V1::AccountsController < Api::BaseController
     else
       json_response({ "status": 'FAIL', "messages": 'Something went wrong while deleting the account, try again!!' })
     end
-
   end
 
   private

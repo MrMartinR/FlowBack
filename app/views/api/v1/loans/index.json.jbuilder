@@ -1,4 +1,4 @@
-#json.array! @loans, partial: "loans/loan", as: :loan
+# json.array! @loans, partial: "loans/loan", as: :loan
 json.success true
 
 json.data @loans do |loan|
@@ -31,5 +31,3 @@ json.data @loans do |loan|
   json.installment loan.installment
   json.notes loan.notes
 end
-
-

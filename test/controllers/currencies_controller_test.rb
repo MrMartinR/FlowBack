@@ -5,12 +5,12 @@ class CurrenciesControllerTest < ActionDispatch::IntegrationTest
     @currency = currencies(:one)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get currencies_url, as: :json
     assert_response :success
   end
 
-  test "should create currency" do
+  test 'should create currency' do
     assert_difference('Currency.count') do
       post currencies_url, params: { currency: { code: @currency.code, decimal_places: @currency.decimal_places, name: @currency.name, symbol: @currency.symbol, type: @currency.type } }, as: :json
     end
@@ -18,17 +18,17 @@ class CurrenciesControllerTest < ActionDispatch::IntegrationTest
     assert_response 201
   end
 
-  test "should show currency" do
+  test 'should show currency' do
     get currency_url(@currency), as: :json
     assert_response :success
   end
 
-  test "should update currency" do
+  test 'should update currency' do
     patch currency_url(@currency), params: { currency: { code: @currency.code, decimal_places: @currency.decimal_places, name: @currency.name, symbol: @currency.symbol, type: @currency.type } }, as: :json
     assert_response 200
   end
 
-  test "should destroy currency" do
+  test 'should destroy currency' do
     assert_difference('Currency.count', -1) do
       delete currency_url(@currency), as: :json
     end

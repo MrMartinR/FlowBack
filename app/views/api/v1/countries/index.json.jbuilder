@@ -2,10 +2,10 @@ json.success true
 
 json.data @countries do |country|
   json.id country.id
-  json.name  country.name
+  json.name country.name
   json.iso_code country.iso_code
   json.continent country.continent
-  json.flag country.flag_image.attached?? rails_blob_path(country.flag_image) : nil
+  json.flag country.flag_image.attached? ? rails_blob_path(country.flag_image) : nil
 
   json.currency do
     json.id country.currency.id

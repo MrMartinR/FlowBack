@@ -2,7 +2,7 @@ class Originator < ApplicationRecord
   self.implicit_order_column = 'created_at'
 
   CONSUMER_CATEGORY = ['Personal', 'Debt Consolidation', 'Short Term',
-                         'Vehicle', 'Pawnbroking', 'Mortage', 'Bridge'].freeze
+                       'Vehicle', 'Pawnbroking', 'Mortage', 'Bridge'].freeze
   BUSINESS_CATEGORY = ['Agricultural',
                        'Invoice Trading',
                        'Debt Consolidation',
@@ -11,8 +11,7 @@ class Originator < ApplicationRecord
                        'Real Estate',
                        'Growth',
                        'Working Capital',
-                       'Bridge'
-                      ].freeze
+                       'Bridge'].freeze
 
   CUSTOMER_TYPE = %w[Business Consumer].freeze
 
@@ -29,5 +28,3 @@ class Originator < ApplicationRecord
   validates :customer_category,
             inclusion: { in: CUSTOMER_TYPE, message: "is not included in the list : #{CUSTOMER_TYPE.join(', ')}" }
 end
-
-

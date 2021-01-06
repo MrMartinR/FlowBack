@@ -31,4 +31,3 @@ json.data @platforms do |platform|
     json.contact 'Not Found'
   end
 end
-

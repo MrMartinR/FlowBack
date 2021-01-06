@@ -7,11 +7,10 @@ json.data @contact_methods do |contact_method|
   if contact.present?
     json.contact contact_method.contact
   else
-    json.contact "Not found"
+    json.contact 'Not found'
   end
   json.kind contact_method.kind
   json.visibility contact_method.visibility
   json.data contact_method.data
   json.notes contact_method.notes
 end
-
