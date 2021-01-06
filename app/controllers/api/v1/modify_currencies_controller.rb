@@ -9,10 +9,10 @@ class Api::V1::ModifyCurrenciesController < Api::BaseController
     if @account && !update_account_params[:currency_id].empty?
       update_account_params[:currency_id].each do |i|
         @account.currency_id << i
-        json_response({ "status": 'SUCCESS', "messages": 'Currency added' }) if @account.save
+        json_response({ status: true, messages: 'Currency added' }) if @account.save
       end
     else
-      json_response({ "status": 'FAIL', "messages": 'The account was not found or the params are empty' })
+      json_response({ status: false, messages: 'The account was not found or the params are empty' })
     end
   end
 
@@ -20,10 +20,10 @@ class Api::V1::ModifyCurrenciesController < Api::BaseController
     if @account && !update_account_params[:currency_id].empty?
       update_account_params[:currency_id].each do |i|
         @account.currency_id.delete(i)
-        json_response({ "status": 'SUCCESS', "messages": 'Currency deleted' }) if @account.save
+        json_response({ status: true, messages: 'Currency deleted' }) if @account.save
       end
     else
-      json_response({ "status": 'FAIL', "messages": 'The account was not found or the params are empty' })
+      json_response({ status: false, messages: 'The account was not found or the params are empty' })
     end
   end
 
