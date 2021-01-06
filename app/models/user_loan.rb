@@ -46,5 +46,5 @@ class UserLoan < ApplicationRecord
   # relation
   belongs_to :loan
   belongs_to :user_account
-  belong_to :user
+  belongs_to :user
 end
