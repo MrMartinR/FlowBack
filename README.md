@@ -1,3 +1,5 @@
+[![Ruby Style Guide](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg)](https://gitmoji.dev) [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop-hq/rubocop)
+
 [![Contributor][contributor-shield]][contributor-url]
 
 <br />
@@ -28,6 +30,7 @@
 - [About the Project](#about-the-project)
 - [Screenshots](#screenshots)
 - [Prerequisites Installations](#prerequisites-installations)
+- [Gems](#gems)
 - [Technology used](#technology-used)
 - [Usage/Getting Started](#how-to-Use)
 - [Roles Claim](#Roles-Claim)
@@ -85,6 +88,9 @@ image goes here
 - GitHub
 - PostgreSQL
 - Devise_token_auth
+
+## Gems
+
 
 ## Usage/Getting Started
 
