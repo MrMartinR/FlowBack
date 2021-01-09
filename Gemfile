@@ -52,8 +52,7 @@ gem "image_processing", "~> 1.2"
 # Reduces boot times through caching; required in config/boot.rb | https://github.com/Shopify/bootsnap/
 # commented due permission problems doing migrations https://github.com/Shopify/bootsnap/issues/77
 # also commented the line in the boot.rb file
-# I uncommented now
-gem "bootsnap", ">= 1.4.2", require: false
+# gem "bootsnap", ">= 1.4.2", require: false
 
 # Minimal embedded v8 engine for Ruby - auto prefixer | https://github.com/rubyjs/mini_racer
 gem "mini_racer"
