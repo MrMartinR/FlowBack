@@ -184,13 +184,13 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 - Using Postman:
 
 1. Create a new user with a POST request to your signup request, in this case is http://localhost:3000/api/v1/auth/sign_in and in Body with RAW format set the params you need to create a new user (like in the example) and click send. or login
-   <img src="./screenshots/register.png" alt="screenshot1"/>
+   <img src="./docs/screenshots/register.png" alt="screenshot1"/>
 
 2. Now that you got the response of the request, the params you need are in the header of the request, click to Headers tab to see them.
-   <img src="./screenshots/header.png" alt="screenshot1"/>
+   <img src="./docs/screenshots/header.png" alt="screenshot1"/>
 
 3. Then create a new request in Postman with the GET that requires the authorization and in Headers set the values access-token, client, uid from the header of the last request.
-   <img src="./screenshots/request.png" alt="screenshot1"/>
+   <img src="./docs/screenshots/request.png" alt="screenshot1"/>
 
 ### Endpoints
 
