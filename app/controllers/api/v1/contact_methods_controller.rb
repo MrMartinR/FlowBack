@@ -3,7 +3,11 @@ class Api::V1::ContactMethodsController < Api::BaseController
   before_action :set_contact_method, only: %i[show update destroy]
 
   def index
-    @contact_methods = ContactMethod.includes(:contact).where('contact_id = ?', contact_method_params[:contact_id])
+    if params[:contact_id]
+      @contact_methods = ContactMethod.includes(:contact).where('contact_id = ?', params[:contact_id])
+    else
+      json_response({ success: false, message: 'Contact Id needed to get contact methods ' }, :unprocessable_entity)
+    end
   end
 
   def show; end
