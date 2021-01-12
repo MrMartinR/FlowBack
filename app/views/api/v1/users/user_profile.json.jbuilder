@@ -12,9 +12,9 @@ json.data [@user] do |user|
   if @user.avatar&.attached?
     # json.avatar_url Rails.application.routes.url_helpers.rails_representation_url(user.avatar.variant(resize: "400x400").processed, only_path: true) rescue ""
     begin
-      json.avatar_url 'https://api.flowfin.tech' + Rails.application.routes.url_helpers.rails_representation_url(
+      json.avatar_url `https://api.flowfin.tech #{Rails.application.routes.url_helpers.rails_representation_url(
         user.avatar.variant(resize: '400x400').processed, only_path: true
-      )
+      )}`
     rescue StandardError
       ''
     end

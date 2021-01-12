@@ -7,8 +7,7 @@ module ApplicationHelper
     # create the md5 hash
     hash = Digest::MD5.hexdigest(email_address)
     # compile URL which can be used in <img src="RIGHT_HERE"...
-    image_src = "https://www.gravatar.com/avatar/#{hash}"
-    image_src
+    "https://www.gravatar.com/avatar/#{hash}"
   end
 
   def parser_json(str)
@@ -18,7 +17,7 @@ module ApplicationHelper
   end
 
   def date_format(date)
-    if date.class == Date
+    if date.instance_of?(Date)
       date.strftime('%Y-%m-%d')
     else
       date
