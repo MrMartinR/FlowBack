@@ -1,4 +1,6 @@
 AllCops:
+  NewCops: enable
+
   Exclude:
     - "db/**/*"
     - "bin/*" 
@@ -25,7 +27,7 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Max: 150
 Metrics/BlockLength:
-  ExcludedMethods: ['describe']
+  IgnoredMethods: ['describe']
   Max: 100
 Metrics/CyclomaticComplexity:
   Enabled: false

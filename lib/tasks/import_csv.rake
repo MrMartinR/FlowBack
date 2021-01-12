@@ -2,7 +2,7 @@ task import_data: :environment do
   require 'csv'
   # currencies export
   # Currency.delete_all
-  path = Rails.root.to_s + '/public/currencies.csv'
+  path = "#{Rails.root}/public/currencies.csv"
   # puts path
   CSV.foreach(path, 'r') do |row|
     # ...
@@ -23,7 +23,7 @@ task import_data: :environment do
   end
 
   # Country.delete_all
-  path = Rails.root.to_s + '/public/countries.csv'
+  path = "#{Rails.root}/public/countries.csv"
   # puts path
   CSV.foreach(path, 'r') do |row|
     # ...
@@ -43,7 +43,7 @@ task import_data: :environment do
     end
   end
 
-  path = Rails.root.to_s + '/public/accounts.csv'
+  path = "#{Rails.root}/public/accounts.csv"
   # puts path
   CSV.foreach(path, 'r') do |row|
     # ...
