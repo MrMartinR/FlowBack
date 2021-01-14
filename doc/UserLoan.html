@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: UserLoan
+  
+    &mdash; Documentation by YARD 0.9.26
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "UserLoan";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (U)</a> &raquo;
+    
+    
+    <span class="title">UserLoan</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: UserLoan
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActiveRecord::Base</li>
+          
+            <li class="next"><span class='object_link'><a href="ApplicationRecord.html" title="ApplicationRecord (class)">ApplicationRecord</a></span></li>
+          
+            <li class="next">UserLoan</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>app/models/user_loan.rb</dd>
+  </dl>
+  
+</div>
+
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="MARKET_VALUES-constant" class="">MARKET_VALUES =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>notes : xiir value This is a calculated value (XIRR from the table transactions) % format, 2 decimals</p>
+
+<p>:invest_mode Possible values: platform::invest_mode [Manual | Preset | Auto]</p>
+
+<p>:investment amount This is a calculated value (Sum all transactions with Category = Investment) (positive value)</p>
+
+<p>:position Possible values: [In | Out]</p>
+
+<p>:date_in This is a calculated value. First value from transactions::date where Category = Investment (Or the minimum date from transactions) :date_out This is a calculated value. Maximum date from transactions if user_loans::position = “Out”</p>
+
+<p>:principal_remaining This is a calculated value (Sum all transactions with Category = Invest) - (sum all transactions with category Principal) or investment_amount - sum all transactions with category “Principal”</p>
+
+<p>:interest, :bonus , :tax, :loss, :fee Those are calculated values, sum all transactions based on transactions::category</p>
+
+<p>:contract_url Is a document, mostly a pdf, but sometimes a .doc,  Will be thousands of them, not sure about the average size, but I guess it has to be saved in the filesystem, not in the database. Nobody will view/download the file, the load speed is not relevant. so, I guess this has to be a path to the file.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>primary</span><span class='words_sep'> </span><span class='tstring_content'>secondary</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="INVEST_MODE_VALUES-constant" class="">INVEST_MODE_VALUES =
+          
+        </dt>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>manual</span><span class='words_sep'> </span><span class='tstring_content'>preset</span><span class='words_sep'> </span><span class='tstring_content'>auto</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+        <dt id="POSITION_VALUES-constant" class="">POSITION_VALUES =
+          
+        </dt>
+        <dd><pre class="code"><span class='qwords_beg'>%w[</span><span class='tstring_content'>in</span><span class='words_sep'> </span><span class='tstring_content'>out</span><span class='tstring_end'>]</span></span><span class='period'>.</span><span class='id identifier rubyid_freeze'>freeze</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+  
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Jan 14 08:00:34 2021 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.26 (ruby-2.6.5).
+</div>
+
+    </div>
+  </body>
+</html>
