@@ -2,56 +2,29 @@
 
 [![Contributor][contributor-shield]][contributor-url]
 
-<br />
+<br>
 
-<p align="center">
-  <h1 align="center">FlowBack
- </h1>
-  <p align="center">
-    Rail API
-    <br />
-    <a href="https://github.com/FlowFintech/FlowBack.git"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    ·
-    <a href="https://github.com/FlowFintech/FlowBack/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/FlowFintech/FlowBack/issues/issues">Request Feature</a>
-  </p>
-</p>
+<img src="./docs/backend.svg">
+
+<br>
 
 # [Ruby StyleGuide](docs/StyleGuide-Ruby.adoc)
-
 
 <!-- TABLE OF CONTENTS -->
 
 ## Table of Contents
 
-- [About the Project](#about-the-project)
-- [Screenshots](#screenshots)
-- [Prerequisites Installations](#prerequisites-installations)
-- [Gems](#gems)
-- [Technology used](#technology-used)
-- [Usage/Getting Started](#how-to-Use)
+- [Getting Started](#getting-started)
+- [Cloning the Repository](#cloning-the-repository)
+- [Code Documentation](#code-documentation)
+- [Contributing](#contributing)
 - [Roles Claim](#Roles-Claim)
 - [API Endpoints](#API-Endpoints)
 - [Live Version](#live-version)
 - [Roadmap](#roadmap)
-- [Authors](#authors)
+- [Contributors](#contributors)
 
-<!-- ABOUT THE PROJECT -->
-
-## About The Project
-
-This project implements an investment management application to track investments, personal finance, budget, retirements, Financial Independence Retire Early movement FIRE, all stuff related to Personal Finance.
-
-### Background information
-
-When a business or an individual is in need of a loan, they reach out to loan originator. In most case, the loan originator does not have the money to give to this client. So, what the loan originator does is to float the loan and allow investors to fund it. The floating or display of a loan that need funding is done on a platform. Sometimes, the loan originator have their own platform.
-Now, the investor does not just invest in one platform but in multiple platforms and at times with different loan originator on the same platform (now referred to as a market place as it has more that one loan originator). These bring us to our application, `Flow`, an investment management application.
-
-Using Flow, an investor is able to take the information `after` investing in a platform and add it to our application for easier management. In the past, the investor would have numerous excel files that stored this data which is messy, not easily accessible and does not have that good user experience with tools such as sort, classify by, just ready available to them; so Flow.
-
+```
 Specification Summary:
 
 - RESTful API.
@@ -64,101 +37,197 @@ Specification Summary:
 - Setup Scripts.
 - Postgres Database.
 - JSON Serialization.
-
-## Screenshots
-
-#### Home
-
-image goes here
-
-## Prerequisites Installations
-
-- Install ruby version 2.6.5 and set it with your ruby environment manager
-  ([more info here](https://www.ruby-lang.org/en/documentation/installation/)).
-
-- Install Postgres and start the PostgreSQL server in the foreground
-  ([more info here](https://wiki.postgresql.org/wiki/Detailed_installation_guides)).
-
-<p>If you want a copy of this project running on your machine you have to install:</p>
-
-## Technology used
-
-- Ruby
-- Rails
-- GitHub
-- PostgreSQL
-- Devise_token_auth
-
-## Gems
-
-
-## Usage/Getting Started
-
-Once you have installed the required package shown on the [Prerequisites Installations](#required-installations), proceed with the following steps
-
-Clone the Repository,
-
-```Shell
-your@pc:~$ git clone https://github.com/FlowFintech/FlowBack
 ```
 
-Move into the cloned folder
+# Getting Started
 
-```Shell
-your@pc:~$ cd FlowBack
+## Package Manager
+
+[<img src="./docs/yarn.svg" width="60px" title="Yarn">](https://yarnpkg.com)
+Use [Yarn](https://yarnpkg.com) as a packager manager application.
+
+macOS via [Homebrew](http://brew.sh/)
+
+```shell
+brew install yarn
 ```
 
-Get the dependencies needed for the app
+Debian/Ubuntu
 
-```Shell
-your@pc:~$ bundle install
+```shell
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 ```
 
-Set environment variables
-
-```
-export USERNAME="change to your database_username"
-export PASSWORD="change to your database_password"
-export HOST="change to your host address"
+```shell
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 ```
 
-NB: Defaults
+<br>
 
-```
-1. The default host is: "localhost" if you have not changed it
-2. Ensure that the USERNAME is a Superuser in psql
-```
+## <img src="./docs/ruby.svg" width="30px" title="Ruby"> [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
 
-Help cookies
+Is probably that you already have Ruby installed in your computer, you can check it typing the following comand in your terminal.
 
-- Go to your terminal in ubuntu and type: `sudo su - postgres`
-- Then `psql` to access - Postgres
-- `\du` to list all user and their attributes
-- `ALTER ROLE username SUPERUSER` to alter the user.
-
-Create a postgres role to let rails manage the db:
-
-```
-rake db:create
+```shell
+ruby -v
 ```
 
-Setup databases migrations:
+We are using ruby version **_2.6.5_**, is important to use this version. If you are using a diferent version of Ruby, upgrade or downgrade the version using the follow command
 
-```
-rake db:migrate
-```
+_macOS_
 
-Seed data for development
-
-```
-your@pc:~$ rake db:seed
+```shell
+brew install ruby@2.6.5
 ```
 
-Start the server and use the app
+_Debian/Ubuntu_
 
+```shell
+?????  ruby@2.6.5
 ```
-your@pc:~$ rails s
+
+More info about Ruby instalation [here](https://www.ruby-lang.org/en/documentation/installation/)
+
+> If you need other Ruby versions for other projects, you need to install [Ruby Version Manager](http://rvm.io) (RVM) that allows you to install and manage multiple installations of Ruby on your system. It can also manage different gemsets.
+
+<br>
+<br>
+
+## <img src="./docs/postgresql.svg" width="30px" title="PostgreSQL"> [PostgreSQL](https://wiki.postgresql.org/wiki/Detailed_installation_guides)
+
+Flow uses PostgreSQL database version 12.3, so you need to install it in your local and import [this]() data into the tables.
+
+- _macOS_
+
+  - [Postgres.app](https://postgresapp.com/downloads.html)
+
+  - [pgAdmin](https://www.pgadmin.org/download/pgadmin-4-macos/)
+
+<br>
+
+- _Debian/Ubuntu_
+
+  ```shell
+  # apt install postgresql postgresql-client
+  ```
+
+  - [pgAdmin](https://www.pgadmin.org/download/pgadmin-4-apt/)
+
+<br>
+<hr>
+<br>
+
+# <img src="./docs/octocat.svg" width="30px" title="Cloning the Repository"> [Cloning the Repository](https://wiki.postgresql.org/wiki/Detailed_installation_guides)
+
+> <img src="./docs/github.svg" width="20px" title="TypeScript"> [GitHub Desktop](https://desktop.github.com)
+> Alternatively, you can use GitHub Desktop for Windows and macOS for deal with the repos.
+
+<br>
+
+_Debian/Ubuntu_
+
+- Clone the repo
+
+  ```Shell
+  your@pc:~$ git clone https://github.com/FlowFintech/FlowBack
+  ```
+
+- Move into the cloned folder
+
+  ```Shell
+  your@pc:~$ cd FlowBack
+  ```
+
+- Get the dependencies needed for the app
+
+  ```Shell
+  your@pc:~$ bundle install
+  ```
+
+- Set environment variables
+
+  ```shell
+    export USERNAME="change to your database_username"
+    export PASSWORD="change to your database_password"
+    export HOST="change to your host address"
+  ```
+
+- NB: Defaults
+
+  ```shell
+    1. The default host is: "localhost" if you have not changed it
+    2. Ensure that the USERNAME is a Superuser in psql
+  ```
+
+- Help cookies
+
+  - Go to your terminal in ubuntu and type: `sudo su - postgres`
+  - Then `psql` to access - Postgres
+  - `\du` to list all user and their attributes
+  - `ALTER ROLE username SUPERUSER` to alter the user.
+
+- Create a postgres role to let rails manage the db:
+
+  ```shell
+  rake db:create
+  ```
+
+- Setup databases migrations:
+
+  ```shell
+  rake db:migrate
+  ```
+
+- Seed data for development
+
+  ```shell
+  your@pc:~$ rake db:seed
+  ```
+
+- Start the server and use the app
+
+  ```shell
+  your@pc:~$ rails s
+  ```
+
+<hr>
+<br>
+
+## Code Documentation
+
+You can find [here](./doc/index.html) the documentation about Classes and Methods.
+
+Here you can find the [API Documentation ](https://app.swaggerhub.com/apis/Flow-Fintech/FlowAPI/1.0.0/)
+
+<br>
+<hr>
+<br>
+
+## Contributing
+
+Depending on whether your implementing a **feature**, doing a **chore**, fixing **bugs** or a **hotfix**, you must use the following branches naming convention: {type/short-description}
+_Example_
+
+```shell
+git checkout -b bug/fixing-layout
+git checkout -b feature/adding-loan-details
+git checkout -b chore/correct-typo
+git checkout -b hotfix/refactor-jb
 ```
+
+> Your feature/bug branch should be requested to merge into the `dev` branch and upon approval and merging of the PR, the branch should be deleted.
+
+<br>
+
+### **Important**: Do not install any Gem, if you feel you miss some Gem, create a discussion thread in #backend channel in Slack
+
+<br>
+
+You can report <a href="https://github.com/FlowFintech/FlowBack/issues">Report Bugs here</a> or open a discussion thread in Slack.
+
+<br>
+<hr>
+<br>
 
 ## Roles Claim
 
@@ -190,90 +259,19 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
    <img src="./docs/screenshots/header.png" alt="screenshot1"/>
 
 3. Then create a new request in Postman with the GET that requires the authorization and in Headers set the values access-token, client, uid from the header of the last request.
-   <img src="./docs/screenshots/request.png" alt="screenshot1"/>
-
-### Endpoints
-
-Here you can find the API Documentation
-([API Documentation ](https://app.swaggerhub.com/apis/Flow-Fintech/FlowAPI/1.0.0/)).
-
-| API Endpoint                           | Functionality                                | Status | User                       |
-| -------------------------------------- | -------------------------------------------- | ------ | -------------------------- |
-| POST api/v1/auth/sign_in               | Login a user                                 | OK     | ALL                        |
-| POST api/v1/auth/                      | Register a user                              | OK     | ALL                        |
-| GET api/v1/user_accounts               | Returns a list of User Accounts              | OK     | User                       |
-| GET api/v1/accounts                    | Returns a list of accounts                   | OK     | Admin or contrib           |
-| POST api/v1/accounts                   | Create a new accounts                        | Ok     | Admin or Contrib           |
-| PUT api/v1/accounts/:id                | Update an account bt nt currency & country   | Ok     | Admin or Contrib           |
-| DELETE api/v1/accounts/:id             | Delete an account                            | Ok     | Admin or Contrib           |
-| PUT api/v1/modify_countries/:id        | Update an account countries                  | Ok     | Admin or Contrib           |
-| DELETE api/v1/modify_countries/:id     | Delete an account countries                  | Ok     | Admin or Contrib           |
-| PUT api/v1/modify_currencies/:id       | Update an account currencies                 | Ok     | Admin or Contrib           |
-| DELETE api/v1/modify_currencies/:id    | Delete an account currencies                 | Ok     | Admin or Contrib           |
-| GET api/v1/currencies                  | Returns a list of Currencies                 |
-| POST api/v1/currencies                 | Create a new Currency                        |
-| GET api/v1/countries                   | Returns a list of countries                  |
-| POST api/v1/countries                  | Create a new Currency                        |
-| POST api/v1/contacts                   | Create a new contact                         | OK     | Admin, Contrib or User     |
-| GET api/v1/contacts                    | Get all public contact                       | OK     | Admin, Contrib or User-own |
-| GET api/v1/contacts/:id                | Get a contact                                | OK     | Admin, Contrib or User-own |
-| PUT api/v1/contacts/:id                | Update a contact                             | OK     | Admin, Contrib or User-own |
-| DELETE api/v1/contacts/:id             | Delete a contact                             | OK     | Admin, Contrib or User-own |
-| POST api/v1/originators                | Create a new originators                     | OK     | Admin, Contrib             |
-| GET api/v1/originators                 | Get all originators                          | OK     | ALL                        |
-| GET api/v1/originators/:id             | Get an originators                           | OK     | ALL                        |
-| PUT api/v1/originators/:id             | Update originator                            | OK     | Admin, Contrib             |
-| DELETE api/v1/originators/:id          | Delete originator                            | OK     | Admin, Contrib             |
-| POST api/v1/platforms                  | Create a new platform                        | OK     | Admin, Contrib             |
-| GET api/v1/platforms                   | Get all platforms                            | OK     | ALL                        |
-| GET api/v1/platforms/:id               | Get an platforms                             | OK     | ALL                        |
-| PUT api/v1/platforms/:id               | Update a platforms                           | OK     | Admin, Contrib             |
-| DELETE api/v1/platforms/:id            | Delete a platforms                           | OK     | Admin, Contrib             |
-| POST api/v1/platform_originators       | Create a new platform originator             | OK     | Admin, Contrib             |
-| GET api/v1/platform_originators        | Get all platform originators                 | OK     | ALL                        |
-| GET api/v1/platform_originators/:id    | Get a platform originator                    | OK     | ALL                        |
-| PUT api/v1/platform_originators/:id    | Update a platform_originator                 | OK     | Admin, Contrib             |
-| DELETE api/v1/platform_originators/:id | Delete a platform_originators                | OK     | Admin, Contrib             |
-| POST api/v1/contact_methods            | Create a new contact_method                  | OK     | Admin, Contrib or User     |
-| GET api/v1/contact_methods             | Get all public and own contact_methods       | OK     | Admin, Contrib or User-own |
-| GET api/v1/contact_methods/:id         | Get a contact_methods                        | OK     | Admin, Contrib or User-own |
-| PUT api/v1/contact_methods/:id         | Update a contact_methods                     | OK     | Admin, Contrib or User-own |
-| DELETE api/v1/contact_methods/:id      | Delete a contact_methods                     | OK     | Admin, Contrib or User-own |
-| POST api/v1/loans                      | Create a new loan                            | OK     | Admin, Contrib             |
-| GET api/v1/loans                       | Get all loans                                | OK     | ALL                        |
-| GET api/v1/loans/:id                   | Get a loan                                   | OK     | ALL                        |
-| PUT api/v1/loans/:id                   | Update a loan                                | OK     | Admin, Contrib             |
-| DELETE api/v1/loans/:id                | Delete a loan                                | OK     | Admin, Contrib             |
-| POST api/v1/user_accounts              | Create a new user_accounts                   | OK     | Admin, Contrib or User own |
-| GET api/v1/user_accounts               | Get all user user_accounts                   | OK     | Admin, Contrib or User own |
-| GET api/v1/user_accounts/:id           | Get a user user_accounts                     | OK     | Admin, Contrib or User own |
-| PUT api/v1/user_accounts/:id           | Update a user_accounts                       | OK     | Admin, Contrib or User own |
-| DELETE api/v1/user_accounts/:id        | Delete a user_accounts                       | OK     | Admin, Contrib or User own |
-| POST api/v1/transactions               | Create a new transactions under user_account | OK     | Admin, Contrib or User own |
-| GET api/v1/transactions                | Get all transactions under user_account      | OK     | Admin, Contrib or User own |
-| GET api/v1/transactions/:id            | Get a transactions under user_account        | OK     | Admin, Contrib or User own |
-| PUT api/v1/transactions/:id            | Update a transactions under user_account     | OK     | Admin, Contrib or User own |
-| DELETE api/v1/transactions/:id         | Delete a transactions under user_account     | OK     | Admin, Contrib or User own |
-| POST api/v1/user_loans                 | Create a new user_loan                       | OK     | User own                   |
-| GET api/v1/user_loans                  | Get all user_loans                           | OK     | User own                   |
-| GET api/v1/user_loans/:id              | Get a user_loan                              | OK     | User own                   |
-| PUT api/v1/user_loans/:id              | Update a user_loan                           | OK     | User own                   |
-| DELETE api/v1/user_loans/:id           | Delete a user_loan                           | OK     | User own                   |
-| POST api/v1/user_platforms             | Create a new user_platforms                  | OK     | User own                   |
-| GET api/v1/user_platforms              | Get all user_platforms                       | OK     | User own                   |
-| GET api/v1/user_platforms/:id          | Get a user_platforms                         | OK     | User own                   |
-| PUT api/v1/user_platforms/:id          | Update a user_platforms                      | OK     | User own                   |
-| DELETE api/v1/user_platforms/:id       | Delete a user_platforms                      | OK     | User own                   |
-| GET api/v1/users                       | Get all users                                | OK     | Admin                      |
-| GET api/v1/user_profile                | Get logged in user profile                   | OK     | Admin, Contrib or User     |
-| POST api/v1/update_profile             | Update the currency and country in profile   | OK     | Admin, Contrib or User     |
-| PUT api/v1/users/:id                   | Update user profile                          | OK     | Admin, Contrib or User     |
+<img src="./docs/screenshots/request.png" alt="screenshot1"/>
+<br>
+<hr>
+<br>
 
 ## Live Version
 
 This is the link to the live preview. Feel free to visit.<br>
 [FlowBack](https://app.flowfin.tech/)<br>
 
+<br>
+<hr>
+<br>
 <!-- ROADMAP -->
 
 ## Roadmap
@@ -282,11 +280,9 @@ See the [open issues](https://github.com/FlowFintech/FlowBack/issues/issues) for
 
 <!-- CONTACT -->
 
-## Authors
+## Contributors
 
-Martin
-
-- [GitHub profile](https://github.com/FlowFintech)
+[@TODO]
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
