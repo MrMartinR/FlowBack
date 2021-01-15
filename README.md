@@ -4,63 +4,21 @@
 
 <br>
 
-<img src="./docs/backend.svg">
+<img src="./docs/flow-header.svg">
 
 <br>
 
-# [Ruby StyleGuide](docs/StyleGuide-Ruby.adoc)
+<br>
 
-<!-- TABLE OF CONTENTS -->
+# [Ruby StyleGuide (Read)](docs/StyleGuide-Ruby.adoc)
 
-## Table of Contents
-
-- [Getting Started](#getting-started)
-- [Cloning the Repository](#cloning-the-repository)
-- [Code Documentation](#code-documentation)
-- [Contributing](#contributing)
-- [Roles Claim](#Roles-Claim)
-- [API Endpoints](#API-Endpoints)
-- [Live Version](#live-version)
-- [Roadmap](#roadmap)
-- [Contributors](#contributors)
-
-```
-Specification Summary:
-
-- RESTful API.
-- API Versioning.
-- Financial Modules.
-- Patterns and Good Practices.
-- Users Management.
-- Secret/Token API Key.
-- Rspec Testing.
-- Setup Scripts.
-- Postgres Database.
-- JSON Serialization.
-```
+<br>
 
 # Getting Started
 
-## Package Manager
+⚠️ First you must go to [Flow Developer Portal](https://dev.flowfin.tech) for the general requirements and the project overview.
 
-[<img src="./docs/yarn.svg" width="60px" title="Yarn">](https://yarnpkg.com)
-Use [Yarn](https://yarnpkg.com) as a packager manager application.
-
-macOS via [Homebrew](http://brew.sh/)
-
-```shell
-brew install yarn
-```
-
-Debian/Ubuntu
-
-```shell
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-```
-
-```shell
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-```
+<hr>
 
 <br>
 
@@ -72,46 +30,25 @@ Is probably that you already have Ruby installed in your computer, you can check
 ruby -v
 ```
 
-We are using ruby version **_2.6.5_**, is important to use this version. If you are using a diferent version of Ruby, upgrade or downgrade the version using the follow command
+<br>
 
-_macOS_
+**Installing Ruby**
+
+_macOS_ using [Homebrew](http://brew.sh/")
 
 ```shell
 brew install ruby@2.6.5
 ```
 
-_Debian/Ubuntu_
+_Ubuntu_
 
 ```shell
-?????  ruby@2.6.5
+sudo apt install ruby-full
 ```
 
 More info about Ruby instalation [here](https://www.ruby-lang.org/en/documentation/installation/)
 
-> If you need other Ruby versions for other projects, you need to install [Ruby Version Manager](http://rvm.io) (RVM) that allows you to install and manage multiple installations of Ruby on your system. It can also manage different gemsets.
-
-<br>
-<br>
-
-## <img src="./docs/postgresql.svg" width="30px" title="PostgreSQL"> [PostgreSQL](https://wiki.postgresql.org/wiki/Detailed_installation_guides)
-
-Flow uses PostgreSQL database version 12.3, so you need to install it in your local and import [this]() data into the tables.
-
-- _macOS_
-
-  - [Postgres.app](https://postgresapp.com/downloads.html)
-
-  - [pgAdmin](https://www.pgadmin.org/download/pgadmin-4-macos/)
-
-<br>
-
-- _Debian/Ubuntu_
-
-  ```shell
-  # apt install postgresql postgresql-client
-  ```
-
-  - [pgAdmin](https://www.pgadmin.org/download/pgadmin-4-apt/)
+We are using ruby version **_2.6.5_**, is important to use this version. If you are using a diferent version of Ruby, upgrade or downgrade the version using the [Ruby Version Manager](http://rvm.io) (RVM) that allows you to install and manage multiple installations of Ruby on your system. It can also manage different gemsets.
 
 <br>
 <hr>
@@ -119,12 +56,9 @@ Flow uses PostgreSQL database version 12.3, so you need to install it in your lo
 
 # <img src="./docs/octocat.svg" width="30px" title="Cloning the Repository"> [Cloning the Repository](https://wiki.postgresql.org/wiki/Detailed_installation_guides)
 
-> <img src="./docs/github.svg" width="20px" title="TypeScript"> [GitHub Desktop](https://desktop.github.com)
-> Alternatively, you can use GitHub Desktop for Windows and macOS for deal with the repos.
-
 <br>
 
-_Debian/Ubuntu_
+_Ubuntu_
 
 - Clone the repo
 
@@ -141,15 +75,21 @@ _Debian/Ubuntu_
 - Get the dependencies needed for the app
 
   ```Shell
-  your@pc:~$ bundle install
+  FlowBack:~$ bundle install
   ```
 
 - Set environment variables
 
   ```shell
-    export USERNAME="change to your database_username"
-    export PASSWORD="change to your database_password"
-    export HOST="change to your host address"
+  FlowBack:~$ export USERNAME="change to your database_username"
+  ```
+
+  ```shell
+  FlowBack:~$ export PASSWORD="change to your database_password"
+  ```
+
+  ```shell
+  FlowBack:~$ export HOST="change to your host address"
   ```
 
 - NB: Defaults
@@ -190,16 +130,6 @@ _Debian/Ubuntu_
   your@pc:~$ rails s
   ```
 
-<hr>
-<br>
-
-## Code Documentation
-
-You can find [here](./doc/index.html) the documentation about Classes and Methods.
-
-Here you can find the [API Documentation ](https://app.swaggerhub.com/apis/Flow-Fintech/FlowAPI/1.0.0/)
-
-<br>
 <hr>
 <br>
 
@@ -263,16 +193,6 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 <br>
 <hr>
 <br>
-
-## Live Version
-
-This is the link to the live preview. Feel free to visit.<br>
-[FlowBack](https://app.flowfin.tech/)<br>
-
-<br>
-<hr>
-<br>
-<!-- ROADMAP -->
 
 ## Roadmap
 
