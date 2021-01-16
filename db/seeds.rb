@@ -1,3 +1,7 @@
+
+require 'csv'
+
+
 def rand_float
   rand(0..20)
 end
@@ -37,6 +41,17 @@ end
 def rand_user
   User.order("RANDOM()").first
 end
+
+
+
+countries = File.read(Rails.root.join('lib', 'seeds', 'countries.csv'))
+currencies = File.read(Rails.root.join('lib', 'seeds', 'currencies.csv'))
+transactions = File.read(Rails.root.join('lib', 'seeds', 'transactions.csv'))
+user_accounts = File.read(Rails.root.join('lib', 'seeds', 'user_accounts.csv'))
+user_roles = File.read(Rails.root.join('lib', 'seeds', 'user_roles.csv'))
+users = File.read(Rails.root.join('lib', 'seeds', 'users.csv'))
+
+
 #
 # # This file should contain all the record creation needed to seed the database with its default values.
 # # The data can then be loaded with the rails db:seed command (or find_or_create_byd alongside the database with db:setup).
