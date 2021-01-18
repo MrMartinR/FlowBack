@@ -232,14 +232,14 @@ p "=============== users_roles-CSV Seed          ->       [Functioning]! =======
 #   })
 # end
 p "=============== users-CSV Seed                ->  [Work in progress]! ==============="
-# [Not Working] Issue with inconsistent data in the csv file
+# [Working]
 # CSV.foreach(Rails.root.join("lib/seeds/originators.csv"), headers: false) do |row|
 #  Originator.create({
-#     :product_category_consumer
-#     :product_category_business
+#     product_category_consumer: row[9]
+#     product_category_business: row[10]
 #     :apr,
 #     :contact_id,
-#     :customer_category
+#     customer_category: row[5]
 #   }) 
 # end
 #
