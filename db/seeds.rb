@@ -118,32 +118,7 @@ require "csv"
 #     updated_at: row[5],
 #   })
 # end
-p "=============== Roles-CSV Seed                ->  [Work in progress]! ==============="
-# Users [Not Working] ...issue with inconsisted data in the CSV
-# CSV.foreach(Rails.root.join("lib/seeds/users.csv"), headers: false) do |row|
-#   User.create({
-#     id: row[0],
-#     provider: row[1],
-#     uid: row[2],
-#     encrypted_password: row[3],
-#     reset_password_token: row[4],
-#     reset_password_sent_at: row[5],
-#     allow_password_change: row[6],
-#     remember_created_at: row[7],
-#     username: row[8],
-#     email: row[9],
-#     currency_id: row[10],
-#     country_id: row[11],
-#     tokens: row[12],
-#     created_at: row[13],
-#     updated_at: row[14],
-#     dob: row[15],
-#     name: row[16],
-#     surname: row[17],
-#     contact_id: row[18],
-#   })
-# end
-p "=============== Users-CSV Seed                ->  [Work in progress]! ==============="
+p "=============== roles-CSV Seed                ->  [Work in progress]! ==============="
 # Users Roles [Not Working] NameError: uninitialized constant UsersRoles
 # CSV.foreach(Rails.root.join("lib/seeds/users_roles.csv"), headers: false) do |row|
 #   UsersRoles.create({
@@ -151,7 +126,7 @@ p "=============== Users-CSV Seed                ->  [Work in progress]! =======
 #     role_id: row[1],
 #   })
 # end
-p "=============== UsersRoles-CSV Seed           ->  [Work in progress]! ==============="
+p "=============== users_roles-CSV Seed          ->  [Work in progress]! ==============="
 # Currencies [Working]
 # CSV.foreach(Rails.root.join("lib/seeds/currencies.csv"), headers: false) do |row|
 #   Currency.create({
@@ -166,7 +141,7 @@ p "=============== UsersRoles-CSV Seed           ->  [Work in progress]! =======
 #     fx_eur: row[8],
 #   })
 # end
-p "=============== Currency-CSV Seed             ->       [Functioning]! ==============="
+p "=============== currency-CSV Seed             ->       [Functioning]! ==============="
 # [Not Working] Issue with inconsistent data in the csv file
 # CSV.foreach(Rails.root.join("lib/seeds/platform_originators.csv"), headers: false) do |row|
 #   PlatformOriginator.create({
@@ -192,7 +167,7 @@ p "=============== Currency-CSV Seed             ->       [Functioning]! =======
 #     currency_id: row[19],
 #   })
 # end
-p "=============== Platform_originators-CSV Seed ->  [Work in progress]! ==============="
+p "=============== platform_originators-CSV Seed ->  [Work in progress]! ==============="
 # [Not Working] Issue with inconsistent data in the csv file
 # CSV.foreach(Rails.root.join("lib/seeds/transactions.csv"), headers: false) do |row|
 #   Transaction.create({
@@ -223,7 +198,7 @@ p "=============== transactions-CSV Seed         ->  [Work in progress]! =======
 #     active: row[5]
 #   })
 # end
-p "=============== transactions-CSV Seed         ->       [Functioning]! ==============="
+p "=============== user_accounts-CSV Seed        ->       [Functioning]! ==============="
 # [Working]
 # CSV.foreach(Rails.root.join("lib/seeds/users_roles.csv"), headers: false) do |row|
 #     UsersRoles.create({
