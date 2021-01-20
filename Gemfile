@@ -77,7 +77,6 @@ group :development, :test do
   gem 'rubocop', '~> 1.8', require: false
 
   # YARD is a documentation generation tool for the Ruby programming language.
-  gem 'hirb', '~> 0.7.3'
   gem 'yard'
 
   # Sajjad installed this gem
