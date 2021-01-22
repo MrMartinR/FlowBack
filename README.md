@@ -72,6 +72,55 @@ _Ubuntu_
   your@pc:~$ cd FlowBack
   ```
 
+#### There are two ways to run the server:
+
+#### With Docker or Manually with Puma, using rails s
+
+
+### Using Docker:
+
+Uninstall postgres from your local machine to avoid network conflict with docker image that would map to the same port,
+when you run docker docker-compose up.
+
+To uninstall postgres watch this [video](https://www.youtube.com/watch?v=igHxugGeON0&feature=youtu.be) but do not uninstall the clients, which is the last step on the video.
+
+Once you are done go on and run the following commands:
+
+To build the image, run 
+
+``` 
+  docker-compose build
+```
+
+To boot the app
+
+``` 
+  docker-compose up
+```
+
+If all went well, you should see some PostgreSQL output.
+
+Finally, you need to create the database. In another terminal run:
+
+### Uncomment line 25 on database.yml file (Remember not to commit and push any changes after the dev branch)
+
+``` 
+    docker-compose run web rails db:create 
+```
+
+To create the migration files run
+``` 
+    docker-compose run web rails db:migrate
+```
+
+To access postgres remotely, to see your database
+
+``` psql -h 0.0.0.0 -U postgres ``` 
+
+where h: host and U: user. 
+
+### For Manual installation:
+
 - Get the dependencies needed for the app
 
   ```Shell
