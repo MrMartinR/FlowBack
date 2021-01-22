@@ -121,6 +121,8 @@ To access postgres remotely, to see your database
 
 where h: host and U: user. 
 
+Then enter the POSTGRES_PASSWORD, on your docker-compose.yml file. Go ahead and run your commands.
+
 ### For Manual installation:
 
 - Get the dependencies needed for the app
