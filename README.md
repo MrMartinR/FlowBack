@@ -102,7 +102,7 @@ If all went well, you should see some PostgreSQL output.
 
 Finally, you need to create the database. 
 
-### Uncomment line 25 on database.yml file (Remember not to commit and push any changes after the dev branch)
+### Uncomment line 25 on database.yml file (Remember not to commit and push any changes to the dev branch)
 
 In another terminal run:
 
