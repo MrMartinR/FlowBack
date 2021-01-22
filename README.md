@@ -100,9 +100,11 @@ To boot the app
 
 If all went well, you should see some PostgreSQL output.
 
-Finally, you need to create the database. In another terminal run:
+Finally, you need to create the database. 
 
 ### Uncomment line 25 on database.yml file (Remember not to commit and push any changes after the dev branch)
+
+In another terminal run:
 
 ``` 
     docker-compose run web rails db:create 
