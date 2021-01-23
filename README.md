@@ -4,13 +4,13 @@
 
 <br>
 
-<img src="./docs/flow-header.svg">
+<img src="https://dev.flowfin.tech/docs-back/docs/flow-header.svg">
 
 <br>
 
 <br>
 
-# [Ruby StyleGuide (Read)](docs/StyleGuide-Ruby.adoc)
+# [Ruby StyleGuide (Read)](https://dev.flowfin.tech/docs-back/docs/StyleGuide-Ruby.adoc)
 
 <br>
 
@@ -24,25 +24,25 @@
 
 ## <img src="./docs/ruby.svg" width="30px" title="Ruby"> [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
 
-Is probably that you already have Ruby installed in your computer, you can check it typing the following comand in your terminal.
+Is possible that you already have Ruby installed in your computer, you can check it typing the following comand in your terminal.
 
-```shell
+```terminal
 ruby -v
 ```
 
 <br>
 
-**Installing Ruby**
+### Installing Ruby
 
-_macOS_ using [Homebrew](http://brew.sh/")
+_**macOS**_ using [Homebrew](http://brew.sh/")
 
-```shell
+```terminal
 brew install ruby@2.6.5
 ```
 
-_Ubuntu_
+_**Ubuntu**_
 
-```shell
+```terminal
 sudo apt install ruby-full
 ```
 
@@ -54,47 +54,49 @@ We are using ruby version **_2.6.5_**, is important to use this version. If you 
 <hr>
 <br>
 
-# <img src="./docs/octocat.svg" width="30px" title="Cloning the Repository"> [Cloning the Repository](https://wiki.postgresql.org/wiki/Detailed_installation_guides)
+# <img src="./docs/octocat.svg" width="30px" title="Cloning the Repository"> [Cloning the Repository](https://github.com/FlowFintech/FlowBack)
 
 <br>
 
-_Ubuntu_
+_**Ubuntu**_
 
 - Clone the repo
 
-  ```Shell
-  your@pc:~$ git clone https://github.com/FlowFintech/FlowBack
+  ```terminal
+  your_username@pc:~$ git clone git@github.com:FlowFintech/FlowBack.git
   ```
 
 - Move into the cloned folder
 
-  ```Shell
-  your@pc:~$ cd FlowBack
+  ```terminal
+  your_username@pc:~$ cd FlowBack
   ```
+
+## Normal Install
 
 - Get the dependencies needed for the app
 
-  ```Shell
+  ```terminal
   FlowBack:~$ bundle install
   ```
 
 - Set environment variables
 
-  ```shell
+  ```terminal
   FlowBack:~$ export USERNAME="change to your database_username"
   ```
 
-  ```shell
+  ```terminal
   FlowBack:~$ export PASSWORD="change to your database_password"
   ```
 
-  ```shell
+  ```terminal
   FlowBack:~$ export HOST="change to your host address"
   ```
 
 - NB: Defaults
 
-  ```shell
+  ```terminal
     1. The default host is: "localhost" if you have not changed it
     2. Ensure that the USERNAME is a Superuser in psql
   ```
@@ -108,27 +110,76 @@ _Ubuntu_
 
 - Create a postgres role to let rails manage the db:
 
-  ```shell
+  ```terminal
   rake db:create
   ```
 
 - Setup databases migrations:
 
-  ```shell
+  ```terminal
   rake db:migrate
   ```
 
 - Seed data for development
 
-  ```shell
-  your@pc:~$ rake db:seed
+  ```terminal
+  your_username@pc:~$ rake db:seed
   ```
 
 - Start the server and use the app
 
-  ```shell
-  your@pc:~$ rails s
+  ```terminal
+  your_username@pc:~$ rails s
   ```
+
+## Docker Install
+
+- Install Docker if you haven't done yet from [here](https://www.docker.com/get-started).
+- Make sure you have docker running before commencing with this installation.
+- You may also need to uncomment the 25th line of the `config/database.yml` file for some of the instructions below to work.
+
+  ⚠️**Be sure NOT to commit and push the changes affecting this file though**.
+
+  ```
+  #  host: <%= ENV['HOST'] || 'flowback_db_1' %>
+  ```
+
+- Docker is already configured. Please DO NOT add anything to the following files when pushing changes:
+  - `config/database.yml`
+  - `docker-compose.yml`
+  - `dockerfile`
+
+### After you have started docker, in your root directory run the following commands in the order
+
+**_Steps:_**
+
+- Go to backend folder
+- Run this one time only:
+
+  ```terminal
+  your_username@pc:~$ docker build -t flowbackend ./
+  ```
+
+- Run this command to start docker: every time you want to restart backend.
+
+  ```terminal
+  your_username@pc:~$ docker run -dp 3000:3000 flowbackend
+  ```
+
+#### Short order of the same instructions
+
+**_Steps:_**
+
+- Go to backend folder
+- Run this command to bundle up everything and start the server at one go:
+
+  ```terminal
+  your_username@pc:~$ docker-compose up --build
+  ```
+
+  Confirm if the server is running by heading over to: [http://localhost:3000](http://localhost:3000)
+
+### **Note:** Instructions to seed the database should follow soon
 
 <hr>
 <br>
@@ -138,7 +189,7 @@ _Ubuntu_
 Depending on whether your implementing a **feature**, doing a **chore**, fixing **bugs** or a **hotfix**, you must use the following branches naming convention: {type/short-description}
 _Example_
 
-```shell
+```terminal
 git checkout -b bug/fixing-layout
 git checkout -b feature/adding-loan-details
 git checkout -b chore/correct-typo
@@ -159,13 +210,15 @@ You can report <a href="https://github.com/FlowFintech/FlowBack/issues">Report B
 <hr>
 <br>
 
-## Roles Claim
+## Roles
 
-The system has three type of users.
+The project has three type of users.
 
-1. Admin => This is the sole owner and add/remove a Contributor. Has full system access
-2. User => This is the investors who comes with his/her data after investing on platforms to utilize our system to manage this data and be of value to them.
-3. Contributor => This is a user(moderators) given privileges by the admin to add, edit, delete some for the information related to the core app functions eg add platforms data so when an investor come to use the system all they need to scroll from available options.
+**Admin:** This is the sole owner and add/remove a Contributor. Has full system access
+
+**User:** This is the investors who comes with his/her data after investing on platforms to utilize our system to manage this data and be of value to them.
+
+**Contributor:** This is a user(moderators) given privileges by the admin to add, edit, delete some for the information related to the core app functions eg add platforms data so when an investor come to use the system all they need to scroll from available options.
 
 ## API Endpoints
 
@@ -183,26 +236,16 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 - Using Postman:
 
 1. Create a new user with a POST request to your signup request, in this case is http://localhost:3000/api/v1/auth/sign_in and in Body with RAW format set the params you need to create a new user (like in the example) and click send. or login
-   <img src="./docs/screenshots/register.png" alt="screenshot1"/>
+   <img src="https://dev.flowfin.tech/docs-back/docs/screenshots/register.png" alt="screenshot1"/>
 
 2. Now that you got the response of the request, the params you need are in the header of the request, click to Headers tab to see them.
-   <img src="./docs/screenshots/header.png" alt="screenshot1"/>
+   <img src="https://dev.flowfin.tech/docs-back/docs/screenshots/header.png" alt="screenshot1"/>
 
 3. Then create a new request in Postman with the GET that requires the authorization and in Headers set the values access-token, client, uid from the header of the last request.
-<img src="./docs/screenshots/request.png" alt="screenshot1"/>
+<img src="https://dev.flowfin.tech/docs-back/docs/screenshots/request.png" alt="screenshot1"/>
 <br>
 <hr>
 <br>
-
-## Roadmap
-
-See the [open issues](https://github.com/FlowFintech/FlowBack/issues/issues) for a list of proposed features (and known issues).
-
-<!-- CONTACT -->
-
-## Contributors
-
-[@TODO]
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
