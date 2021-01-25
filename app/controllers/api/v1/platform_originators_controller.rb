@@ -19,11 +19,9 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
 
   def create
     @platform_originator = PlatformOriginator.new(platform_originator_params)
-
     if @platform_originator.save
       @data = data_return(@platform_originator)
       json_response({ success: true, message: @data })
-
     else
       json_response({ success: false, message: @platform_originator.errors }, :unprocessable_entity)
     end
@@ -32,7 +30,6 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
   def update
     if @platform_originator.update(platform_originator_params)
       @data = data_return(@platform_originator)
-
       json_response({ success: true, message: @data })
     else
       json_response({ success: false, message: @platform_originator.errors }, :unprocessable_entity)
@@ -52,7 +49,7 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
   def set_platform_originator
     @platform_originator = PlatformOriginator.find(params[:id])
   end
-  
+
   def platform_originator_params
     params.require(:platform_originator).permit(:originator_id, :platform_id, :status, :skin_game, :grace_period,
                                                 :rating, :length, :apr, :structure, :notes, :buyback, :buyback_principal, :buyback_interest, :buyback_activation, currency_id: [])
