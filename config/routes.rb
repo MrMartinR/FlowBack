@@ -26,6 +26,8 @@ Rails.application.routes.draw do
         end
         resources :originators
         resources :platform_originators
+        get '/platforms/:id/platform_originators', to: 'platform_originators#index_by_id'
+
         resources :user_platforms
         resources :contacts
         resources :contact_methods

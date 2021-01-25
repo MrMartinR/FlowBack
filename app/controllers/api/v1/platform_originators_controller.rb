@@ -2,10 +2,20 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :admin_or_contributor!, except: :index
   before_action :set_platform_originator, only: %i[show update destroy]
+  before_action :set_platform, only: :index_by_id
 
   def index
     @platform_originators = []
     PlatformOriginator.find_each do |account|
+      dt = data_return(account)
+      @platform_originators << dt
+    end
+    json_response({ success: true, message: @platform_originators })
+  end
+
+  def index_by_id
+    @platform_originators = []
+    PlatformOriginator.all.where('platform_id = ?', @platform.id).each do |account|
       dt = data_return(account)
       @platform_originators << dt
     end
@@ -48,6 +58,10 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
 
   def set_platform_originator
     @platform_originator = PlatformOriginator.find(params[:id])
+  end
+
+  def set_platform
+    @platform = Platform.find(params[:id])
   end
 
   def platform_originator_params
