@@ -52,7 +52,7 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
   def set_platform_originator
     @platform_originator = PlatformOriginator.find(params[:id])
   end
-
+  
   def platform_originator_params
     params.require(:platform_originator).permit(:originator_id, :platform_id, :status, :skin_game, :grace_period,
                                                 :rating, :length, :apr, :structure, :notes, :buyback, :buyback_principal, :buyback_interest, :buyback_activation, currency_id: [])
