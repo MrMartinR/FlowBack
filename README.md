@@ -82,7 +82,7 @@ _Ubuntu_
 Uninstall postgres from your local machine to avoid network conflict with docker image that would map to the same port,
 when you run docker docker-compose up.
 
-Then uninstall postgres only. Do not uninstall the clients, which is the last step on the video.
+While you uninstall postgres, do not uninstall the clients, which is the last step on the video.
 Watch this [video](https://www.youtube.com/watch?v=igHxugGeON0&feature=youtu.be). 
 
 Once you are done go on and run the following commands:
