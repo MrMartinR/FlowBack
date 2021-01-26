@@ -140,9 +140,9 @@ _**Ubuntu**_
 
   ⚠️**Be sure NOT to commit and push the changes affecting this file though**.
 
-  ```
+```yml
   #  host: <%= ENV['HOST'] || 'flowback_db_1' %>
-  ```
+```
 
 - Docker is already configured. Please DO NOT add anything to the following files when pushing changes:
   - `config/database.yml`
@@ -153,31 +153,47 @@ _**Ubuntu**_
 
 **_Steps:_**
 
-- Go to backend folder
-- Run this one time only:
+1. Go to backend folder
+
+2. Run this one time only:
 
   ```terminal
   your_username@pc:~$ docker build -t flowbackend ./
   ```
 
+- Open a new terminal, and inside the flow directory run the following to create and respective databases and run the migrations.
+
+  ```terminal
+  docker-compose run web rails db:create && docker-compose run web rails db:migrate
+  ```
+
+- Go back to the previous terminal.
+
 - Run this command to start docker: every time you want to restart backend.
 
   ```terminal
-  your_username@pc:~$ docker run -dp 3000:3000 flowbackend
+  your_username@pc:~$ docker run -dp 3001:3001 flowbackend
   ```
 
 #### Short order of the same instructions
 
 **_Steps:_**
 
-- Go to backend folder
+1. Go to backend folder.
+
+2. Open a new terminal, and inside the flow directory run the following to create and respective databases and run the migrations.
+
+  ```terminal
+  docker-compose run web rails db:create && docker-compose run web rails db:migrate
+  ```
+
 - Run this command to bundle up everything and start the server at one go:
 
   ```terminal
   your_username@pc:~$ docker-compose up --build
   ```
 
-  Confirm if the server is running by heading over to: [http://localhost:3000](http://localhost:3000)
+  Confirm if the server is running by heading over to: [http://localhost:3001](http://localhost:3001)
 
 ### **Note:** Instructions to seed the database should follow soon
 
