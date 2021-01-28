@@ -200,8 +200,6 @@ ActiveRecord::Schema.define(version: 2020_12_29_162500) do
     t.string "welcome_bonus"
     t.string "promo"
     t.date "promo_end"
-    t.string "icon"
-    t.string "logo"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "created_by"

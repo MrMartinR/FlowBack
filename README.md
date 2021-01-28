@@ -140,9 +140,9 @@ _**Ubuntu**_
 
   ⚠️**Be sure NOT to commit and push the changes affecting this file though**.
 
-  ```
+```yml
   #  host: <%= ENV['HOST'] || 'flowback_db_1' %>
-  ```
+```
 
 - Docker is already configured. Please DO NOT add anything to the following files when pushing changes:
   - `config/database.yml`
@@ -153,31 +153,78 @@ _**Ubuntu**_
 
 **_Steps:_**
 
-- Go to backend folder
-- Run this one time only:
+1. Go to backend folder
+
+2. Run this one time only:
 
   ```terminal
-  your_username@pc:~$ docker build -t flowbackend ./
+  your_username@pc:~$ docker-compose build
   ```
 
-- Run this command to start docker: every time you want to restart backend.
+***NOTE: Any change in the Gemfile or the Dockerfile, should be the only times you’ll need to rebuild (Run the above command).***
 
-  ```terminal
-  your_username@pc:~$ docker run -dp 3000:3000 flowbackend
-  ```
+- Next run:
+
+```terminal
+your_username@pc:~$ docker-compose up
+```
+
+- Now open a new terminal, and inside the flow directory run the following to create the database, its relations by also running the migrations.
+
+```terminal
+your_username@pc:~$ docker-compose run web rails db:create && docker-compose run web rails db:migrate
+```
+
+- If all’s well, you should see some PostgreSQL output (in the first terminal).
+
+```terminal
+Starting flowback_db_1 ... done
+Starting flowback_web_1 ... done
+Attaching to flowback_db_1, flowback_web_1
+db_1   |
+db_1   | PostgreSQL Database directory appears to contain a database; Skipping initialization
+db_1   |
+db_1   | 2021-01-26 22:59:35.013 UTC [1] LOG:  starting PostgreSQL 13.1 (Debian 13.1-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+db_1   | 2021-01-26 22:59:35.014 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+db_1   | 2021-01-26 22:59:35.014 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+db_1   | 2021-01-26 22:59:35.135 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+db_1   | 2021-01-26 22:59:35.154 UTC [27] LOG:  database system was shut down at 2021-01-26 22:59:29 UTC
+db_1   | 2021-01-26 22:59:35.174 UTC [1] LOG:  database system is ready to accept connections
+web_1  | => Booting Puma
+web_1  | => Rails 6.0.3.4 application starting in development
+web_1  | => Run `rails server --help` for more startup options
+web_1  | Puma starting in single mode...
+web_1  | * Version 4.3.7 (ruby 2.6.5-p114), codename: Mysterious Traveller
+web_1  | * Min threads: 5, max threads: 5
+web_1  | * Environment: development
+web_1  | * Listening on tcp://0.0.0.0:3001
+web_1  | Use Ctrl-C to stop
+
+```
+
+- The app should now be up and running
+
+Head over to: [http://localhost:3001](http://localhost:3001)
 
 #### Short order of the same instructions
 
 **_Steps:_**
 
-- Go to backend folder
+- Go to backend folder.
+
 - Run this command to bundle up everything and start the server at one go:
 
-  ```terminal
-  your_username@pc:~$ docker-compose up --build
-  ```
+```terminal
+your_username@pc:~$ docker-compose up --build
+```
 
-  Confirm if the server is running by heading over to: [http://localhost:3000](http://localhost:3000)
+- Open a new terminal, and inside the flow directory run the following to create and respective databases and run the migrations.
+
+```terminal
+docker-compose run web rails db:create && docker-compose run web rails db:migrate
+```
+
+- Confirm if the server is running by heading over to: [http://localhost:3001](http://localhost:3001)
 
 ### **Note:** Instructions to seed the database should follow soon
 
