@@ -14,7 +14,7 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
   end
 
   def index_by_platform_id
-    @platforms_originators = []
+    @platform_originators = []
     PlatformOriginator.all.where('platform_id = ?', @platform.id).each do |account|
       dt = data_return(account)
       @platform_originators << dt
