@@ -59,7 +59,7 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
   def set_platform_originator
     @platform_originator = PlatformOriginator.find(params[:id])
   end
-  
+
   def set_platform
     @platform = Platform.find(params[:id])
   end
