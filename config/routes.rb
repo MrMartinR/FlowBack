@@ -35,6 +35,7 @@ Rails.application.routes.draw do
           end
         end
         get '/platforms/:id/platform_originators', to: 'platform_originators#index_by_platform_id'        
+        get '/platforms/:id/loans', to: 'loans#index_by_platform_originators'  
         resources :loans
         resources :user_loans do
           collection do

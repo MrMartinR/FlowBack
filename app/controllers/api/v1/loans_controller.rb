@@ -2,9 +2,19 @@ class Api::V1::LoansController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :admin_or_contributor!, except: %i[index show]
   before_action :set_loan, only: %i[show update destroy]
+  before_action :set_platform_originators, only: :index_by_platform_originators
 
   def index
     @loans = Loan.includes(:country, :currency, :platform_originator).order('created_at desc')
+  end
+
+  def index_by_platform_originators
+    @loans = []
+    @platform_originators.each do |platform_originator|
+      @loans << Loan.all.where('platform_originator_id = ?', platform_originator.id)
+    end
+    # @loans << Loan.all.where('platform_originator_id = ?', platform_originator.id)
+    json_response({ success: true, message: @loans })
   end
 
   def show; end
@@ -36,6 +46,11 @@ class Api::V1::LoansController < Api::BaseController
   end
 
   private
+
+  def set_platform_originators
+    @platform_originators = PlatformOriginator.all.where('platform_id = ?', params[:platform_id])
+    # @platform_originator = PlatformOriginator.find(params[:platform_id])
+  end
 
   def set_loan
     @loan = Loan.find(params[:id])
