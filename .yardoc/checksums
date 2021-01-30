@@ -1,6 +1,6 @@
 app/models/loan.rb 7e34ce34dec297663fdf97325dbc2c2417276e98
 app/models/role.rb 4c281c7669381c4fb256cda3800337bccbd4c735
-app/models/user.rb 64d8e8a5879d396c73e1b65db8a2e1d50e8110a2
+app/models/user.rb a64c08528d17440202873199b296d7a1fc4b1c6f
 app/models/account.rb 42f4cb2dfa005ffe1078a41f0107952e1e4a0e95
 app/models/contact.rb 70116d572f270c137a3fdecd6dd50cfe14ba82fa
 app/models/country.rb ca9024e365db236609b76df4c279e7d7bc0947f5
@@ -25,7 +25,7 @@ app/controllers/errors_controller.rb b2064b2f28da70539ab0fc7e5cb08fed1a998649
 app/controllers/api/base_controller.rb 528adcaf2cbb5ddf1ca48a3086514cd0a2ee6cb3
 app/controllers/settings_controller.rb 96ad85dcc7ed63fc6ab3716d5d4b75f59a3dc89a
 app/channels/application_cable/channel.rb 54156ee2853cfdea4e3147cdb260776b8d90b646
-app/controllers/application_controller.rb e038e06788b7cad0c653a19cc7ff35be62420b71
+app/controllers/application_controller.rb afa66cae2b0dfa302b548b999f2ede2eb9e86fb4
 app/controllers/api/v1/loans_controller.rb 1ee033428c06b6f671f069fb55804ab5b55451cd
 app/controllers/api/v1/users_controller.rb 0dda558cf0841ee159f52c78e882b35d776ded97
 app/controllers/registrations_controller.rb 002f0539b97942ec42d5a265684bc1c67165be18
@@ -49,4 +49,4 @@ app/controllers/api/v1/user_platforms_controller.rb 6c6d8ee5df8ec9b70512f73a6393
 app/controllers/api/v1/contact_methods_controller.rb 3f4995157e2850abd466aef3924de3abe1cec184
 app/controllers/api/v1/modify_countries_controller.rb d0a816f3676bfb05bdaf203fb84ad79a18feb250
 app/controllers/api/v1/modify_currencies_controller.rb 05c68f8dcb33b3865833389d23745e5f22481c37
-app/controllers/api/v1/platform_originators_controller.rb b563558b9dcfd495208094ef3f566aaca6633644
+app/controllers/api/v1/platform_originators_controller.rb f15e0f5271df4d7390a6cd9a574b421ddd594588
