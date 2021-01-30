@@ -4,7 +4,7 @@
 
 <br>
 
-<img src="https://dev.flowfin.tech/docs-back/docs/flow-header.svg">
+<img src="https://dev.flowfin.tech/assets/flow-header.svg">
 
 <br>
 
@@ -80,69 +80,10 @@ _**Ubuntu**_
   FlowBack:~$ bundle install
   ```
 
-- Set environment variables
-
-  ```terminal
-  FlowBack:~$ export USERNAME="change to your database_username"
-  ```
-
-  ```terminal
-  FlowBack:~$ export PASSWORD="change to your database_password"
-  ```
-
-  ```terminal
-  FlowBack:~$ export HOST="change to your host address"
-  ```
-
-- NB: Defaults
-
-  ```terminal
-    1. The default host is: "localhost" if you have not changed it
-    2. Ensure that the USERNAME is a Superuser in psql
-  ```
-
-- Help cookies
-
-  - Go to your terminal in ubuntu and type: `sudo su - postgres`
-  - Then `psql` to access - Postgres
-  - `\du` to list all user and their attributes
-  - `ALTER ROLE username SUPERUSER` to alter the user.
-
-- Create a postgres role to let rails manage the db:
-
-  ```terminal
-  rake db:create
-  ```
-
-- Setup databases migrations:
-
-  ```terminal
-  rake db:migrate
-  ```
-
-- Seed data for development
-
-  ```terminal
-  your_username@pc:~$ rake db:seed
-  ```
-
-- Start the server and use the app
-
-  ```terminal
-  your_username@pc:~$ rails s
-  ```
-
 ## Docker Install
 
 - Install Docker if you haven't done yet from [here](https://www.docker.com/get-started).
 - Make sure you have docker running before commencing with this installation.
-- You may also need to uncomment the 25th line of the `config/database.yml` file for some of the instructions below to work.
-
-  ⚠️**Be sure NOT to commit and push the changes affecting this file though**.
-
-```yml
-#  host: <%= ENV['HOST'] || 'flowback_db_1' %>
-```
 
 - Docker is already configured. Please DO NOT add anything to the following files when pushing changes:
   - `config/database.yml`
@@ -169,39 +110,6 @@ your_username@pc:~$ docker-compose build
 your_username@pc:~$ docker-compose up
 ```
 
-- Now open a new terminal, and inside the flow directory run the following to create the database, its relations by also running the migrations.
-
-```terminal
-your_username@pc:~$ docker-compose run web rails db:create && docker-compose run web rails db:migrate
-```
-
-- If all’s well, you should see some PostgreSQL output (in the first terminal).
-
-```terminal
-Starting flowback_db_1 ... done
-Starting flowback_web_1 ... done
-Attaching to flowback_db_1, flowback_web_1
-db_1   |
-db_1   | PostgreSQL Database directory appears to contain a database; Skipping initialization
-db_1   |
-db_1   | 2021-01-26 22:59:35.013 UTC [1] LOG:  starting PostgreSQL 13.1 (Debian 13.1-1.pgdg100+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
-db_1   | 2021-01-26 22:59:35.014 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
-db_1   | 2021-01-26 22:59:35.014 UTC [1] LOG:  listening on IPv6 address "::", port 5432
-db_1   | 2021-01-26 22:59:35.135 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
-db_1   | 2021-01-26 22:59:35.154 UTC [27] LOG:  database system was shut down at 2021-01-26 22:59:29 UTC
-db_1   | 2021-01-26 22:59:35.174 UTC [1] LOG:  database system is ready to accept connections
-web_1  | => Booting Puma
-web_1  | => Rails 6.0.3.4 application starting in development
-web_1  | => Run `rails server --help` for more startup options
-web_1  | Puma starting in single mode...
-web_1  | * Version 4.3.7 (ruby 2.6.5-p114), codename: Mysterious Traveller
-web_1  | * Min threads: 5, max threads: 5
-web_1  | * Environment: development
-web_1  | * Listening on tcp://0.0.0.0:3001
-web_1  | Use Ctrl-C to stop
-
-```
-
 - The app should now be up and running
 
 Head over to: [http://localhost:3001](http://localhost:3001)
@@ -218,18 +126,7 @@ Head over to: [http://localhost:3001](http://localhost:3001)
 your_username@pc:~$ docker-compose up --build
 ```
 
-- Open a new terminal, and inside the flow directory run the following to create and respective databases and run the migrations.
-
-```terminal
-docker-compose run web rails db:create && docker-compose run web rails db:migrate
-```
-
 - Confirm if the server is running by heading over to: [http://localhost:3001](http://localhost:3001)
-
-### **Note:** Instructions to seed the database should follow soon
-
-<hr>
-<br>
 
 ## Contributing
 
@@ -283,19 +180,16 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 - Using Postman:
 
 1. Create a new user with a POST request to your signup request, in this case is http://localhost:3000/api/v1/auth/sign_in and in Body with RAW format set the params you need to create a new user (like in the example) and click send. or login
-   <img src="https://dev.flowfin.tech/docs-back/docs/screenshots/register.png" alt="screenshot1"/>
+   <img src="https://dev.flowfin.tech/assets/screenshots/register.png" alt="screenshot1"/>
 
 2. Now that you got the response of the request, the params you need are in the header of the request, click to Headers tab to see them.
-   <img src="https://dev.flowfin.tech/docs-back/docs/screenshots/header.png" alt="screenshot1"/>
+   <img src="https://dev.flowfin.tech/assets/screenshots/header.png" alt="screenshot1"/>
 
 3. Then create a new request in Postman with the GET that requires the authorization and in Headers set the values access-token, client, uid from the header of the last request.
-<img src="https://dev.flowfin.tech/docs-back/docs/screenshots/request.png" alt="screenshot1"/>
+<img src="https://dev.flowfin.tech/assets/screenshots/request.png" alt="screenshot1"/>
 <br>
 <hr>
 <br>
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributor-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
 [contributor-url]: https://github.com/FlowFintech/FlowBack/graphs/contributors
