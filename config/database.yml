@@ -20,9 +20,9 @@ default: &default
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 15 } %>
-  username: <%= ENV['USERNAME'] || 'postgres' %>
-  password: <%= ENV['PASSWORD'] || 'flowback-77K!' %>
-  host: <%= ENV['HOST'] || 'staging.c6vafjfls483.eu-west-1.rds.amazonaws.com' %>
+  username: 'postgres'
+  password: 'flowback-77K!'
+  host: 'staging.c6vafjfls483.eu-west-1.rds.amazonaws.com'
   port: 5432
 
 development:
@@ -51,7 +51,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: flow_test
+  database: flow
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -73,6 +73,7 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
+  # I think this part is not relevant... because is handled by docker file ????
   <<: *default
   database: flow_production
   username: superflower
