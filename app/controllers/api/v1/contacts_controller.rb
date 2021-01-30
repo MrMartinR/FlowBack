@@ -5,7 +5,7 @@ class Api::V1::ContactsController < Api::BaseController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.where(user_id: [nil, @user.id]).order(trade_name: :asc, name: :asc, nick: :asc)
+    @contacts = Contact.where(user_id: [nil, @user.id]).order(nick: :asc, name: :asc, trade_name: :asc)
   end
 
   # GET /contacts/1
