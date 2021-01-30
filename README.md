@@ -10,7 +10,7 @@
 
 <br>
 
-# [Ruby StyleGuide (Read)](https://dev.flowfin.tech/docs-back/docs/StyleGuide-Ruby.adoc)
+# [Ruby StyleGuide (Read)](https://dev.flowfin.tech/docs-back/style-guide-ruby.html)
 
 <br>
 
@@ -22,7 +22,7 @@
 
 <br>
 
-## <img src="./docs/ruby.svg" width="30px" title="Ruby"> [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
+## <img src="https://dev.flowfin.tech/assets/ruby.svg" width="30px" title="Ruby"> [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
 
 Is possible that you already have Ruby installed in your computer, you can check it typing the following comand in your terminal.
 
@@ -54,7 +54,7 @@ We are using ruby version **_2.6.5_**, is important to use this version. If you 
 <hr>
 <br>
 
-# <img src="./docs/octocat.svg" width="30px" title="Cloning the Repository"> [Cloning the Repository](https://github.com/FlowFintech/FlowBack)
+# <img src="https://dev.flowfin.tech/assets/octocat.svg" width="30px" title="Cloning the Repository"> [Cloning the Repository](https://github.com/FlowFintech/FlowBack)
 
 <br>
 
@@ -141,7 +141,7 @@ _**Ubuntu**_
   ⚠️**Be sure NOT to commit and push the changes affecting this file though**.
 
 ```yml
-  #  host: <%= ENV['HOST'] || 'flowback_db_1' %>
+#  host: <%= ENV['HOST'] || 'flowback_db_1' %>
 ```
 
 - Docker is already configured. Please DO NOT add anything to the following files when pushing changes:
@@ -157,11 +157,11 @@ _**Ubuntu**_
 
 2. Run this one time only:
 
-  ```terminal
-  your_username@pc:~$ docker-compose build
-  ```
+```terminal
+your_username@pc:~$ docker-compose build
+```
 
-***NOTE: Any change in the Gemfile or the Dockerfile, should be the only times you’ll need to rebuild (Run the above command).***
+**_NOTE: Any change in the Gemfile or the Dockerfile, should be the only times you’ll need to rebuild (Run the above command)._**
 
 - Next run:
 
