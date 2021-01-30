@@ -16,8 +16,10 @@ namespace :cron do
             if not new_fx_eur.blank?
               old_fx_eur = currency.fx_eur 
 
-              if currency.update(fx_eur: new_fx_eur.to_f)
-                puts "#{currency.code} updating from #{old_fx_eur} to #{new_fx_eur}"
+              if new_fx_eur != old_fx_eur
+                if currency.update(fx_eur: new_fx_eur.to_f)
+                  puts "#{currency.code} updating from #{old_fx_eur} to #{new_fx_eur}"
+                end
               end
             end
           end
