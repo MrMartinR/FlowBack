@@ -35,15 +35,15 @@ json.data @contacts do |contact|
   json.kind contact.kind
   json.visibility contact.visibility
   json.company_name contact.company_name
-  json.name contact.name
+  json.name contact.kind == "INDIVIDUAL" ? contact.name : nil
   json.surname contact.surname
-  json.trade_name contact.trade_name
+  json.trade_name contact.kind == "COMPANY" ? contact.trade_name : nil
   json.founded contact.founded
   json.description contact.description
   json.legal_form contact.legal_form
   json.tags contact.tags
   json.id_number contact.id_number
-  json.nick contact.nick
+  json.nick contact.kind == "INDIVIDUAL" ? contact.nick : nil
   json.dob contact.dob
 end
 # json.extract! contact,
