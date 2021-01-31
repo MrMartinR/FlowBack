@@ -2,9 +2,26 @@ class Api::V1::OriginatorsController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :admin_or_contributor!, except: :index
   before_action :set_originator, only: %i[show update destroy]
+
   def index
-    @originators = Originator.order('created_at asc')
+    @originators = Originator.find_by_sql("
+      SELECT 
+      o.id,
+      o.contact_id,
+      c.trade_name,
+      o.customer_category,
+      o.product_category_business,
+      o.product_category_consumer,
+      o.apr
+      from originators o
+      inner join contacts c on c.id = o.contact_id
+      ORDER BY c.trade_name
+      ")
   end
+
+  # def index
+  #   @originators = Originator.order('created_at asc')
+  # end
 
   def show; end
 
@@ -30,7 +47,7 @@ class Api::V1::OriginatorsController < Api::BaseController
   # DELETE /originators/1.json
   def destroy
     if @originator.destroy
-      json_response({ success: true, message: 'Originator deleted' })
+      json_response({ success: true, message: "Originator deleted" })
     else
       json_response({ success: false, message: @originator.errors }, :unprocessable_entity)
     end
@@ -46,7 +63,7 @@ class Api::V1::OriginatorsController < Api::BaseController
   # Only allow a list of trusted parameters through.
   def originator_params
     merged_params = { updated_by: @user.id }
-    merged_params = { created_by: @user.id } if params[:action] == 'create'
+    merged_params = { created_by: @user.id } if params[:action] == "create"
 
     params.require(:originator).permit(
       :product_category_consumer,

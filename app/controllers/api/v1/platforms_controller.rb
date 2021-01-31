@@ -4,8 +4,33 @@ class Api::V1::PlatformsController < Api::BaseController
   before_action :set_platform, only: %i[show update destroy]
 
   def index
-    @platforms = Platform.order('created_at asc')
+    @platforms = Platform.find_by_sql("
+      SELECT 
+      p.id,
+      p.contact_id,
+      c.trade_name,
+      p.status,
+      p.category,
+      p.liquidity,
+      p.account_category,
+      p.cost,
+      p.invest_mode,
+      p.min_investment,
+      p.protection_scheme,
+      p.secondary_market,
+      p.structure,
+      p.term,
+      p.promo,
+      p.welcome_bonus
+      from platforms p
+      inner join contacts c on c.id = p.contact_id
+      ORDER BY c.trade_name
+      ")
   end
+
+  # def index
+  #   @platforms = Platform.order('created_at asc')
+  # end
 
   def show; end
 
@@ -29,7 +54,7 @@ class Api::V1::PlatformsController < Api::BaseController
 
   def destroy
     if @platform.destroy
-      json_response({ success: true, message: 'Platform deleted' })
+      json_response({ success: true, message: "Platform deleted" })
     else
       json_response({ success: false, message: @platform.errors }, :unprocessable_entity)
     end
@@ -45,7 +70,7 @@ class Api::V1::PlatformsController < Api::BaseController
   # Only allow a list of trusted parameters through.
   def platform_params
     merged_params = { updated_by: @user.id }
-    merged_params = { created_by: @user.id } if params[:action] == 'create'
+    merged_params = { created_by: @user.id } if params[:action] == "create"
     params.require(:platform).permit(:contact_id, :category, :status,
                                      :liquidity, :term, :invest_mode,
                                      :min_investment, :secondary_market,
