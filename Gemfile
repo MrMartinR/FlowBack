@@ -87,6 +87,7 @@ group :development, :test do
 
   # Sajjad installed this gem
   gem 'dotenv-rails', '~> 2.7.6'
+  gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 4.0.2'
 end
 
