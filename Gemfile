@@ -70,7 +70,10 @@ gem 'will_paginate', '~> 3.1.0'
 gem 'ransack'
 
 # cron manager
-gem "whenever"
+gem 'whenever'
+
+# jsonapi-serializer
+gem 'jsonapi-serializer'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
