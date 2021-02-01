@@ -9,8 +9,8 @@ class Api::V1::ContactsController < Api::BaseController
   # from the logged user in ASC order.
   def index
     @contacts = Contact.find_by_sql(
-      "SELECT id, coalesce (trade_name,nick,name) as name 
-      FROM contacts 
+      "SELECT id, coalesce (trade_name,nick,name) as name
+      FROM contacts
       WHERE user_id is null or user_id = '#{@user.id}'
       ORDER BY 2"
     )
@@ -27,7 +27,7 @@ class Api::V1::ContactsController < Api::BaseController
   # POST /contacts
   # POST /contacts.json
   def create
-    if contact_params[:visibility] == "PUBLIC"
+    if contact_params[:visibility] == 'PUBLIC'
       if @user.admin? || @user.contributor?
         @contact = Contact.new(contact_params)
         @contact.user_id = nil
@@ -37,7 +37,7 @@ class Api::V1::ContactsController < Api::BaseController
           json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
         end
       else
-        json_response({ success: false, message: "Only admin or contrib can create a public contact" },
+        json_response({ success: false, message: 'Only admin or contrib can create a public contact' },
                       :unprocessable_entity)
       end
     else
@@ -54,7 +54,7 @@ class Api::V1::ContactsController < Api::BaseController
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
   def update
-    if @contact.visibility == "PUBLIC"
+    if @contact.visibility == 'PUBLIC'
       if @user.admin? || @user.contributor?
         if @contact.update(contact_params)
           render :show, status: :ok
@@ -62,7 +62,7 @@ class Api::V1::ContactsController < Api::BaseController
           json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
         end
       else
-        json_response({ success: false, message: "Only admin or contrib can update a public contact" },
+        json_response({ success: false, message: 'Only admin or contrib can update a public contact' },
                       :unprocessable_entity)
       end
     elsif @contact.update(contact_params)
@@ -76,7 +76,7 @@ class Api::V1::ContactsController < Api::BaseController
   # DELETE /contacts/1.json
   def destroy
     if @contact.destroy
-      json_response({ success: true, message: "Contact deleted" })
+      json_response({ success: true, message: 'Contact deleted' })
     else
       json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
     end
@@ -92,7 +92,7 @@ class Api::V1::ContactsController < Api::BaseController
   # Only allow a list of trusted parameters through.
   def contact_params
     merged_params = { updated_by: @user.id, user_id: @user.id }
-    merged_params = { created_by: @user.id } if params[:action] == "create"
+    merged_params = { created_by: @user.id } if params[:action] == 'create'
 
     params.require(:contact).permit(:country_id, :user_id, :kind, :visibility,
                                     :name, :surname,

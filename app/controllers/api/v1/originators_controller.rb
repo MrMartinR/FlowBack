@@ -5,7 +5,7 @@ class Api::V1::OriginatorsController < Api::BaseController
 
   def index
     @originators = Originator.find_by_sql("
-      SELECT 
+      SELECT
       o.id,
       o.contact_id,
       c.trade_name,
@@ -47,7 +47,7 @@ class Api::V1::OriginatorsController < Api::BaseController
   # DELETE /originators/1.json
   def destroy
     if @originator.destroy
-      json_response({ success: true, message: "Originator deleted" })
+      json_response({ success: true, message: 'Originator deleted' })
     else
       json_response({ success: false, message: @originator.errors }, :unprocessable_entity)
     end
@@ -63,7 +63,7 @@ class Api::V1::OriginatorsController < Api::BaseController
   # Only allow a list of trusted parameters through.
   def originator_params
     merged_params = { updated_by: @user.id }
-    merged_params = { created_by: @user.id } if params[:action] == "create"
+    merged_params = { created_by: @user.id } if params[:action] == 'create'
 
     params.require(:originator).permit(
       :product_category_consumer,
