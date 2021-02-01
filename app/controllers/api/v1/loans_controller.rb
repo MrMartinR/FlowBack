@@ -49,7 +49,6 @@ class Api::V1::LoansController < Api::BaseController
   private
 
   def set_platform
-    # @platform_originator = PlatformOriginator.find(params[:id])
     @platform = Platform.find(params[:id])
   end
 
