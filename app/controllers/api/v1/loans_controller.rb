@@ -15,7 +15,7 @@ class Api::V1::LoansController < Api::BaseController
         @loans << loan
       end
     end
-    json_response({ success: false, message: @loans})
+    json_response({ success: false, message: @loans })
   end
 
   def show; end

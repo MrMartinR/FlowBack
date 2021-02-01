@@ -54,7 +54,7 @@ class Api::V1::PlatformsController < Api::BaseController
 
   def destroy
     if @platform.destroy
-      json_response({ success: true, message: "Platform deleted" })
+      json_response({ success: true, message: 'Platform deleted' })
     else
       json_response({ success: false, message: @platform.errors }, :unprocessable_entity)
     end
@@ -70,7 +70,7 @@ class Api::V1::PlatformsController < Api::BaseController
   # Only allow a list of trusted parameters through.
   def platform_params
     merged_params = { updated_by: @user.id }
-    merged_params = { created_by: @user.id } if params[:action] == "create"
+    merged_params = { created_by: @user.id } if params[:action] == 'create'
     params.require(:platform).permit(:contact_id, :category, :status,
                                      :liquidity, :term, :invest_mode,
                                      :min_investment, :secondary_market,

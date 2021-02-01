@@ -3,26 +3,26 @@ json.success true
 
 json.data @contacts do |contact|
   json.id contact.id
-  #if contact.country.present?
+  # if contact.country.present?
   #  json.country contact.country
-  #else
+  # else
   #  json.country 'Not found'
   #end
-  #if contact.platform.present?
+  # if contact.platform.present?
   #  json.platform contact.platform
-  #else
+  # else
   #  json.platform 'Not found'
-  #end
-  #if contact.originator.present?
+  # end
+  # if contact.originator.present?
   #  json.originator contact.originator
-  #else
+  # else
   #  json.originator 'Not found'
-  #end
-  #if contact.account.present?
+  # end
+  # if contact.account.present?
   #  json.account contact.account
-  #else
+  # else
   #  json.account 'Not found'
-  #end
+  # end
 
   # if contact.user_id.present?
   #   json.user contact.user

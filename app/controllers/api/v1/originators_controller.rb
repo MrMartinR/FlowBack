@@ -5,7 +5,7 @@ class Api::V1::OriginatorsController < Api::BaseController
 
   def index
     @originators = Originator.find_by_sql("
-      SELECT 
+      SELECT
       o.id,
       o.contact_id,
       c.trade_name,
