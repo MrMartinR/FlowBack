@@ -5,7 +5,7 @@ class Api::V1::PlatformsController < Api::BaseController
 
   def index
     @platforms = Platform.find_by_sql("
-      SELECT 
+      SELECT
       p.id,
       p.contact_id,
       c.trade_name,

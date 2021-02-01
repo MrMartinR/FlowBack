@@ -7,7 +7,7 @@ json.data @contacts do |contact|
   #  json.country contact.country
   # else
   #  json.country 'Not found'
-  #end
+  # end
   # if contact.platform.present?
   #  json.platform contact.platform
   # else
