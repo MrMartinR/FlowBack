@@ -36,8 +36,7 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
       end
 
       it 'include the created user in response body' do
-        expect(JSON.parse(response.body))
-          .to eq(UserSerializer.new(User.last).serializable_hash.as_json)
+        expect(json_body).to eq(UserSerializer.new(User.last).serializable_hash.as_json)
       end
     end
 
@@ -63,7 +62,7 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
       end
 
       it 'return json error object' do
-        expect(JSON.parse(response.body)).to have_jsonapi_error_format
+        expect(json_body).to have_jsonapi_error_format
       end
     end
   end
