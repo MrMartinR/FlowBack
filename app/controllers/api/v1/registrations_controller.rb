@@ -1,14 +1,6 @@
 class Api::V1::RegistrationsController < DeviseTokenAuth::RegistrationsController
   private
 
-  # def render_create_success
-  #   render json: {
-  #     success: true,
-  #     data: @resource,
-  #     token: @token
-  #   }, status: :ok
-  # end
-
   def render_create_success
     render json: UserSerializer.new(@resource),
            status: :created, location: api_v1_user_path(@resource)

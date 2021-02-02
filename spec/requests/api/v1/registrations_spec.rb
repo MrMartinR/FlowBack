@@ -22,7 +22,7 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
       end
 
       it 'return status code 201' do
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:created)
       end
 
       it 'include a location header for the new user' do
