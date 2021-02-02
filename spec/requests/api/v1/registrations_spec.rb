@@ -47,8 +47,8 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
           data: {
             type: 'users',
             attributes: {
-              username: 'Joe',
-              password_confirmation: '123456'
+              username: '',
+              email: ''
             }
           }
         }
@@ -60,6 +60,10 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
 
       it 'return status code 422' do
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'return json error object' do
+        expect(JSON.parse(response.body)).to have_jsonapi_error_format
       end
     end
   end
