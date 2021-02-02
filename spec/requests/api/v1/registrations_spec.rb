@@ -11,8 +11,7 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
               username: 'Joe',
               email: 'joe@example.com',
               password: '123456',
-              password_confirmation: '123456',
-              confirm_success_url: 'http://example.com/accounts'
+              password_confirmation: '123456'
             }
           }
         }
@@ -26,9 +25,20 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it 'include a location header for the new user'
-      it 'include an access_token and client and uid in the headers'
-      it 'include the created user object in response body'
+      it 'include a location header for the new user' do
+        expect(response.location).to eq "/api/v1/users/#{User.last.id}"
+      end
+
+      it 'include the authentication information in the headers' do
+        %w[access-token uid client expiry token-type].each do |info|
+          expect(response.headers[info]).not_to be nil
+        end
+      end
+
+      it 'include the created user in response body' do
+        expect(JSON.parse(response.body))
+          .to eq(UserSerializer.new(User.last).serializable_hash.as_json)
+      end
     end
 
     context 'when client sends invalid or missing attributes' do
