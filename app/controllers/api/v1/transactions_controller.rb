@@ -3,7 +3,7 @@ class Api::V1::TransactionsController < Api::BaseController
   before_action :set_transaction, only: %i[show update destroy]
 
   def index
-    @transactions = Transaction.all.where('user_account_id = ?', @user.id).includes(:user_account, :loan).order('created_at desc')
+    @transactions = Transaction.all.where('user_account_id = ?', @user.id).order('created_at desc')
   end
 
   def show; end
