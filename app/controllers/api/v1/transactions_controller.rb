@@ -1,11 +1,16 @@
 class Api::V1::TransactionsController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :set_transaction, only: %i[show update destroy]
+  before_action :set_user_account, only: :index_by_user_account
 
   def index
-    @transactions = Transaction.all.where('user_account_id = ?', @user.id).order('created_at desc')
+    @transactions = Transaction.all.order('created_at desc')
   end
 
+  def index_by_user_account
+    @transactions = Transaction.all.where('user_account_id = ?', @user_account.id).order('created_at desc')
+  end
+  
   def show; end
 
   def create
@@ -35,6 +40,10 @@ class Api::V1::TransactionsController < Api::BaseController
   end
 
   private
+
+  def set_user_account
+    @user_account = UserAccount.find(params[:account_id])
+  end
 
   def set_transaction
     @transaction = Transaction.find(params[:id])
