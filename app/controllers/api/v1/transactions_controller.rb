@@ -10,7 +10,7 @@ class Api::V1::TransactionsController < Api::BaseController
   def index_by_user_account
     @transactions = Transaction.all.where('user_account_id = ?', @user_account.id).order('created_at desc')
   end
-  
+
   def show; end
 
   def create
