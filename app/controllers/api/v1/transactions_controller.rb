@@ -79,5 +79,4 @@ class Api::V1::TransactionsController < Api::BaseController
 
     dt
   end
-
 end
