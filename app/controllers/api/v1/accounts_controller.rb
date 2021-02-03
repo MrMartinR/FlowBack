@@ -65,7 +65,7 @@ class Api::V1::AccountsController < Api::BaseController
     if @account.destroy
       json_response({ status: true, messages: 'The account was deleted' })
     else
-      json_response({ status: false, messages: 'Something went wrong while deleting the account, try again!!' })
+      json_response({ status: false, messages: 'Something went wrong while deleting the account, try again!' })
     end
   end
 
