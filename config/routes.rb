@@ -24,7 +24,7 @@ Rails.application.routes.draw do
             get 'search'
           end
         end
-        get 'user_accounts/:account_id/transactions', to: 'transactions#index_by_user_account'
+        get 'user_accounts/:id/transactions', to: 'transactions#index_by_user_account'
         resources :originators
         resources :platform_originators
         resources :user_platforms
