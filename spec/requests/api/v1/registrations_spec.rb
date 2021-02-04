@@ -36,7 +36,11 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
       end
 
       it 'include the created user in response body' do
-        expect(json_body).to eq(UserSerializer.new(User.last).serializable_hash.as_json)
+        expect(response_body).to eq(UserSerializer.new(User.last).serializable_hash.as_json)
+      end
+
+      it 'include the corrent type in response body' do
+        expect(response_body).to have_type(:users)
       end
     end
 
