@@ -44,6 +44,7 @@ Rails.application.routes.draw do
             get 'search'
           end
         end
+        get '/user_loans/user_loan/:loan_id', to: 'user_loans#show_user_loan_by_loan_id'
 
         resources :transactions
         
