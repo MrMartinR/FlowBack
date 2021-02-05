@@ -4,10 +4,6 @@ RSpec.describe 'Api::V1::Loans', type: :request do
 
   let(:user) { create(:user) }
 
-  let(:authentication) {
-    post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
-    JSON(response.body) }
-
   let(:contact) { create(:contact) }
 
   let(:platform) { create(:platform, contact: contact) }
@@ -22,18 +18,12 @@ RSpec.describe 'Api::V1::Loans', type: :request do
 
   let(:loan) { create(:loan, created_by: user, currency: currency, country: country, platform_originator: platform_originator) }
 
-  let(:token) { authentication["token"]["token"] }
-
-  let(:client) { authentication["token"]["client"] }
-
-  let(:expiry) { authentication["token"]["expiry"] }
-
   describe 'GET loans#index' do
 
     context 'when user is authenticated' do
       before do
         loan
-        get api_v1_loans_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        get api_v1_loans_path, params: user.create_new_auth_token
       end
 
       it 'have status code 200' do
@@ -65,7 +55,7 @@ RSpec.describe 'Api::V1::Loans', type: :request do
 
     context 'when user is authenticated' do
       before do
-        post api_v1_loans_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, loan: {name: "test", country_id: country.id, currency_id: currency.id, gender: "male", code: "IND", amount: 200, platform_originator_id: platform_originator.id}}
+        post api_v1_loans_path, params: {loan: {name: "test", country_id: country.id, currency_id: currency.id, gender: "male", code: "IND", amount: 200, platform_originator_id: platform_originator.id}}.merge(user.create_new_auth_token)
       end
 
       it 'have status code 200' do
@@ -98,7 +88,7 @@ RSpec.describe 'Api::V1::Loans', type: :request do
     context 'when user is authenticated' do
       before do
         user.roles.first.update(name: "admin")
-        put api_v1_loan_path(loan), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, loan: {name: 'testloan'}}
+        put api_v1_loan_path(loan), params: {loan: {name: 'testloan'}}.merge(user.create_new_auth_token)
       end
 
       it 'have status code 200' do
@@ -127,7 +117,7 @@ RSpec.describe 'Api::V1::Loans', type: :request do
 
     context "when user is not authorized" do
       before do
-        put api_v1_loan_path(loan), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, loan: {name: 'testloan'}}
+        put api_v1_loan_path(loan), params: {loan: {name: 'testloan'}}.merge(user.create_new_auth_token)
       end
 
       it 'checks the message' do
@@ -141,7 +131,7 @@ RSpec.describe 'Api::V1::Loans', type: :request do
     context 'when user is authenticated' do
       before do
         user.roles.first.update(name: "admin")
-        delete api_v1_loan_path(loan), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        delete api_v1_loan_path(loan), params: user.create_new_auth_token
       end
 
       it 'have status code 200' do
@@ -170,7 +160,7 @@ RSpec.describe 'Api::V1::Loans', type: :request do
 
     context "when user is not authorized" do
       before do
-        delete api_v1_loan_path(loan), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        delete api_v1_loan_path(loan), params: user.create_new_auth_token
       end
 
       it 'checks the message' do

@@ -4,22 +4,12 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
   let(:user) { create(:user) }
 
-  let(:authenticate) { post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
-  JSON(response.body) }
-
-  let(:token) { authenticate["token"]["token"] }
-
-  let(:client) { authenticate["token"]["client"] }
-
-  let(:expiry) { authenticate["token"]["expiry"] }
-
   describe 'GET users#index' do
 
     context 'when user is authenticated' do
       before do
-        user
         user.roles.first.update(name: "admin")
-        get api_v1_users_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        get api_v1_users_path, params: user.create_new_auth_token
       end
 
       it 'have status code 200' do
@@ -50,7 +40,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
       before do
         user
-        get api_v1_users_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        get api_v1_users_path, params: user.create_new_auth_token
       end
 
       it 'checks the message' do
@@ -63,7 +53,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
     context 'when user is authenticated' do
       before do
-        get api_v1_user_profile_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        get api_v1_user_profile_path, params: user.create_new_auth_token
       end
 
       it 'have status code 200' do
@@ -96,7 +86,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
     context "positive cases" do
       context 'when user is authenticated' do
         before do
-          put api_v1_user_path(user), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, user: {username: 'testname'}}
+          put api_v1_user_path(user), params: {user: {username: 'testname'}}.merge(user.create_new_auth_token)
         end
 
         it 'have status code 200' do
@@ -126,7 +116,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
     end
     context "negative cases" do
       before do
-        put api_v1_user_path(user), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, user: {username: ''}}
+        put api_v1_user_path(user), params: {user: {username: ''}}.merge(user.create_new_auth_token)
       end
 
       it 'returns a error message' do

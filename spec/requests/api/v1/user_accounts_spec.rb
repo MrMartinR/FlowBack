@@ -4,10 +4,6 @@ RSpec.describe 'Api::V1::UserAccount', type: :request do
 
   let(:user) { create(:user) }
 
-  let(:authentication) {
-    post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
-    JSON(response.body) }
-
   let(:contact) { create(:contact) }
 
   let(:platform) { create(:platform, contact: contact) }
@@ -20,18 +16,12 @@ RSpec.describe 'Api::V1::UserAccount', type: :request do
 
   let(:user_account) { create(:user_account, country: country, currency: currency, account: account, user: user) }
 
-  let(:token) { authentication["token"]["token"] }
-
-  let(:client) { authentication["token"]["client"] }
-
-  let(:expiry) { authentication["token"]["expiry"] }
-
   describe 'GET user_accounts#index' do
 
     context 'when user is authenticated' do
       before do
         user_account
-        get api_v1_user_accounts_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        get api_v1_user_accounts_path, params: user.create_new_auth_token
       end
 
       it 'have status code 200' do
@@ -63,7 +53,7 @@ RSpec.describe 'Api::V1::UserAccount', type: :request do
 
     context 'when user is authenticated' do
       before do
-        post api_v1_user_accounts_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, user_account: {name: "test", active: true, user_id: user.id, country_id: country.id, currency_id: currency.id, account_id: account.id}}
+        post api_v1_user_accounts_path, params: {user_account: {name: "test", active: true, user_id: user.id, country_id: country.id, currency_id: currency.id, account_id: account.id}}.merge(user.create_new_auth_token)
       end
 
       it 'have status code 200' do
@@ -95,7 +85,7 @@ RSpec.describe 'Api::V1::UserAccount', type: :request do
 
     context 'when user is authenticated' do
       before do
-        put api_v1_user_account_path(user_account), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, user_account: {name: 'testaccount'}}
+        put api_v1_user_account_path(user_account), params: {user_account: {name: 'testaccount'}}.merge(user.create_new_auth_token)
       end
 
       it 'have status code 200' do
@@ -127,7 +117,7 @@ RSpec.describe 'Api::V1::UserAccount', type: :request do
 
     context 'when user is authenticated' do
       before do
-        delete api_v1_user_account_path(user_account), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        delete api_v1_user_account_path(user_account), params: user.create_new_auth_token
       end
 
       it 'have status code 200' do

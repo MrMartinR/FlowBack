@@ -4,10 +4,6 @@ RSpec.describe 'Api::V1::UserLoan', type: :request do
 
   let(:user) { create(:user) }
 
-  let(:authentication) {
-    post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
-    JSON(response.body) }
-
   let(:contact) { create(:contact) }
 
   let(:platform) { create(:platform, contact: contact) }
@@ -26,12 +22,6 @@ RSpec.describe 'Api::V1::UserLoan', type: :request do
 
   let(:loan) { create(:loan, country: country, platform_originator: platform_originator, currency: currency) }
 
-  let(:token) { authentication["token"]["token"] }
-
-  let(:client) { authentication["token"]["client"] }
-
-  let(:expiry) { authentication["token"]["expiry"] }
-
   let(:user_loan) { create(:user_loan, user: user, loan: loan, user_account: user_account) }
 
   describe 'GET user_loans#index' do
@@ -39,7 +29,7 @@ RSpec.describe 'Api::V1::UserLoan', type: :request do
     context 'when user is authenticated' do
       before do
         user_loan
-        get api_v1_user_loans_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        get api_v1_user_loans_path, params: user.create_new_auth_token
       end
 
       it 'have status code 200' do
@@ -71,7 +61,7 @@ RSpec.describe 'Api::V1::UserLoan', type: :request do
 
     context 'when user is authenticated' do
       before do
-        post api_v1_user_loans_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, user_loan: {slice_name: "test", market: "primary", xirr: 67, invest_mode: "manual", position: "in", date_in: "2020-02-01", date_out: "2020-03-01", loan_id: loan.id, user_account_id: user_account.id}}
+        post api_v1_user_loans_path, params: {user_loan: {slice_name: "test", market: "primary", xirr: 67, invest_mode: "manual", position: "in", date_in: "2020-02-01", date_out: "2020-03-01", loan_id: loan.id, user_account_id: user_account.id}}.merge(user.create_new_auth_token)
       end
 
       it 'have status code 200' do
@@ -103,7 +93,7 @@ RSpec.describe 'Api::V1::UserLoan', type: :request do
 
     context 'when user is authenticated' do
       before do
-        put api_v1_user_loan_path(user_loan), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, user_loan: {slice_name: 'testloan'}}
+        put api_v1_user_loan_path(user_loan), params: {user_loan: {slice_name: 'testloan'}}.merge(user.create_new_auth_token)
       end
 
       it 'have status code 200' do
@@ -135,7 +125,7 @@ RSpec.describe 'Api::V1::UserLoan', type: :request do
 
     context 'when user is authenticated' do
       before do
-        delete api_v1_user_loan_path(user_loan), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        delete api_v1_user_loan_path(user_loan), params: user.create_new_auth_token
       end
 
       it 'have status code 200' do

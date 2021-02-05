@@ -4,24 +4,14 @@ RSpec.describe 'Api::V1::Currency', type: :request do
 
   let(:user) { create(:user) }
 
-  let(:authentication) {
-    post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
-    JSON(response.body) }
-
   let(:currency) { create(:currency) }
-
-  let(:token) { authentication["token"]["token"] }
-
-  let(:client) { authentication["token"]["client"] }
-
-  let(:expiry) { authentication["token"]["expiry"] }
 
   describe 'GET currencies#index' do
 
     context 'when user is authenticated' do
       before do
         currency
-        get api_v1_currencies_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        get api_v1_currencies_path, params: user.create_new_auth_token
       end
 
       it 'have status code 200' do
@@ -53,7 +43,7 @@ RSpec.describe 'Api::V1::Currency', type: :request do
 
     context 'when user is authenticated' do
       before do
-        post api_v1_currencies_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, currency: {name: "India"}}
+        post api_v1_currencies_path, params: {currency: {name: "India"}}.merge(user.create_new_auth_token)
       end
 
       it 'have status code 200' do
@@ -86,7 +76,7 @@ RSpec.describe 'Api::V1::Currency', type: :request do
     context 'when user is authenticated' do
       before do
         user.roles.first.update(name: "admin")
-        put api_v1_currency_path(currency), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, currency: {name: 'Indiatest'}}
+        put api_v1_currency_path(currency), params: {currency: {name: 'Indiatest'}}.merge(user.create_new_auth_token)
       end
 
       it 'have status code 200' do
@@ -115,7 +105,7 @@ RSpec.describe 'Api::V1::Currency', type: :request do
 
     context "when user is not authorized" do
       before do
-        put api_v1_currency_path(currency), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        put api_v1_currency_path(currency), params: user.create_new_auth_token
       end
 
       it 'checks the message' do
@@ -129,7 +119,7 @@ RSpec.describe 'Api::V1::Currency', type: :request do
     context 'when user is authenticated' do
       before do
         user.roles.first.update(name: "admin")
-        delete api_v1_currency_path(currency), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        delete api_v1_currency_path(currency), params: user.create_new_auth_token
       end
 
       it 'have status code 200' do
@@ -158,7 +148,7 @@ RSpec.describe 'Api::V1::Currency', type: :request do
 
     context "when user is not authorized" do
       before do
-        delete api_v1_currency_path(currency), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        delete api_v1_currency_path(currency), params: user.create_new_auth_token
       end
 
       it 'checks the message' do

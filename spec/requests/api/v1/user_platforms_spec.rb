@@ -4,21 +4,11 @@ RSpec.describe 'Api::V1::UserPlatform', type: :request do
 
   let(:user) { create(:user) }
 
-  let(:authentication) {
-    post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
-    JSON(response.body) }
-
   let(:contact) { create(:contact) }
 
   let(:platform) { create(:platform, contact: contact) }
 
   let(:user_platform) { create(:user_platform, platform: platform, user: user) }
-
-  let(:token) { authentication["token"]["token"] }
-
-  let(:client) { authentication["token"]["client"] }
-
-  let(:expiry) { authentication["token"]["expiry"] }
 
   let(:user_loan) { create(:user_loan, user: user, loan: loan, user_account: user_account) }
 
@@ -27,7 +17,7 @@ RSpec.describe 'Api::V1::UserPlatform', type: :request do
     context 'when user is authenticated' do
       before do
         user_platform
-        get api_v1_user_platforms_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        get api_v1_user_platforms_path, params: user.create_new_auth_token
       end
 
       it 'have status code 200' do
@@ -59,7 +49,7 @@ RSpec.describe 'Api::V1::UserPlatform', type: :request do
 
     context 'when user is authenticated' do
       before do
-        post api_v1_user_platforms_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, user_platform: {overview: "test", notes: "testnotes", user_id: user.id, platform_id: platform.id}}
+        post api_v1_user_platforms_path, params: {user_platform: {overview: "test", notes: "testnotes", user_id: user.id, platform_id: platform.id}}.merge(user.create_new_auth_token)
       end
 
       it 'have status code 200' do
@@ -91,7 +81,7 @@ RSpec.describe 'Api::V1::UserPlatform', type: :request do
 
     context 'when user is authenticated' do
       before do
-        put api_v1_user_platform_path(user_platform), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, user_platform: {overview: 'testhere'}}
+        put api_v1_user_platform_path(user_platform), params: {user_platform: {overview: 'testhere'}}.merge(user.create_new_auth_token)
       end
 
       it 'have status code 200' do
@@ -123,7 +113,7 @@ RSpec.describe 'Api::V1::UserPlatform', type: :request do
 
     context 'when user is authenticated' do
       before do
-        delete api_v1_user_platform_path(user_platform), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        delete api_v1_user_platform_path(user_platform), params: user.create_new_auth_token
       end
 
       it 'have status code 200' do
