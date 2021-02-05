@@ -4,6 +4,7 @@ class Api::V1::UserPlatformsController < Api::BaseController
 
   def index
     @user_platforms = @user.user_platforms.order('created_at desc')
+    render json: UserPlatformSerializer.new(@user_platforms).serializable_hash
   end
 
   def show; end
@@ -12,7 +13,7 @@ class Api::V1::UserPlatformsController < Api::BaseController
     @user_platform = @user.user_platforms.new(user_platform_params)
 
     if @user_platform.save
-      render :show, status: :created
+      render json: UserPlatformSerializer.new(@user_platform).serializable_hash
     else
       json_response({ success: false, message: @user_platform.errors }, :unprocessable_entity)
     end
@@ -20,7 +21,7 @@ class Api::V1::UserPlatformsController < Api::BaseController
 
   def update
     if @user_platform.update(user_platform_params)
-      render :show, status: :ok
+      render json: UserPlatformSerializer.new(@user_platform).serializable_hash
     else
       json_response({ success: false, message: @user_platform.errors }, :unprocessable_entity)
     end

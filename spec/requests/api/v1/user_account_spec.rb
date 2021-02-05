@@ -1,25 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Users', type: :request do
+RSpec.describe 'Api::V1::UserAccount', type: :request do
 
-  let(:user) { create(:user) }
-
-  let(:authenticate) { post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
-  JSON(response.body) }
-
-  let(:token) { authenticate["token"]["token"] }
-
-  let(:client) { authenticate["token"]["client"] }
-
-  let(:expiry) { authenticate["token"]["expiry"] }
-
-  describe 'GET users#index' do
+  describe 'GET user_accounts#index' do
 
     context 'when user is authenticated' do
       before do
-        user
+        user = create(:user)
         user.roles.first.update(name: "admin")
-        get api_v1_users_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
+        post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
+        body = JSON(response.body)
+        token = body["token"]["token"]
+        client = body["token"]["client"]
+        expiry = body["token"]["expiry"]
+        currency = create(:currency)
+        country = create(:country)
+        account = create(:account)
+        create(:user_account, country: country, currency: currency, account: account)
+        get api_v1_user_accounts_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
       end
 
       it 'have status code 200' do
@@ -31,7 +29,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
       end
 
       it 'assigns @users' do
-        expect(assigns(:users)).to eq([user])
+        expect(assigns(:users)).to eq([User.first])
       end
     end
 
@@ -45,24 +43,19 @@ RSpec.describe 'Api::V1::Users', type: :request do
         expect(response).to have_http_status 401
       end
     end
-
-    context 'when user is not authorized' do
-
-      before do
-        user
-        get api_v1_users_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
-      end
-
-      it 'checks the message' do
-        expect(JSON(response.body)["message"]).to eq("Forbidden")
-      end
-    end
   end
 
   describe 'GET users#user_profile' do
 
     context 'when user is authenticated' do
       before do
+        user = create(:user)
+        user.roles.first.update(name: "admin")
+        post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
+        body = JSON(response.body)
+        token = body["token"]["token"]
+        client = body["token"]["client"]
+        expiry = body["token"]["expiry"]
         get api_v1_user_profile_path, params: {uid: user.uid, "access-token": token, expiry: expiry, client: client}
       end
 
@@ -75,7 +68,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
       end
 
       it 'assigns @user' do
-        expect(assigns(:user)).to eq(user)
+        expect(assigns(:user)).to eq(User.first)
       end
     end
 
@@ -96,6 +89,13 @@ RSpec.describe 'Api::V1::Users', type: :request do
     context "positive cases" do
       context 'when user is authenticated' do
         before do
+          user = create(:user)
+          user.roles.first.update(name: "admin")
+          post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
+          body = JSON(response.body)
+          token = body["token"]["token"]
+          client = body["token"]["client"]
+          expiry = body["token"]["expiry"]
           put api_v1_user_path(user), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, user: {username: 'testname'}}
         end
 
@@ -126,6 +126,13 @@ RSpec.describe 'Api::V1::Users', type: :request do
     end
     context "negative cases" do
       before do
+        user = create(:user)
+        user.roles.first.update(name: "admin")
+        post api_v1_user_session_path, params: {user: {email: user.email, password: user.password}}
+        body = JSON(response.body)
+        token = body["token"]["token"]
+        client = body["token"]["client"]
+        expiry = body["token"]["expiry"]
         put api_v1_user_path(user), params: {uid: user.uid, "access-token": token, expiry: expiry, client: client, user: {username: ''}}
       end
 

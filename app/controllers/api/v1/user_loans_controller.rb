@@ -5,6 +5,7 @@ class Api::V1::UserLoansController < Api::BaseController
 
   def index
     @user_loans = UserLoan.by_user(@user).order('created_at desc')
+    render json: UserLoanSerializer.new(@user_loans).serializable_hash
   end
 
   def show; end
@@ -13,7 +14,7 @@ class Api::V1::UserLoansController < Api::BaseController
     @user_loan = @user.user_loans.new(user_loan_params)
 
     if @user_loan.save
-      render :show, status: :created
+      render json: UserLoanSerializer.new(@user_loan).serializable_hash
     else
       json_response({ success: false, message: @user_loan.errors }, :unprocessable_entity)
     end
@@ -21,7 +22,7 @@ class Api::V1::UserLoansController < Api::BaseController
 
   def update
     if @user_loan.update(user_loan_params)
-      render :show, status: :ok
+      render json: UserLoanSerializer.new(@user_loan).serializable_hash
     else
       json_response({ success: false, message: @user_loan.errors }, :unprocessable_entity)
     end

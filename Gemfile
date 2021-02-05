@@ -103,6 +103,7 @@ group :development do
 end
 
 group :test do
+  # Brings back assigns to your controller tests as well as assert_template to both controller and integration tests
   gem 'rails-controller-testing'
   # Cleans database for each request
   gem 'database_cleaner'

@@ -5,7 +5,7 @@ class Api::V1::UsersController < Api::BaseController
 
   def index
     @users = User.order('username asc')
-    render json: UserSerializer.new(@users).serializable_hash
+    render json: UserSerializer.new(@users, { fields: { user: [:email, :username, :currency, :country] } }).serializable_hash
   end
 
   # ignore this for now
@@ -15,13 +15,13 @@ class Api::V1::UsersController < Api::BaseController
 
   def user_profile
     @user = current_api_v1_user
-    render json: UserSerializer.new(@user).serializable_hash
+    render json: UserSerializer.new(@user, { fields: { user: [:username, :name, :email, :dob, :surname, :image_url, :currency, :country] } }).serializable_hash
   end
 
   def update
     if current_api_v1_user == @user || current_api_v1_user.has_role?(:admin)
       if @user.update!(user_params)
-        render json: UserSerializer.new(@user).serializable_hash
+        render json: UserSerializer.new(@user, { fields: { user: [:email, :username, :currency, :country] } }).serializable_hash
       else
         render json: { success: false, status: 400, message: 'Could not update profile' }
       end

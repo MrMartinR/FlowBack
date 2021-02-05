@@ -1,9 +1,8 @@
 FactoryBot.define do
   factory :user do
-    username { 'MyString' }
-    email { 'email@example.com' }
-    allow_password_change { true }
-    password { 'password' }
-    password_confirmation { 'password' }
+    username { 'Admin' }
+    email { 'admin@flowfin.tech' }
+    password { 'admin1234' }
+    password_confirmation { 'admin1234' }
   end
 end
