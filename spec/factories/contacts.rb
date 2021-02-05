@@ -1,5 +1,8 @@
 FactoryBot.define do
   factory :contact do
-    category { 'test' }
+    name { 'test' }
+    surname { "nick" }
+    kind { "company" }
+    visibility { "public" }
   end
 end

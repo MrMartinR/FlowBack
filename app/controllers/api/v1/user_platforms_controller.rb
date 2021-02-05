@@ -49,6 +49,6 @@ class Api::V1::UserPlatformsController < Api::BaseController
 
     params.require(:user_platform).permit(:platform_id, :overview, :strategy, :login_user, :login_pass,
                                           :internal_id, :notes, :rating)
-      .merge(merged_params, merged_params_one, merged_params_two)
+      .merge(merged_params).merge(merged_params_one).merge(merged_params_two)
   end
 end

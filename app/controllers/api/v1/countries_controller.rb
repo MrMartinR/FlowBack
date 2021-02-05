@@ -40,7 +40,11 @@ class Api::V1::CountriesController < Api::BaseController
   # DELETE /countries/1
   # DELETE /countries/1.json
   def destroy
-    @country.destroy
+    if @country.destroy
+      json_response({ success: true, message: 'The country was deleted' })
+    else
+      json_response({ success: false, message: @country.errors }, :unprocessable_entity)
+    end
   end
 
   private
