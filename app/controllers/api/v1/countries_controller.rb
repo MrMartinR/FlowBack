@@ -8,6 +8,7 @@ class Api::V1::CountriesController < Api::BaseController
   def index
     @countries = Country.includes(:currency).order('countries.name asc')
     @images = Country.with_attached_flag_image
+    render json: CountrySerializer.new(@countries).serializable_hash
   end
 
   # GET /countries/1
@@ -20,7 +21,7 @@ class Api::V1::CountriesController < Api::BaseController
     @country = Country.new(country_params)
 
     if @country.save
-      render json: index
+      render json: CountrySerializer.new(@country).serializable_hash
     else
       render json: @country.errors, status: :unprocessable_entity
     end
@@ -30,7 +31,7 @@ class Api::V1::CountriesController < Api::BaseController
   # PATCH/PUT /countries/1.json
   def update
     if @country.update(country_params)
-      render :show, status: :ok, location: @country
+      render json: CountrySerializer.new(@country).serializable_hash
     else
       render json: @country.errors, status: :unprocessable_entity
     end
@@ -39,7 +40,11 @@ class Api::V1::CountriesController < Api::BaseController
   # DELETE /countries/1
   # DELETE /countries/1.json
   def destroy
-    @country.destroy
+    if @country.destroy
+      json_response({ success: true, message: 'The country was deleted' })
+    else
+      json_response({ success: false, message: @country.errors }, :unprocessable_entity)
+    end
   end
 
   private

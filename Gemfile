@@ -103,6 +103,10 @@ group :development do
 end
 
 group :test do
+  # Brings back assigns to your controller tests as well as assert_template to both controller and integration tests
+  gem 'rails-controller-testing'
+  # Cleans database for each request
+  gem 'database_cleaner'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'

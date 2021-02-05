@@ -7,6 +7,7 @@ class Api::V1::CurrenciesController < Api::BaseController
   # GET /currencies.json
   def index
     @currencies = Currency.order('currencies.name asc')
+    render json: CurrencySerializer.new(@currencies).serializable_hash
   end
 
   # GET /currencies/1
@@ -20,7 +21,7 @@ class Api::V1::CurrenciesController < Api::BaseController
     if @find_currency.nil?
       @currency = Currency.new(currency_params)
       if @currency.save
-        render json: index
+        render json: CurrencySerializer.new(@currency).serializable_hash
       else
         render json: @currency.errors, status: :unprocessable_entity
       end
@@ -34,7 +35,7 @@ class Api::V1::CurrenciesController < Api::BaseController
   # PATCH/PUT /currencies/1.json
   def update
     if @currency.update(currency_params)
-      render :show, status: :ok
+      render json: CurrencySerializer.new(@currency).serializable_hash
     else
       render json: @currency.errors, status: :unprocessable_entity
     end
