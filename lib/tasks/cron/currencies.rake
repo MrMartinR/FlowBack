@@ -1,4 +1,3 @@
-# COMMENTED  DUE RUBOCOP OFFENSES
 # require 'net/http'
 
 # namespace :cron do

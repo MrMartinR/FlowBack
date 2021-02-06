@@ -3,8 +3,8 @@ json.success true
 
 json.data @accounts do |account|
   json.id account.id
-  json.name account.name
-  json.category account.category
-  json.icon account.icon
-  json.platform account.platform
+  json.trade_name account.trade_name
+  # json.category account.category
+  # json.icon account.icon
+  # json.platform account.platform
 end
