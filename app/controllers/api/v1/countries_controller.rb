@@ -1,7 +1,8 @@
 class Api::V1::CountriesController < Api::BaseController
   before_action :authenticate_api_v1_user!, :admin_or_contributor!
   before_action :admin_or_contributor!, except: %i[index show]
-  before_action :set_country, only: %i[show update destroy]
+  before_action :set_country, only: %i[update destroy]
+  before_action :set_country_with_currency, only: %i[show]
 
   # GET /countries
   # GET /countries.json
@@ -20,7 +21,8 @@ class Api::V1::CountriesController < Api::BaseController
     @country = Country.new(country_params)
 
     if @country.save
-      render json: index
+      # render json: show 
+      redirect_to api_v1_country_url(@country)
     else
       render json: @country.errors, status: :unprocessable_entity
     end
@@ -49,8 +51,12 @@ class Api::V1::CountriesController < Api::BaseController
     @country = Country.find(params[:id])
   end
 
+  def set_country_with_currency
+    @country = Country.includes(:currency).find(params[:id])
+  end
+
   # Only allow a list of trusted parameters through.
   def country_params
-    params.require(:country).permit(:currency_id, :name, :iso_code, :continent, :flag)
+    params.require(:country).permit(:currency_id, :name, :iso_code, :continent, :fiscal_year_start)
   end
 end

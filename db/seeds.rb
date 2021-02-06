@@ -6,13 +6,13 @@
 # This block creates 3 roles: admin, contributor and user
 # [Working]
 # rol admin
-# role_admin = Role.new({
-#   :id => "7a09ac89-a0e5-40a1-9ba2-73ab3c720c3f",
-#   :name => "admin",
-#   :created_at => "2020-12-30 16:14:03.071982",
-#   :updated_at => "2020-12-30 16:14:03.071982",
-# })
-# role_admin.save
+role_admin = Role.new({
+  :id => "7a09ac89-a0e5-40a1-9ba2-73ab3c720c3f",
+  :name => "admin",
+  :created_at => "2020-12-30 16:14:03.071982",
+  :updated_at => "2020-12-30 16:14:03.071982",
+})
+role_admin.save
 # # rol contributor
 # role_contributor = Role.new({
 #   :id => "8f8c8dac-46a7-457c-8e6e-43cf02824535",
@@ -33,14 +33,14 @@
 # This block creates 4 users, 1 Admin, 1 Contributor and 2 User (Normal ones, or Flowers)
 # [Working]
 # # admin user
-# user_admin = User.new({
-#   :id => "90d8b89a-5b49-47c3-80b0-3038d67f7791",
-#   :email => "admin@flowfin.tech",
-#   :password => "admin1234",
-#   :username => "SuperFlower",
-# })
-# # user_admin.add_role(:admin)
-# user_admin.save
+user_admin = User.new({
+  :id => "90d8b89a-5b49-47c3-80b0-3038d67f7791",
+  :email => "admin@flowfin.tech",
+  :password => "admin1234",
+  :username => "SuperFlower",
+})
+user_admin.add_role(:admin)
+user_admin.save
 # # contributor
 # user_contrib = User.new({
 #   :id => "53da15e0-06b1-47e1-93fd-74b47a884724",
