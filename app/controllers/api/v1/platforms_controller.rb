@@ -4,8 +4,33 @@ class Api::V1::PlatformsController < Api::BaseController
   before_action :set_platform, only: %i[show update destroy]
 
   def index
-    @platforms = Platform.order('created_at asc')
+    @platforms = Platform.find_by_sql("
+      SELECT
+      p.id,
+      p.contact_id,
+      c.trade_name,
+      p.status,
+      p.category,
+      p.liquidity,
+      p.account_category,
+      p.cost,
+      p.invest_mode,
+      p.min_investment,
+      p.protection_scheme,
+      p.secondary_market,
+      p.structure,
+      p.term,
+      p.promo,
+      p.welcome_bonus
+      from platforms p
+      inner join contacts c on c.id = p.contact_id
+      ORDER BY c.trade_name
+      ")
   end
+
+  # def index
+  #   @platforms = Platform.order('created_at asc')
+  # end
 
   def show; end
 

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
             get 'search'
           end
         end
+        get 'user_accounts/:id/transactions', to: 'transactions#index_by_user_account'
         resources :originators
         resources :platform_originators
         resources :user_platforms
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
           end
         end
         get '/platforms/:id/platform_originators', to: 'platform_originators#index_by_platform_id'        
+        get '/platforms/:id/loans', to: 'loans#index_by_platform_originator'        
         resources :loans
         resources :user_loans do
           collection do
@@ -42,6 +44,7 @@ Rails.application.routes.draw do
             get 'search'
           end
         end
+        get '/user_loans/user_loan/:loan_id', to: 'user_loans#show_user_loan_by_loan_id'
 
         resources :transactions
         
