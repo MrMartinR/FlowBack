@@ -1,14 +1,14 @@
 class Api::V1::CountriesController < Api::BaseController
   before_action :authenticate_api_v1_user!, :admin_or_contributor!
   before_action :admin_or_contributor!, except: %i[index show]
-  before_action :set_country, only: %i[update destroy]
-  before_action :set_country_with_currency, only: %i[show]
+  before_action :set_country, only: %i[show update destroy]
 
   # GET /countries
   # GET /countries.json
   def index
     @countries = Country.includes(:currency).order('countries.name asc')
     @images = Country.with_attached_flag_image
+    render json: CountrySerializer.new(@countries).serializable_hash
   end
 
   # GET /countries/1
@@ -21,8 +21,7 @@ class Api::V1::CountriesController < Api::BaseController
     @country = Country.new(country_params)
 
     if @country.save
-      # render json: show
-      redirect_to api_v1_country_url(@country)
+      render json: CountrySerializer.new(@country).serializable_hash
     else
       render json: @country.errors, status: :unprocessable_entity
     end
@@ -32,7 +31,7 @@ class Api::V1::CountriesController < Api::BaseController
   # PATCH/PUT /countries/1.json
   def update
     if @country.update(country_params)
-      render :show, status: :ok, location: @country
+      render json: CountrySerializer.new(@country).serializable_hash
     else
       render json: @country.errors, status: :unprocessable_entity
     end
@@ -41,7 +40,11 @@ class Api::V1::CountriesController < Api::BaseController
   # DELETE /countries/1
   # DELETE /countries/1.json
   def destroy
-    @country.destroy
+    if @country.destroy
+      json_response({ success: true, message: 'The country was deleted' })
+    else
+      json_response({ success: false, message: @country.errors }, :unprocessable_entity)
+    end
   end
 
   private
@@ -51,12 +54,8 @@ class Api::V1::CountriesController < Api::BaseController
     @country = Country.find(params[:id])
   end
 
-  def set_country_with_currency
-    @country = Country.includes(:currency).find(params[:id])
-  end
-
   # Only allow a list of trusted parameters through.
   def country_params
-    params.require(:country).permit(:currency_id, :name, :iso_code, :continent, :fiscal_year_start)
+    params.require(:country).permit(:currency_id, :name, :iso_code, :continent, :flag)
   end
 end

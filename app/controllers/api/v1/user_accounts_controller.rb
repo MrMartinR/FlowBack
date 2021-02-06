@@ -4,6 +4,7 @@ class Api::V1::UserAccountsController < Api::BaseController
 
   def index
     @user_accounts = @user.user_accounts.includes(:country, :account, :currency, :user, :user_loans).order('name asc')
+    render json: UserAccountSerializer.new(@user_accounts).serializable_hash
   end
 
   def show; end
@@ -12,7 +13,7 @@ class Api::V1::UserAccountsController < Api::BaseController
     @user_account = @user.user_accounts.new(user_account_params)
 
     if @user_account.save
-      render :show, status: :created
+      render json: UserAccountSerializer.new(@user_accounts).serializable_hash
     else
       json_response({ success: false, message: @user_account.errors }, :unprocessable_entity)
     end
@@ -20,7 +21,7 @@ class Api::V1::UserAccountsController < Api::BaseController
 
   def update
     if @user_account.update(user_account_params)
-      render :show, status: :ok
+      render json: UserAccountSerializer.new(@user_accounts).serializable_hash
     else
       json_response({ success: false, message: @user_account.errors }, :unprocessable_entity)
     end

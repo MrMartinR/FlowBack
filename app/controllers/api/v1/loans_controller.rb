@@ -5,7 +5,8 @@ class Api::V1::LoansController < Api::BaseController
   before_action :set_platform, only: :index_by_platform_originator
 
   def index
-    @loans = Loan.includes(:country, :currency, :platform_originator).order('created_at desc')
+    @loans = Loan.includes(:country, :currency).order('created_at desc')
+    render json: LoanSerializer.new(@loans).serializable_hash
   end
 
   def index_by_platform_originator
@@ -24,7 +25,7 @@ class Api::V1::LoansController < Api::BaseController
     @loan = Loan.new(loan_params)
 
     if @loan.save
-      render :show, status: :created
+      render json: LoanSerializer.new(@loan).serializable_hash
     else
       json_response({ success: false, message: @loan.errors }, :unprocessable_entity)
     end
@@ -32,7 +33,7 @@ class Api::V1::LoansController < Api::BaseController
 
   def update
     if @loan.update(loan_params)
-      render :show, status: :ok
+      render json: LoanSerializer.new(@loan).serializable_hash
     else
       json_response({ success: false, message: @loan.errors }, :unprocessable_entity)
     end

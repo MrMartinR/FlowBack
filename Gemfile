@@ -72,19 +72,23 @@ gem 'ransack'
 # cron manager
 gem 'whenever'
 
+# jsonapi-serializer
+gem 'jsonapi-serializer'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   # A Ruby static code analyzer and formatter, based on the community Ruby style guide. | https://github.com/rubocop-hq/rubocop
   gem 'rubocop', '~> 1.8', require: false
-  gem 'rubocop-rails', require: false
 
   # YARD is a documentation generation tool for the Ruby programming language.
   gem 'yard'
 
   # Sajjad installed this gem
   gem 'dotenv-rails', '~> 2.7.6'
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 4.0.2'
 end
 
 group :development do
@@ -99,6 +103,10 @@ group :development do
 end
 
 group :test do
+  # Brings back assigns to your controller tests as well as assert_template to both controller and integration tests
+  gem 'rails-controller-testing'
+  # Cleans database for each request
+  gem 'database_cleaner'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
