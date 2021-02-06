@@ -21,7 +21,7 @@ class Api::V1::CountriesController < Api::BaseController
     @country = Country.new(country_params)
 
     if @country.save
-      # render json: show 
+      # render json: show
       redirect_to api_v1_country_url(@country)
     else
       render json: @country.errors, status: :unprocessable_entity

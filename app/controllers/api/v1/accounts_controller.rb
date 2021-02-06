@@ -3,7 +3,6 @@ class Api::V1::AccountsController < Api::BaseController
   before_action :admin_or_contributor!
   before_action :set_account, only: %i[show update destroy]
 
-#  
   def index
     @accounts = Account.find_by_sql("
       SELECT
@@ -14,10 +13,10 @@ class Api::V1::AccountsController < Api::BaseController
       inner join contacts c on c.id = a.contact_id
       ORDER BY c.trade_name
       ")
-    end
+  end
 
   def show; end
-  
+
   # def index
   #   @entities = []
   #   @check_table_count = Account.first

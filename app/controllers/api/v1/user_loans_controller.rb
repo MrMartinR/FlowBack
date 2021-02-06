@@ -15,7 +15,7 @@ class Api::V1::UserLoansController < Api::BaseController
 
   def show_user_loan_by_loan_id
     @user_loan = UserLoan.where('loan_id = ? AND user_id = ?', params[:loan_id], @user.id)
-    json_response({ success: true, message: @user_loan})
+    json_response({ success: true, message: @user_loan })
   end
 
   def show; end
@@ -72,7 +72,7 @@ class Api::V1::UserLoansController < Api::BaseController
     dt[:position] = user_loan.position
     dt[:date_in] = user_loan.date_in
     dt[:date_out] = user_loan.date_out
-    
+
     dt[:loan_name] = user_loan.loan.name
     dt[:loan_status] = user_loan.loan.status
     dt[:loan_rating] = user_loan.loan.rating
@@ -83,10 +83,9 @@ class Api::V1::UserLoansController < Api::BaseController
     dt[:loan_date_listed] = user_loan.loan.date_listed
     dt[:loan_date_issued] = user_loan.loan.date_issued
     dt[:loan_date_maturity] = user_loan.loan.date_maturity
-    dt[:loan_amortization] = user_loan.loan.amortization 
-    dt[:loan_installment] = user_loan.loan.installment 
+    dt[:loan_amortization] = user_loan.loan.amortization
+    dt[:loan_installment] = user_loan.loan.installment
 
     dt
   end
-
 end
