@@ -14,7 +14,7 @@ class Api::V1::UserLoansController < Api::BaseController
   end
 
   def show_user_loan_by_loan_id
-    @user_loan = UserLoan.where('loan_id = ?', params[:loan_id])
+    @user_loan = UserLoan.where('loan_id = ? AND user_id = ?', params[:loan_id], @user.id)
     json_response({ success: true, message: @user_loan})
   end
 
