@@ -264,7 +264,6 @@ GEM
     will_paginate (3.1.8)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.9.26)
     zeitwerk (2.4.2)
 
 PLATFORMS
@@ -290,7 +289,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rack-cors
-  rails (= 6.0.3.4)
+  rails (~> 6.0.2, >= 6.0.2.2)
   ransack
   rolify
   rubocop (~> 1.8)
@@ -302,7 +301,6 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webdrivers
   will_paginate (~> 3.1.0)
-  yard
 
 RUBY VERSION
    ruby 2.6.5p114

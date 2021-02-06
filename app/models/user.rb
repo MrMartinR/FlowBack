@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  extend Devise::Models
   # IMAGE FORMAT (JPEG, PNG, GIF, SVG)
   rolify
   self.implicit_order_column = 'created_at'

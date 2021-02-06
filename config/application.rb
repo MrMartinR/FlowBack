@@ -26,9 +26,6 @@ module Flow
     #              methods: [:get, :post, :options, :delete, :put, :patch]
     #   end
     # end
-    config.api_only = true
-    config.middleware.use ActionDispatch::Flash
-
     config.middleware.insert_before 0, Rack::Cors do
     allow do
       origins '*'

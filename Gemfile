@@ -9,7 +9,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 # Bundle edge Rails instead: gem 'rails' | https://github.com/rails/rails
-gem 'rails', '6.0.3.4'
+gem 'rails', '~> 6.0.2', '>= 6.0.2.2'
 
 # Use postgresql as the database for Active Record | https://github.com/ged/ruby-pg
 gem 'pg', '>= 0.18', '< 2.0'
@@ -69,18 +69,12 @@ gem 'will_paginate', '~> 3.1.0'
 # Ransack enables the creation of both simple and advanced search forms for your Ruby on Rails application It improves and expands upon MetaSearch's functionality, but does not have a 100%-compatible API | https://github.com/activerecord-hackery/ransack/
 gem 'ransack'
 
-# cron manager
-gem "whenever"
-
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   # A Ruby static code analyzer and formatter, based on the community Ruby style guide. | https://github.com/rubocop-hq/rubocop
   gem 'rubocop', '~> 1.8', require: false
-
-  # YARD is a documentation generation tool for the Ruby programming language.
-  gem 'yard'
 
   # Sajjad installed this gem
   gem 'dotenv-rails', '~> 2.7.6'
