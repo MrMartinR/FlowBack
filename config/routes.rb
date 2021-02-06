@@ -34,6 +34,7 @@ Rails.application.routes.draw do
             get 'search'
           end
         end
+        get '/platforms/:id/platform_originators', to: 'platform_originators#index_by_platform_id'        
         resources :loans
         resources :user_loans do
           collection do
