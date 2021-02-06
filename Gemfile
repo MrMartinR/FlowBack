@@ -78,6 +78,7 @@ group :development, :test do
 
   # A Ruby static code analyzer and formatter, based on the community Ruby style guide. | https://github.com/rubocop-hq/rubocop
   gem 'rubocop', '~> 1.8', require: false
+  gem 'rubocop-rails', require: false
 
   # YARD is a documentation generation tool for the Ruby programming language.
   gem 'yard'

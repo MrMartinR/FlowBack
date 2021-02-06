@@ -216,6 +216,10 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.4.0)
       parser (>= 2.7.1.5)
+    rubocop-rails (2.9.1)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 0.90.0, < 2.0)
     ruby-progressbar (1.11.0)
     ruby-vips (2.0.17)
       ffi (~> 1.9)
@@ -297,6 +301,7 @@ DEPENDENCIES
   ransack
   rolify
   rubocop (~> 1.8)
+  rubocop-rails
   selenium-webdriver
   spring
   spring-watcher-listen (~> 2.0.0)
@@ -312,4 +317,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   2.2.2
+   2.2.4
