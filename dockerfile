@@ -1,7 +1,7 @@
 #Dockerfile
 FROM ruby:2.6.5
 RUN  apt-get update -qq &&  apt-get install -y nodejs postgresql-client build-essential libpq-dev cron
-RUN gem install bundler -v '2.2.2'
+RUN gem install bundler -v '2.2.4'
 RUN mkdir /FlowBack
 WORKDIR /FlowBack
 COPY Gemfile /FlowBack/Gemfile

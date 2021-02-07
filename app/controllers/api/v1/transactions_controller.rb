@@ -1,10 +1,24 @@
 class Api::V1::TransactionsController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :set_transaction, only: %i[show update destroy]
+  before_action :set_user_account, only: :index_by_user_account
 
   def index
-    @transactions = Transaction.where(user_account_id: index_params[:user_account_id]).includes(:user_account,
-                                                                                                :loan).order('created_at desc')
+    @transactions = []
+    Transaction.all.order('created_at desc').each do |transaction|
+      dt = data_return(transaction)
+      @transactions << dt
+    end
+    json_response({ success: true, message: @transactions })
+  end
+
+  def index_by_user_account
+    @transactions = []
+    Transaction.all.where('user_account_id = ?', @user_account.id).order('created_at desc').each do |transaction|
+      dt = data_return(transaction)
+      @transactions << dt
+    end
+    json_response({ success: true, message: @transactions })
   end
 
   def show; end
@@ -37,6 +51,10 @@ class Api::V1::TransactionsController < Api::BaseController
 
   private
 
+  def set_user_account
+    @user_account = UserAccount.find(params[:id])
+  end
+
   def set_transaction
     @transaction = Transaction.find(params[:id])
   end
@@ -48,5 +66,17 @@ class Api::V1::TransactionsController < Api::BaseController
 
   def index_params
     params.require(:transaction).permit(:user_account_id)
+  end
+
+  def data_return(transaction)
+    dt = Hash.new(0)
+    dt[:id] = transaction.id
+    dt[:amount] = transaction.amount
+    dt[:user_account_id] = transaction.user_account.id
+    dt[:kind] = transaction.kind
+    dt[:category] = transaction.category
+    dt[:data] = transaction.date
+
+    dt
   end
 end
