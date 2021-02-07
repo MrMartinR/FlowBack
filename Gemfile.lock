@@ -289,7 +289,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
   rack-cors
-  rails (~> 6.0.2, >= 6.0.2.2)
+  rails (= 6.0.3.4)
   ransack
   rolify
   rubocop (~> 1.8)
@@ -306,4 +306,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   2.2.2
+   2.2.4
