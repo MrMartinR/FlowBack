@@ -4,12 +4,21 @@ class Api::V1::ContactsController < Api::BaseController
 
   # GET /contacts
   # GET /contacts.json
+
+  # Get a list of public contacts and the private contacts
+  # from the logged user in ASC order.
   def index
-    @contacts = []
-    Contact.find_each do |contact|
-      @contacts << contact if contact.user.nil? || contact.user.id == @user.id
-    end
+    @contacts = Contact.find_by_sql(
+      "SELECT id, coalesce (trade_name,nick,name) as name
+      FROM contacts
+      WHERE user_id is null or user_id = '#{@user.id}'
+      ORDER BY 2"
+    )
   end
+
+  # def index
+  # @contacts = Contact.where(user_id: [nil, @user.id]).order(name: :asc, nick: :asc, trade_name: :asc)
+  # end
 
   # GET /contacts/1
   # GET /contacts/1.json
@@ -30,7 +39,6 @@ class Api::V1::ContactsController < Api::BaseController
       else
         json_response({ success: false, message: 'Only admin or contrib can create a public contact' },
                       :unprocessable_entity)
-
       end
     else
       @contact = Contact.new(contact_params)
@@ -56,14 +64,11 @@ class Api::V1::ContactsController < Api::BaseController
       else
         json_response({ success: false, message: 'Only admin or contrib can update a public contact' },
                       :unprocessable_entity)
-
       end
-
     elsif @contact.update(contact_params)
       render :show, status: :ok
     else
       json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
-
     end
   end
 
