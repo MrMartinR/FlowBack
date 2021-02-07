@@ -2,10 +2,21 @@ class Api::V1::LoansController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :admin_or_contributor!, except: %i[index show]
   before_action :set_loan, only: %i[show update destroy]
+  before_action :set_platform, only: :index_by_platform_originator
 
   def index
     @loans = Loan.includes(:country, :currency).order('created_at desc')
     render json: LoanSerializer.new(@loans).serializable_hash
+  end
+
+  def index_by_platform_originator
+    @loans = []
+    PlatformOriginator.all.where('platform_id = ?', @platform.id).each do |platform_originator|
+      Loan.all.where('platform_originator_id = ?', platform_originator.id).each do |loan|
+        @loans << loan
+      end
+    end
+    json_response({ success: false, message: @loans })
   end
 
   def show; end
@@ -37,6 +48,10 @@ class Api::V1::LoansController < Api::BaseController
   end
 
   private
+
+  def set_platform
+    @platform = Platform.find(params[:id])
+  end
 
   def set_loan
     @loan = Loan.find(params[:id])
