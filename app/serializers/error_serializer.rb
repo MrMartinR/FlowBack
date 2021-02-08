@@ -1,18 +1,29 @@
 class ErrorSerializer
-  attr_reader :object
+  attr_reader :resource, :errors
 
-  def initialize(object)
-    @object = object
+  def initialize(resource)
+    @resource = resource
+    @errors = errors_for(resource).flatten
   end
 
   def serialize
-    object.errors.messages.each_with_object({ errors: [] }) do |(field, errors), result|
-      errors.each do |error|
-        result[:errors] << {
-          status: 422,
-          detail: error,
-          source: { pointer: "/data/attributes/#{field}" }
-        }
+    { errors: errors }
+  end
+
+  private
+
+  def build_error_object(field, error)
+    {}.tap do |hash|
+      hash[:status] = 422
+      hash[:detail] = error
+      hash[:source] = { pointer: "/data/attributes/#{field}" }
+    end
+  end
+
+  def errors_for(resource)
+    resource.errors.messages.map do |field, errors|
+      errors.map do |error|
+        build_error_object(field, error)
       end
     end
   end
