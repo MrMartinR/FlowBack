@@ -1,9 +1,10 @@
 module ExceptionHandler
-  include Response
   extend ActiveSupport::Concern
 
   class MissingDataMember < StandardError
     def initialize(message = "Missing 'data' Member at document's top level")
+      super(message)
+    end
   end
 
   class MissingIdentifierResourceObject < StandardError
@@ -19,17 +20,32 @@ module ExceptionHandler
   end
 
   included do
-    rescue_from ActiveRecord::RecordNotFound do |e|
-      json_response({ success: false, message: e.message }, :not_found)
+    # rescue_from ActiveRecord::RecordNotFound do |e|
+    #   json_response({ success: false, message: e.message }, :not_found)
+    # end
+
+    # rescue_from ActiveRecord::RecordInvalid do |e|
+    #   json_response({ success: false, message: e.message }, :unprocessable_entity)
+    # end
+
+    # rescue_from ActionController::ParameterMissing do |e|
+    #   # render json: {success: false, code: 400, message: "Bad request"}
+    #   json_response({ success: false, message: e.message }, :bad_request)
+    # end
+
+    rescue_from ExceptionHandler::MissingDataMember do |e|
+      render json: { errors: [{ status: '400', detail: e.message }] },
+             status: :bad_request
     end
 
-    rescue_from ActiveRecord::RecordInvalid do |e|
-      json_response({ success: false, message: e.message }, :unprocessable_entity)
+    rescue_from ExceptionHandler::MissingIdentifierResourceObject do |e|
+      render json: { errors: [{ status: '400', detail: e.message }] },
+             status: :bad_request
     end
 
-    rescue_from ActionController::ParameterMissing do |e|
-      # render json: {success: false, code: 400, message: "Bad request"}
-      json_response({ success: false, message: e.message }, :bad_request)
+    rescue_from ExceptionHandler::MissingOrMismatchTypeResourceObject do |e|
+      render json: { errors: [{ status: '400', detail: e.message }] },
+             status: :bad_request
     end
   end
 end

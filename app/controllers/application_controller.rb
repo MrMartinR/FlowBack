@@ -1,27 +1,22 @@
 class ApplicationController < ActionController::Base
   include ExceptionHandler
 
-  before_action :validate_data_member
+  before_action :validate_data_member, except: :index
   before_action :validate_resource_object_type
   before_action :validate_resource_object_identifier, except: :create
   protect_from_forgery with: :null_session
   protect_from_forgery unless: -> { request.format.json? }
-  before_action :see_params
 
-  def see_params
-    # logger.info "-" * 10
-    # logger.info request.headers['access-token']
-    # logger.info request.headers['token-type']
-    # logger.info request.headers['client']
-    # logger.info request.headers['expiry']
-    # logger.info request.headers['uid']
-    # logger.info "*" * 10
-  end
+  def index; end
+
+  def create; end
 
   protected
 
   def auth_admin!
-    render json: { success: false, code: 403, message: 'Forbidden' } if current_api_v1_user.has_role?(:admin).equal?(false)
+    return if current_api_v1_user.has_role?(:admin)
+
+    render json: { success: false, code: 403, message: 'Forbidden' }
   end
 
   def admin_or_contributor!
@@ -31,7 +26,7 @@ class ApplicationController < ActionController::Base
     render json: { success: false, code: 403, message: 'Forbidden' } if admin_or_contributor.equal?(false)
   end
 
-  def validate_top_level_data_member
+  def validate_data_member
     raise MissingDataMember if params[:data].nil?
   end
 
