@@ -4,6 +4,7 @@ class Account < ApplicationRecord
   belongs_to :platform
   belongs_to :contact
 
+
   #  validates :country_id , presence: true
   #  validates :currency_id , presence: true
   #  before_save :check_country_array

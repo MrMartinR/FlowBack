@@ -4,16 +4,23 @@ class Api::V1::AccountsController < Api::BaseController
   before_action :set_account, only: %i[show update destroy]
 
   def index
-    @accounts = Account.find_by_sql("
-      SELECT
-      a.id,
-      a.contact_id,
-      c.trade_name
-      from accounts a
-      inner join contacts c on c.id = a.contact_id
-      ORDER BY c.trade_name
-      ")
+    @accounts = Account.includes(:contact)
+    render json: AccountSerializer.new(@accounts).serializable_hash
   end
+
+
+
+  # def index
+  #   @accounts = Account.find_by_sql("
+  #     SELECT
+  #     a.id,
+  #     a.contact_id,
+  #     c.trade_name
+  #     from accounts a
+  #     inner join contacts c on c.id = a.contact_id
+  #     ORDER BY c.trade_name
+  #     ")
+  # end
 
   def show; end
 
