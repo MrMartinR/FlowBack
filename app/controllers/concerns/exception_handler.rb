@@ -1,6 +1,22 @@
 module ExceptionHandler
-  # provides the more graceful `included` method
+  include Response
   extend ActiveSupport::Concern
+
+  class MissingDataMember < StandardError
+    def initialize(message = "Missing 'data' Member at document's top level")
+  end
+
+  class MissingIdentifierResourceObject < StandardError
+    def initialize(message = "Missing 'id' in resource object")
+      super(message)
+    end
+  end
+
+  class MissingOrMismatchTypeResourceObject < StandardError
+    def initialize(message = "Missing or mismatch 'type' in resource object")
+      super(message)
+    end
+  end
 
   included do
     rescue_from ActiveRecord::RecordNotFound do |e|
