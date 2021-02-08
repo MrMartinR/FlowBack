@@ -21,7 +21,17 @@ class Api::V1::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
   end
 
   def render_create_error
-    render json: ErrorSerializer.serialize(@resource),
+    render json: ErrorSerializer.new(@resource).serialize,
+           status: :unprocessable_entity
+  end
+
+  def render_update_success
+    render json: UserSerializer.new(@resource),
+           status: :ok
+  end
+
+  def render_update_error
+    render json: ErrorSerializer.new(@resource).serialize,
            status: :unprocessable_entity
   end
 end
