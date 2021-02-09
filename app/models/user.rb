@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :user_accounts
   has_many :user_platforms
   has_many :user_loans
+  has_many :contacts, dependent: :destroy
 
   after_create :assign_default_role
 
