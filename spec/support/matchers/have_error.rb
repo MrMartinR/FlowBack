@@ -5,7 +5,7 @@ RSpec::Matchers.define :have_error do |error|
     return true if error.nil?
 
     actual['errors'].any? do |object|
-      expect(object.symbolize_keys).to include(detail: error)
+      expect(object.symbolize_keys).to include(detail: match(error))
     end
   end
 
