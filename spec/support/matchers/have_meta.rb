@@ -5,7 +5,7 @@ RSpec::Matchers.define :have_meta do |member, value|
 
     return true if value.nil?
 
-    expect(actual['meta'][member]).to eq(value)
+    expect(actual['meta'][member]).to match(value)
   end
 
   description do
