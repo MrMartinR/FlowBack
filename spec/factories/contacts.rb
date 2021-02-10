@@ -1,8 +1,15 @@
 FactoryBot.define do
   factory :contact do
     company_name { 'tesla' }
-    visibility { 'public' }
-    kind { 'company' }
+    kind { 'COMPANY' }
+
+    factory :public_contact do
+      visibility { 'PUBLIC' }
+    end
+
+    factory :private_contact do
+      visibility { 'PRIVATE' }
+    end
 
     user
     country

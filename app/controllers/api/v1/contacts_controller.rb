@@ -17,26 +17,31 @@ class Api::V1::ContactsController < Api::BaseController
   # POST /contacts.json
   def create
     if contact_params[:visibility] == 'PUBLIC'
-      if @user.admin? || @user.contributor?
-        @contact = Contact.new(contact_params)
-        @contact.user_id = nil
-        if @contact.save
-          render :show, status: :ok
+      if current_user.admin? || current_user.contributor?
+        contact = Contact.new(contact_params)
+        contact.user_id = nil
+
+        if contact.save
+          render json: ContactsSerializer.new(contact),
+                 status: :created, location: api_v1_contact_path(contact)
         else
-          json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+          render json: ErrorSerializer.new(contact).serialize,
+                 status: :unprocessable_entity
         end
+
       else
-        json_response({ success: false, message: 'Only admin or contrib can create a public contact' },
-                      :unprocessable_entity)
+        render json: { errors: [{ detail: 'Only admin or contributer can create a public contact' }] },
+               status: :forbidden
 
       end
     else
-      @contact = Contact.new(contact_params)
-      @contact.user_id = @user.id
-      if @contact.save
-        render :show, status: :ok
+      contact = current_user.contacts.new(contact_params)
+      if contact.save
+        render json: ContactsSerializer.new(contact),
+               status: :created, location: api_v1_contact_path(contact)
       else
-        json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+        render json: ErrorSerializer.new(contact).serialize,
+               status: :unprocessable_entity
       end
     end
   end
@@ -45,23 +50,25 @@ class Api::V1::ContactsController < Api::BaseController
   # PATCH/PUT /contacts/1.json
   def update
     if @contact.visibility == 'PUBLIC'
-      if @user.admin? || @user.contributor?
+      if current_user.admin? || current_user.contributor?
         if @contact.update(contact_params)
-          render :show, status: :ok
+          render json: ContactsSerializer.new(@contact),
+                 status: :ok
         else
-          json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
+          render json: ErrorSerializer.new(@contact).serialize,
+                 status: :unprocessable_entity
         end
       else
-        json_response({ success: false, message: 'Only admin or contrib can update a public contact' },
-                      :unprocessable_entity)
-
+        render json: { errors: [{ detail: 'Only admin or contributer can update a public contact' }] },
+               status: :forbidden
       end
 
     elsif @contact.update(contact_params)
-      render :show, status: :ok
+      render json: ContactsSerializer.new(@contact),
+             status: :ok
     else
-      json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
-
+      render json: ErrorSerializer.new(@contact).serialize,
+             status: :unprocessable_entity
     end
   end
 
@@ -69,7 +76,8 @@ class Api::V1::ContactsController < Api::BaseController
   # DELETE /contacts/1.json
   def destroy
     if @contact.destroy
-      json_response({ success: true, message: 'Contact deleted' })
+      render json: { meta: { message: 'Contact successfully deleted' } },
+             status: :ok
     else
       json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
     end
@@ -84,13 +92,15 @@ class Api::V1::ContactsController < Api::BaseController
 
   # Only allow a list of trusted parameters through.
   def contact_params
-    merged_params = { updated_by: @user.id, user_id: @user.id }
-    merged_params = { created_by: @user.id } if params[:action] == 'create'
+    merged_params = { updated_by: current_user.id, user_id: current_user.id }
+    merged_params = { created_by: current_user.id } if params[:action] == 'create'
 
-    params.require(:contact).permit(:country_id, :user_id, :kind, :visibility,
-                                    :name, :surname,
-                                    :trade_name, :nick, :founded,
-                                    :description, :legal_form, :tags, :id_number, :dob)
+    params
+      .require(:data)
+      .require(:attributes)
+      .permit(:id, :country_id, :user_id, :kind, :visibility,
+              :company_name, :name, :surname, :trade_name, :nick,
+              :founded, :description, :legal_form, :tags, :id_number, :dob)
       .merge(merged_params)
   end
 end
