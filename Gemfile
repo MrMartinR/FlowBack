@@ -23,7 +23,7 @@ gem 'puma', '~> 4.1'
 gem 'turbolinks', '~> 5'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.7'
+# gem 'jbuilder', '~> 2.7'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
@@ -87,8 +87,6 @@ group :development, :test do
 
   # Sajjad installed this gem
   gem 'dotenv-rails', '~> 2.7.6'
-  gem 'factory_bot_rails'
-  gem 'rspec-rails', '~> 4.0.2'
 end
 
 group :development do
@@ -103,11 +101,8 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of web drivers to run system tests with browsers
-  gem 'webdrivers'
+  gem 'factory_bot_rails'
+  gem 'rspec-rails', '~> 4.0.2'
 end
 
 # group :production do
