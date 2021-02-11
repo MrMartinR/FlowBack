@@ -2,22 +2,27 @@ class Api::V1::SettingsController < Api::BaseController
   before_action :authenticate_api_v1_user!
 
   def index
-    @user = current_api_v1_user
+    render json: UserSerializer.new(current_user),
+           status: :ok
   end
 
-  def create
-    @user = current_api_v1_user
-    if @user.update(user_params)
-      render json: index
+  def update
+    if current_user.update(user_params)
+      render json: UserSerializer.new(current_user),
+             status: :ok
     else
-      render json: { status: 400, message: 'Could not update profile' }
+      render json: ErrorSerializer.new(current_user).serialize,
+             status: :unprocessable_entity
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:uid, :username, :email, :password, :password_confirmation, :current_password, :currency_id, :country_id)
+    params
+      .require(:data)
+      .require(:attributes)
+      .permit(:uid, :username, :email, :password, :password_confirmation, :current_password, :currency_id, :country_id)
   end
 
   rescue_from ActionController::UnpermittedParameters do |error|
