@@ -86,9 +86,8 @@ RSpec.describe 'Api::V1::Registrations', type: :request do
   end
 
   describe 'PATCH /api/v1/registrations' do
-    let(:user) { create(:user) }
-
     context 'when client sends valid updated attributes' do
+      let(:user) { create(:user) }
       let(:valid_attributes) do
         {
           data: {

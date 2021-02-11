@@ -4,11 +4,11 @@ class Api::BaseController < ApplicationController
   include DeviseTokenAuth::Concerns::SetUserByToken
 
   before_action :authenticate_api_v1_user!
-  before_action :validate_data_member, except: :index
-  before_action :validate_resource_object_type, except: :index
-  before_action :validate_resource_object_identifier, except: %i[index create]
+  before_action :validate_data_member, only: %i[update create]
+  before_action :validate_resource_object_type, only: %i[update create]
+  before_action :validate_resource_object_identifier, only: :update
 
-  def index; end
+  def update; end
 
   def create; end
 
