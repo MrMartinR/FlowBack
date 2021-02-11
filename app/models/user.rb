@@ -7,16 +7,15 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable
   include DeviseTokenAuth::Concerns::User
   # validations
-  validates :username, presence: true, length: { minimum: 3 }
-  validates_uniqueness_of :username
+  validates :username, presence: true, length: { minimum: 3 }, uniqueness: true
   validates :avatar, attached: false, content_type: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'], size: { less_than: 2.megabytes, message: 'is not given between size' } # ,
   # relation
   belongs_to :currency, optional: true
   belongs_to :country, optional: true
   has_one_attached :avatar
-  has_many :user_accounts
-  has_many :user_platforms
-  has_many :user_loans
+  has_many :user_accounts, dependent: :destroy
+  has_many :user_platforms, dependent: :destroy
+  has_many :user_loans, dependent: :destroy
   has_many :contacts, dependent: :destroy
 
   after_create :assign_default_role
