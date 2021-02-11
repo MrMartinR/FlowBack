@@ -20,6 +20,13 @@ module ExceptionHandler
   end
 
   included do
+    rescue_from ActionController::UnpermittedParameters do |error|
+      message = "Invalid parameter: #{error.params.to_sentence}"
+      message << 'Please verify that the parameter name is valid and the values are the correct type.'
+      render json: { errors: [{ title: 'params error', message: message }] },
+             status: :bad_request
+    end
+
     rescue_from ActiveRecord::RecordNotFound do |e|
       render json: { errors: [{ detail: e.message }] },
              status: :not_found
