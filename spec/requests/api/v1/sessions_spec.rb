@@ -6,8 +6,8 @@ RSpec.describe 'Api::V1::Sessions', type: :request do
       let(:user) { create(:user) }
       let(:user_attributes) do
         {
-          type: 'users',
           data: {
+            type: 'users',
             attributes: {
               email: user.email,
               password: 'wrong password'

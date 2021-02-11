@@ -33,8 +33,11 @@ class Api::BaseController < ApplicationController
 
   def current_controller
     user_related_controllers = %w[registrations sessions]
-    p controller_name
-    controller_name.in? user_related_controllers ? 'users' : controller_name
+    if controller_name.in? user_related_controllers
+      'users'
+    else
+      controller_name
+    end
   end
 
   def render_authenticate_error
