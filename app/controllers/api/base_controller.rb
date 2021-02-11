@@ -32,7 +32,9 @@ class Api::BaseController < ApplicationController
   end
 
   def current_controller
-    controller_name == 'registrations' ? 'users' : controller_name
+    user_related_controllers = %w[registrations sessions]
+    p controller_name
+    controller_name.in? user_related_controllers ? 'users' : controller_name
   end
 
   def render_authenticate_error
