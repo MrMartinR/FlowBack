@@ -18,6 +18,13 @@ class Api::BaseController < ApplicationController
 
   protected
 
+  def admin_or_contributor!
+    return if current_user.has_role?(:admin) || current_user.has_role?(:contributor)
+
+    render json: { errors: [{ title: 'Forbidden', detail: 'Only admin or contributer is authorized' }] },
+           status: :forbidden
+  end
+
   def validate_data_member
     raise MissingDataMember if params[:data].nil?
   end
