@@ -1,35 +1,30 @@
 class Api::V1::PlatformsController < Api::BaseController
-  before_action :authenticate_api_v1_user!
-  before_action :admin_or_contributor!, except: %i[index show]
-  before_action :set_platform, only: %i[show update destroy]
+  before_action :admin_or_contributor!, except: :index
+  before_action :set_platform, only: %i[update destroy]
 
   def index
-    @platforms = Platform.order('created_at asc')
+    platforms = Platform.all
+    render json: PlatformsSerializer.new(platforms),
+           status: :ok
   end
 
-  def show; end
-
   def create
-    @platform = Platform.new(platform_params)
+    platform = Platform.create!(platform_params)
 
-    if @platform.save
-      render :show, status: :created
-    else
-      json_response({ success: false, message: @platform.errors }, :unprocessable_entity)
-    end
+    render json: PlatformsSerializer.new(platform),
+           status: :created, location: api_v1_platform_path(platform)
   end
 
   def update
-    if @platform.update(platform_params)
-      render :show, status: :ok
-    else
-      json_response({ success: false, message: @platform.errors }, :unprocessable_entity)
-    end
+    @platform.update!(platform_params)
+    render json: PlatformsSerializer.new(@platform),
+           status: :ok
   end
 
   def destroy
     if @platform.destroy
-      json_response({ success: true, message: 'Platform deleted' })
+      render json: { meta: { message: 'Platform successfully deleted' } },
+             status: :ok
     else
       json_response({ success: false, message: @platform.errors }, :unprocessable_entity)
     end
@@ -44,13 +39,18 @@ class Api::V1::PlatformsController < Api::BaseController
 
   # Only allow a list of trusted parameters through.
   def platform_params
-    merged_params = { updated_by: @user.id }
-    merged_params = { created_by: @user.id } if params[:action] == 'create'
-    params.require(:platform).permit(:contact_id, :category, :status,
-                                     :liquidity, :term, :invest_mode,
-                                     :min_investment, :secondary_market,
-                                     :taxes, :cashflow_options, :protection_scheme, :cost,
-                                     :profitable, :ifisa, :structure, :account_category,
-                                     :welcome_bonus, :promo, :promo_end, :sm_notes).merge(merged_params)
+    merged_params = { updated_by: current_user.id }
+    merged_params = { created_by: current_user.id } if params[:action] == 'create'
+
+    params
+      .require(:data)
+      .require(:attributes)
+      .permit(:contact_id, :category, :status,
+              :liquidity, :term, :invest_mode,
+              :min_investment, :secondary_market,
+              :taxes, :cashflow_options, :protection_scheme, :cost,
+              :profitable, :ifisa, :structure, :account_category,
+              :welcome_bonus, :promo, :promo_end, :sm_notes)
+      .merge(merged_params)
   end
 end
