@@ -28,12 +28,13 @@ module ExceptionHandler
     end
 
     rescue_from ActiveRecord::RecordNotFound do |e|
-      render json: { errors: [{ detail: e.message }] },
+      render json: { errors: [{ title: 'Not found', detail: e.message }] },
              status: :not_found
     end
 
     rescue_from ActiveRecord::RecordInvalid do |e|
-      json_response({ success: false, message: e.message }, :unprocessable_entity)
+      render json: ErrorSerializer.new(e.record).serialize,
+             status: :unprocessable_entity
     end
 
     rescue_from ActionController::ParameterMissing do |e|
