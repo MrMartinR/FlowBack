@@ -4,7 +4,7 @@ class Api::V1::UserLoansController < Api::BaseController
   before_action :set_user_loan, only: %i[show update destroy]
 
   def index
-    @user_loans = UserLoan.by_user(@user).order('created_at desc')
+    @user_loans = UserLoan.includes(:user, :user_account, :loan).by_user(@user).order('created_at desc')
     render json: UserLoanSerializer.new(@user_loans).serializable_hash
   end
 
