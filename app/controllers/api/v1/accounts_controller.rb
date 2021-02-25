@@ -16,6 +16,20 @@ class Api::V1::AccountsController < Api::BaseController
     render json: AccountSerializer.new(@accounts, { fields: { account: [:trade_name] } }).serializable_hash
   end
 
+
+
+  # def index
+  #   @accounts = Account.find_by_sql("
+  #     SELECT
+  #     a.id,
+  #     a.contact_id,
+  #     c.trade_name
+  #     from accounts a
+  #     inner join contacts c on c.id = a.contact_id
+  #     ORDER BY c.trade_name
+  #     ")
+  # end
+
   def show; end
 
   # def index
