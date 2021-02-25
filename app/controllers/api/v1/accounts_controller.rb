@@ -4,16 +4,8 @@ class Api::V1::AccountsController < Api::BaseController
   before_action :set_account, only: %i[show update destroy]
 
   def index
-    @accounts = Account.find_by_sql("
-      SELECT
-      a.id,
-      a.contact_id,
-      c.trade_name
-      from accounts a
-      inner join contacts c on c.id = a.contact_id
-      ORDER BY c.trade_name
-      ")
-    render json: AccountSerializer.new(@accounts, { fields: { account: [:trade_name] } }).serializable_hash
+    @accounts = Account.includes(:platform, :contact).all
+    render json: AccountSerializer.new(@accounts).serializable_hash
   end
 
 
@@ -72,7 +64,7 @@ class Api::V1::AccountsController < Api::BaseController
       @account.currency_id = account_params[:currency_id]
 
       if @account.save
-        render json: AccountSerializer.new(@account,  { fields: { account: [:category, :platform_status] } }).serializable_hash
+        render json: AccountSerializer.new(@account).serializable_hash
       else
         render json: @account.errors, status: :unprocessable_entity
       end
@@ -84,7 +76,7 @@ class Api::V1::AccountsController < Api::BaseController
 
   def update
     if @account.update!(account_update_params)
-      render json: AccountSerializer.new(@account,  { fields: { account: [:category, :platform_status] } }).serializable_hash
+      render json: AccountSerializer.new(@account).serializable_hash
     else
       render json: @account.errors, status: :unprocessable_entity
     end

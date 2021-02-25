@@ -4,28 +4,7 @@ class Api::V1::PlatformsController < Api::BaseController
   before_action :set_platform, only: %i[show update destroy]
 
   def index
-    @platforms = Platform.find_by_sql("
-      SELECT
-      p.id,
-      p.contact_id,
-      c.trade_name,
-      p.status,
-      p.category,
-      p.liquidity,
-      p.account_category,
-      p.cost,
-      p.invest_mode,
-      p.min_investment,
-      p.protection_scheme,
-      p.secondary_market,
-      p.structure,
-      p.term,
-      p.promo,
-      p.welcome_bonus
-      from platforms p
-      inner join contacts c on c.id = p.contact_id
-      ORDER BY c.trade_name
-      ")
+    @platforms = Platform.includes(:user_loans, :loans, :contact, :accounts, :user_platforms).all
     render json: PlatformSerializer.new(@platforms).serializable_hash
   end
 

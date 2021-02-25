@@ -8,13 +8,8 @@ class Api::V1::ContactsController < Api::BaseController
   # Get a list of public contacts and the private contacts
   # from the logged user in ASC order.
   def index
-    @contacts = Contact.find_by_sql(
-      "SELECT id, coalesce (trade_name,nick,name) as name
-      FROM contacts
-      WHERE user_id is null or user_id = '#{@user.id}'
-      ORDER BY 2"
-    )
-    render json: ContactSerializer.new(@contacts, { fields: { contact: [:name] } }).serializable_hash
+    @contacts = Contact.includes(:platform, :originator, :country, :account, :user, :contact_methods).all
+    render json: ContactSerializer.new(@contacts).serializable_hash
   end
 
   # def index
