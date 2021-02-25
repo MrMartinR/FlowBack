@@ -8,12 +8,10 @@ class Api::V1::ContactsController < Api::BaseController
   # Get a list of public contacts and the private contacts
   # from the logged user in ASC order.
   def index
-    @contacts = Contact.find_by_sql(
-      "SELECT id, coalesce (trade_name,nick,name) as name
-      FROM contacts
-      WHERE user_id is null or user_id = '#{@user.id}'
-      ORDER BY 2"
-    )
+    contact_for_logged_in_user = Contact.includes(:platform, :originator, :country, :account, :user, :contact_methods).where(user_id: @user.id)
+    contact_for_visibility_public = Contact.includes(:platform, :originator, :country, :account, :user, :contact_methods).where(visibility: "PUBLIC")
+    @contacts = contact_for_logged_in_user + contact_for_visibility_public
+    render json: ContactSerializer.new(@contacts.uniq).serializable_hash
   end
 
   # def index
@@ -32,7 +30,7 @@ class Api::V1::ContactsController < Api::BaseController
         @contact = Contact.new(contact_params)
         @contact.user_id = nil
         if @contact.save
-          render :show, status: :ok
+          render json: ContactSerializer.new(@contact).serializable_hash
         else
           json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
         end
@@ -44,7 +42,7 @@ class Api::V1::ContactsController < Api::BaseController
       @contact = Contact.new(contact_params)
       @contact.user_id = @user.id
       if @contact.save
-        render :show, status: :ok
+        render json: ContactSerializer.new(@contact).serializable_hash
       else
         json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
       end
@@ -57,7 +55,7 @@ class Api::V1::ContactsController < Api::BaseController
     if @contact.visibility == 'PUBLIC'
       if @user.admin? || @user.contributor?
         if @contact.update(contact_params)
-          render :show, status: :ok
+          render json: ContactSerializer.new(@contact).serializable_hash
         else
           json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
         end
@@ -66,7 +64,7 @@ class Api::V1::ContactsController < Api::BaseController
                       :unprocessable_entity)
       end
     elsif @contact.update(contact_params)
-      render :show, status: :ok
+      render json: ContactSerializer.new(@contact).serializable_hash
     else
       json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
     end

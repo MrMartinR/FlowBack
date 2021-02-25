@@ -4,7 +4,7 @@ class Api::V1::AccountsController < Api::BaseController
   before_action :set_account, only: %i[show update destroy]
 
   def index
-    @accounts = Account.includes(:contact)
+    @accounts = Account.includes(:platform, :contact).all
     render json: AccountSerializer.new(@accounts).serializable_hash
   end
 
@@ -64,7 +64,7 @@ class Api::V1::AccountsController < Api::BaseController
       @account.currency_id = account_params[:currency_id]
 
       if @account.save
-        render :show, status: :created, data: @account
+        render json: AccountSerializer.new(@account).serializable_hash
       else
         render json: @account.errors, status: :unprocessable_entity
       end
@@ -76,7 +76,7 @@ class Api::V1::AccountsController < Api::BaseController
 
   def update
     if @account.update!(account_update_params)
-      render :show, status: :ok
+      render json: AccountSerializer.new(@account).serializable_hash
     else
       render json: @account.errors, status: :unprocessable_entity
     end

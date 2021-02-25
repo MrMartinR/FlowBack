@@ -4,28 +4,8 @@ class Api::V1::PlatformsController < Api::BaseController
   before_action :set_platform, only: %i[show update destroy]
 
   def index
-    @platforms = Platform.find_by_sql("
-      SELECT
-      p.id,
-      p.contact_id,
-      c.trade_name,
-      p.status,
-      p.category,
-      p.liquidity,
-      p.account_category,
-      p.cost,
-      p.invest_mode,
-      p.min_investment,
-      p.protection_scheme,
-      p.secondary_market,
-      p.structure,
-      p.term,
-      p.promo,
-      p.welcome_bonus
-      from platforms p
-      inner join contacts c on c.id = p.contact_id
-      ORDER BY c.trade_name
-      ")
+    @platforms = Platform.includes(:user_loans, :loans, :contact, :accounts, :user_platforms).all
+    render json: PlatformSerializer.new(@platforms).serializable_hash
   end
 
   # def index
@@ -38,7 +18,7 @@ class Api::V1::PlatformsController < Api::BaseController
     @platform = Platform.new(platform_params)
 
     if @platform.save
-      render :show, status: :created
+      render json: PlatformSerializer.new(@platform).serializable_hash
     else
       json_response({ success: false, message: @platform.errors }, :unprocessable_entity)
     end
@@ -46,7 +26,7 @@ class Api::V1::PlatformsController < Api::BaseController
 
   def update
     if @platform.update(platform_params)
-      render :show, status: :ok
+      render json: PlatformSerializer.new(@platform).serializable_hash
     else
       json_response({ success: false, message: @platform.errors }, :unprocessable_entity)
     end

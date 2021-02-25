@@ -1,9 +1,7 @@
 class ContactSerializer
-    include JSONAPI::Serializer
+  include JSONAPI::Serializer
   #sets the type of serializer
   set_type :contact
   #The attributes needed in response
-  attributes :trade_name, :company_name 
-  #  Work in Progress, fill the rest of the atrributes
-
+  attributes :name, :created_by, :updated_by, :kind, :visibility, :company_name, :surname, :founded, :description, :tags, :legal_form, :id_number, :platform, :country, :dob, :nick, :account, :user, :originator
 end

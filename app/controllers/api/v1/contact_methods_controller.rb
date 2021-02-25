@@ -5,6 +5,7 @@ class Api::V1::ContactMethodsController < Api::BaseController
   def index
     if params[:contact_id]
       @contact_methods = ContactMethod.includes(:contact).where('contact_id = ?', params[:contact_id])
+      render json: ContactMethodSerializer.new(@contact_methods).serializable_hash
     else
       json_response({ success: false, message: 'Contact Id needed to get contact methods ' }, :unprocessable_entity)
     end
@@ -19,7 +20,7 @@ class Api::V1::ContactMethodsController < Api::BaseController
       @contact_method = ContactMethod.new(contact_method_params)
 
       if @contact_method.save
-        render :show, status: :created
+        render json: ContactMethodSerializer.new(@contact_method).serializable_hash
       else
         json_response({ success: false, message: @contact_method.errors }, :unprocessable_entity)
       end
@@ -33,7 +34,7 @@ class Api::V1::ContactMethodsController < Api::BaseController
   def update
     if @contact_method.created_by == @user.id || @user.admin? || @user.contributor?
       if @contact_method.update(contact_method_params)
-        render :show, status: :ok
+        render json: ContactMethodSerializer.new(@contact_method).serializable_hash
       else
         json_response({ success: false, message: @contact_method.errors }, :unprocessable_entity)
       end
