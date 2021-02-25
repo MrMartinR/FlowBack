@@ -7,6 +7,7 @@ class Api::V1::ImageAssetsController < Api::BaseController
       render json: { success: false, message: 'Wrong Format uuid !' }, status: :unprocessable_entity
     else
       @icons = ImageAsset.by_category(params[:category]).by_uid(params[:uid])
+      render json: ImageAssetSerializer.new(@icons).serializable_hash
     end
   end
 
@@ -16,7 +17,7 @@ class Api::V1::ImageAssetsController < Api::BaseController
     @icon = ImageAsset.new(icon_params)
 
     if @icon.save
-      render :show, status: :created, location: api_v1_image_assets_path
+      render json: ImageAssetSerializer.new(@icon).serializable_hash
     else
       render json: @icon.errors, status: :unprocessable_entity
     end
@@ -24,7 +25,7 @@ class Api::V1::ImageAssetsController < Api::BaseController
 
   def update
     if @icon.update(icon_params)
-      render :show, status: :ok, location: @icon
+      render json: ImageAssetSerializer.new(@icon).serializable_hash
     else
       render json: @icon.errors, status: :unprocessable_entity
     end

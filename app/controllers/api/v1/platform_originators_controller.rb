@@ -5,33 +5,23 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
   before_action :set_platform, only: :index_by_platform_id
 
   def index
-    @platform_originators = []
-    PlatformOriginator.find_each do |account|
-      dt = data_return(account)
-      @platform_originators << dt
-    end
-    json_response({ success: true, message: @platform_originators })
+     @platform_originators = PlatformOriginator.includes(:originator, :platform, :loans).all
+     render json: PlatformOriginatorSerializer.new(@platform_originators).serializable_hash
   end
 
   def index_by_platform_id
-    @platform_originators = []
-    PlatformOriginator.all.where('platform_id = ?', @platform.id).each do |account|
-      dt = data_return(account)
-      @platform_originators << dt
-    end
-    json_response({ success: true, message: @platform_originators })
+    @platform_originators = PlatformOriginator.includes(:loans, :platform, :originator).all.where('platform_id = ?', @platform.id)
+    render json: PlatformOriginatorSerializer.new(@platform_originators).serializable_hash
   end
 
   def show
-    @data = data_return(@platform_originator)
-    json_response({ success: true, message: @data })
+    render json: PlatformOriginatorSerializer.new(@platform_originator).serializable_hash
   end
 
   def create
     @platform_originator = PlatformOriginator.new(platform_originator_params)
     if @platform_originator.save
-      @data = data_return(@platform_originator)
-      json_response({ success: true, message: @data })
+      render json: PlatformOriginatorSerializer.new(@platform_originator).serializable_hash
     else
       json_response({ success: false, message: @platform_originator.errors }, :unprocessable_entity)
     end
@@ -39,8 +29,7 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
 
   def update
     if @platform_originator.update(platform_originator_params)
-      @data = data_return(@platform_originator)
-      json_response({ success: true, message: @data })
+      render json: PlatformOriginatorSerializer.new(@platform_originator).serializable_hash
     else
       json_response({ success: false, message: @platform_originator.errors }, :unprocessable_entity)
     end

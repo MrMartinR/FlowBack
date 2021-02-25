@@ -8,7 +8,7 @@ class Api::V1::SettingsController < Api::BaseController
   def create
     @user = current_api_v1_user
     if @user.update(user_params)
-      render json: index
+      render json: UserSerializer.new(@user, { fields: { user: [:username, :email, :currency_id, :country_id] } }).serializable_hash
     else
       render json: { status: 400, message: 'Could not update profile' }
     end

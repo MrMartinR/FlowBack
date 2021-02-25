@@ -14,6 +14,7 @@ class Api::V1::ContactsController < Api::BaseController
       WHERE user_id is null or user_id = '#{@user.id}'
       ORDER BY 2"
     )
+    render json: ContactSerializer.new(@contacts, { fields: { contact: [:name] } }).serializable_hash
   end
 
   # def index
@@ -32,7 +33,7 @@ class Api::V1::ContactsController < Api::BaseController
         @contact = Contact.new(contact_params)
         @contact.user_id = nil
         if @contact.save
-          render :show, status: :ok
+          render json: ContactSerializer.new(@contact).serializable_hash
         else
           json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
         end
@@ -44,7 +45,7 @@ class Api::V1::ContactsController < Api::BaseController
       @contact = Contact.new(contact_params)
       @contact.user_id = @user.id
       if @contact.save
-        render :show, status: :ok
+        render json: ContactSerializer.new(@contact).serializable_hash
       else
         json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
       end
@@ -57,7 +58,7 @@ class Api::V1::ContactsController < Api::BaseController
     if @contact.visibility == 'PUBLIC'
       if @user.admin? || @user.contributor?
         if @contact.update(contact_params)
-          render :show, status: :ok
+          render json: ContactSerializer.new(@contact).serializable_hash
         else
           json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
         end
@@ -66,7 +67,7 @@ class Api::V1::ContactsController < Api::BaseController
                       :unprocessable_entity)
       end
     elsif @contact.update(contact_params)
-      render :show, status: :ok
+      render json: ContactSerializer.new(@contact).serializable_hash
     else
       json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
     end

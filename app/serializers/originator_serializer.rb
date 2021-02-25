@@ -1,0 +1,7 @@
+class OriginatorSerializer
+  include JSONAPI::Serializer
+  #sets the type of serializer
+  set_type :originator
+  #The attributes needed in response
+  attributes :trade_name, :customer_category, :product_category_consumer, :product_category_business, :apr
+end

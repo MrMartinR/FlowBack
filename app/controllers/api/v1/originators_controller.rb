@@ -17,6 +17,7 @@ class Api::V1::OriginatorsController < Api::BaseController
       inner join contacts c on c.id = o.contact_id
       ORDER BY c.trade_name
       ")
+    render json: OriginatorSerializer.new(@originators).serializable_hash
   end
 
   # def index
@@ -29,7 +30,7 @@ class Api::V1::OriginatorsController < Api::BaseController
     @originator = Originator.new(originator_params)
 
     if @originator.save
-      render :show, status: :created
+      render json: OriginatorSerializer.new(@originator, { fields: { originator: [:trade_name, :customer_category, :product_category_consumer, :product_category_business, :apr, :contact] } }).serializable_hash
     else
       json_response({ success: false, message: @originator.errors }, :unprocessable_entity)
     end
@@ -37,7 +38,7 @@ class Api::V1::OriginatorsController < Api::BaseController
 
   def update
     if @originator.update(originator_params)
-      render :show, status: :ok
+      render json: OriginatorSerializer.new(@originator, { fields: { originator: [:trade_name, :customer_category, :product_category_consumer, :product_category_business, :apr, :contact] } }).serializable_hash
     else
       json_response({ success: false, message: @originator.errors }, :unprocessable_entity)
     end

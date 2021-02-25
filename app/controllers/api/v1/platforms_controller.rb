@@ -26,6 +26,7 @@ class Api::V1::PlatformsController < Api::BaseController
       inner join contacts c on c.id = p.contact_id
       ORDER BY c.trade_name
       ")
+    render json: PlatformSerializer.new(@platforms).serializable_hash
   end
 
   # def index
@@ -38,7 +39,7 @@ class Api::V1::PlatformsController < Api::BaseController
     @platform = Platform.new(platform_params)
 
     if @platform.save
-      render :show, status: :created
+      render json: PlatformSerializer.new(@platform).serializable_hash
     else
       json_response({ success: false, message: @platform.errors }, :unprocessable_entity)
     end
@@ -46,7 +47,7 @@ class Api::V1::PlatformsController < Api::BaseController
 
   def update
     if @platform.update(platform_params)
-      render :show, status: :ok
+      render json: PlatformSerializer.new(@platform).serializable_hash
     else
       json_response({ success: false, message: @platform.errors }, :unprocessable_entity)
     end

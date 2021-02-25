@@ -13,6 +13,7 @@ class Api::V1::AccountsController < Api::BaseController
       inner join contacts c on c.id = a.contact_id
       ORDER BY c.trade_name
       ")
+    render json: AccountSerializer.new(@accounts, { fields: { account: [:trade_name] } }).serializable_hash
   end
 
   def show; end
@@ -57,7 +58,7 @@ class Api::V1::AccountsController < Api::BaseController
       @account.currency_id = account_params[:currency_id]
 
       if @account.save
-        render :show, status: :created, data: @account
+        render json: AccountSerializer.new(@account,  { fields: { account: [:category, :platform_status] } }).serializable_hash
       else
         render json: @account.errors, status: :unprocessable_entity
       end
@@ -69,7 +70,7 @@ class Api::V1::AccountsController < Api::BaseController
 
   def update
     if @account.update!(account_update_params)
-      render :show, status: :ok
+      render json: AccountSerializer.new(@account,  { fields: { account: [:category, :platform_status] } }).serializable_hash
     else
       render json: @account.errors, status: :unprocessable_entity
     end
