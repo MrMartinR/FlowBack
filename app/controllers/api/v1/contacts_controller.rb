@@ -9,7 +9,7 @@ class Api::V1::ContactsController < Api::BaseController
   # from the logged user in ASC order.
   def index
     contact_for_logged_in_user = Contact.includes(:platform, :originator, :country, :account, :user, :contact_methods).where(user_id: @user.id)
-    contact_for_visibility_public = Contact.includes(:platform, :originator, :country, :account, :user, :contact_methods).where(visibility: "PUBLIC")
+    contact_for_visibility_public = Contact.includes(:platform, :originator, :country, :account, :user, :contact_methods).where(visibility: "Public")
     @contacts = contact_for_logged_in_user + contact_for_visibility_public
     render json: ContactSerializer.new(@contacts.uniq).serializable_hash
   end
