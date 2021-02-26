@@ -11,8 +11,7 @@ class Api::V1::ContactsController < Api::BaseController
     contacts = Contact.includes(:platform, :originator, :country, :account, :user, :contact_methods)
     contact_for_logged_in_user = contacts.where(user_id: @user.id).order(name: :asc, nick: :asc, trade_name: :asc, surname: :asc)
     contact_for_visibility_public = contacts.where("lower(visibility) = ?", "public").order(name: :asc, nick: :asc, trade_name: :asc, surname: :asc)
-    @contacts = contact_for_logged_in_user + contact_for_visibility_public
-    render json: ContactSerializer.new(@contacts.uniq, {fields: { contact: [:name, :trade_name, :surname, :nick] }}).serializable_hash
+    render json: ContactSerializer.new((contact_for_logged_in_user + contact_for_visibility_public).uniq, {fields: { contact: [:name, :trade_name, :surname, :nick] }}).serializable_hash
   end
 
   # def index

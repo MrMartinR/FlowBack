@@ -1,3 +1,3 @@
 {
-  "ruby.rubocop.configFilePath": "/home/bafiam/microverse/Capstones/FlowBack/.rubocop.yml"
+  "ruby.rubocop.configFilePath": "../.rubocop.yml"
 }
