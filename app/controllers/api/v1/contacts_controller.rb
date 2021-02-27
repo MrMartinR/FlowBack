@@ -8,10 +8,8 @@ class Api::V1::ContactsController < Api::BaseController
   # Get a list of public contacts and the private contacts
   # from the logged user in ASC order.
   def index
-    contacts = Contact.includes(:platform, :originator, :country, :account, :user, :contact_methods)
-    contact_for_logged_in_user = contacts.where(user_id: @user.id).order(name: :asc, nick: :asc, trade_name: :asc, surname: :asc)
-    contact_for_visibility_public = contacts.where("lower(visibility) = ?", "public").order(name: :asc, nick: :asc, trade_name: :asc, surname: :asc)
-    render json: ContactSerializer.new((contact_for_logged_in_user + contact_for_visibility_public).uniq, {fields: { contact: [:name, :trade_name, :surname, :nick] }}).serializable_hash
+    contacts = Contact.includes(:platform, :originator, :country, :account, :user, :contact_methods).select(Arel.sql("*, coalesce(trade_name, nick, name) as name")).order(Arel.sql("coalesce(trade_name, nick, name) ASC")).where("user_id = ? or lower(visibility) = ?", @user.id, "public")
+    render json:ContactSerializer.new(contacts, {fields: { contact: [:name] }}).serializable_hash
   end
 
   # def index
