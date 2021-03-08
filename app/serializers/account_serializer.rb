@@ -7,6 +7,6 @@ class AccountSerializer
 
   #for platform_status attribute
   attribute :platform_status do |account|
-    account.platform.status
+    account.platform.status if account.platform
   end
 end
