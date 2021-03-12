@@ -2,171 +2,167 @@
 
 [![Contributor][contributor-shield]][contributor-url]
 
-<br />
+<br>
 
-<p align="center">
-  <h1 align="center">FlowBack
- </h1>
-  <p align="center">
-    Rail API
-    <br />
-    <a href="https://github.com/FlowFintech/FlowBack.git"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    ·
-    <a href="https://github.com/FlowFintech/FlowBack/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/FlowFintech/FlowBack/issues/issues">Request Feature</a>
-  </p>
-</p>
+<img src="https://dev.flowfin.tech/assets/flow-header.svg">
 
-# [Ruby StyleGuide](docs/StyleGuide-Ruby.adoc)
+<br>
 
+<br>
 
-<!-- TABLE OF CONTENTS -->
+# [Ruby StyleGuide (Read)](https://dev.flowfin.tech/docs-back/style-guide-ruby.html)
 
-## Table of Contents
+<br>
 
-- [About the Project](#about-the-project)
-- [Screenshots](#screenshots)
-- [Prerequisites Installations](#prerequisites-installations)
-- [Gems](#gems)
-- [Technology used](#technology-used)
-- [Usage/Getting Started](#how-to-Use)
-- [Roles Claim](#Roles-Claim)
-- [API Endpoints](#API-Endpoints)
-- [Live Version](#live-version)
-- [Roadmap](#roadmap)
-- [Authors](#authors)
+# Getting Started
 
-<!-- ABOUT THE PROJECT -->
+⚠️ First you must go to [Flow Developer Portal](https://dev.flowfin.tech) for the general requirements and the project overview.
 
-## About The Project
+<hr>
 
-This project implements an investment management application to track investments, personal finance, budget, retirements, Financial Independence Retire Early movement FIRE, all stuff related to Personal Finance.
+<br>
 
-### Background information
+## <img src="https://dev.flowfin.tech/assets/ruby.svg" width="30px" title="Ruby"> [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
 
-When a business or an individual is in need of a loan, they reach out to loan originator. In most case, the loan originator does not have the money to give to this client. So, what the loan originator does is to float the loan and allow investors to fund it. The floating or display of a loan that need funding is done on a platform. Sometimes, the loan originator have their own platform.
-Now, the investor does not just invest in one platform but in multiple platforms and at times with different loan originator on the same platform (now referred to as a market place as it has more that one loan originator). These bring us to our application, `Flow`, an investment management application.
+Is possible that you already have Ruby installed in your computer, you can check it typing the following comand in your terminal.
 
-Using Flow, an investor is able to take the information `after` investing in a platform and add it to our application for easier management. In the past, the investor would have numerous excel files that stored this data which is messy, not easily accessible and does not have that good user experience with tools such as sort, classify by, just ready available to them; so Flow.
-
-Specification Summary:
-
-- RESTful API.
-- API Versioning.
-- Financial Modules.
-- Patterns and Good Practices.
-- Users Management.
-- Secret/Token API Key.
-- Rspec Testing.
-- Setup Scripts.
-- Postgres Database.
-- JSON Serialization.
-
-## Screenshots
-
-#### Home
-
-image goes here
-
-## Prerequisites Installations
-
-- Install ruby version 2.6.5 and set it with your ruby environment manager
-  ([more info here](https://www.ruby-lang.org/en/documentation/installation/)).
-
-- Install Postgres and start the PostgreSQL server in the foreground
-  ([more info here](https://wiki.postgresql.org/wiki/Detailed_installation_guides)).
-
-<p>If you want a copy of this project running on your machine you have to install:</p>
-
-## Technology used
-
-- Ruby
-- Rails
-- GitHub
-- PostgreSQL
-- Devise_token_auth
-
-## Gems
-
-
-## Usage/Getting Started
-
-Once you have installed the required package shown on the [Prerequisites Installations](#required-installations), proceed with the following steps
-
-Clone the Repository,
-
-```Shell
-your@pc:~$ git clone https://github.com/FlowFintech/FlowBack
+```terminal
+ruby -v
 ```
 
-Move into the cloned folder
+<br>
 
-```Shell
-your@pc:~$ cd FlowBack
+### Installing Ruby
+
+_**macOS**_ using [Homebrew](http://brew.sh/")
+
+```terminal
+brew install ruby@2.6.5
 ```
 
-Get the dependencies needed for the app
+_**Ubuntu**_
 
-```Shell
-your@pc:~$ bundle install
+```terminal
+sudo apt install ruby-full
 ```
 
-Set environment variables
+More info about Ruby instalation [here](https://www.ruby-lang.org/en/documentation/installation/)
 
+We are using ruby version **_2.6.5_**, is important to use this version. If you are using a diferent version of Ruby, upgrade or downgrade the version using the [Ruby Version Manager](http://rvm.io) (RVM) that allows you to install and manage multiple installations of Ruby on your system. It can also manage different gemsets.
+
+<br>
+<hr>
+<br>
+
+# <img src="https://dev.flowfin.tech/assets/octocat.svg" width="30px" title="Cloning the Repository"> [Cloning the Repository](https://github.com/FlowFintech/FlowBack)
+
+<br>
+
+_**Ubuntu**_
+
+- Clone the repo
+
+  ```terminal
+  your_username@pc:~$ git clone git@github.com:FlowFintech/FlowBack.git
+  ```
+
+- Move into the cloned folder
+
+  ```terminal
+  your_username@pc:~$ cd FlowBack
+  ```
+
+## Normal Install
+
+- Get the dependencies needed for the app
+
+  ```terminal
+  FlowBack:~$ bundle install
+  ```
+
+## Docker Install
+
+- Install Docker if you haven't done yet from [here](https://www.docker.com/get-started).
+- Make sure you have docker running before commencing with this installation.
+
+- Docker is already configured. Please DO NOT add anything to the following files when pushing changes:
+  - `config/database.yml`
+  - `docker-compose.yml`
+  - `dockerfile`
+
+### After you have started docker, in your root directory run the following commands in the order
+
+**_Steps:_**
+
+1. Go to backend folder
+
+2. Run this one time only:
+
+```terminal
+your_username@pc:~$ docker-compose build
 ```
-export USERNAME="change to your database_username"
-export PASSWORD="change to your database_password"
-export HOST="change to your host address"
+
+**_NOTE: Any change in the Gemfile or the Dockerfile, should be the only times you’ll need to rebuild (Run the above command)._**
+
+- Next run:
+
+```terminal
+your_username@pc:~$ docker-compose up
 ```
 
-NB: Defaults
+- The app should now be up and running
 
-```
-1. The default host is: "localhost" if you have not changed it
-2. Ensure that the USERNAME is a Superuser in psql
-```
+Head over to: [http://localhost:3001](http://localhost:3001)
 
-Help cookies
+#### Short order of the same instructions
 
-- Go to your terminal in ubuntu and type: `sudo su - postgres`
-- Then `psql` to access - Postgres
-- `\du` to list all user and their attributes
-- `ALTER ROLE username SUPERUSER` to alter the user.
+**_Steps:_**
 
-Create a postgres role to let rails manage the db:
+- Go to backend folder.
 
-```
-rake db:create
+- Run this command to bundle up everything and start the server at one go:
+
+```terminal
+your_username@pc:~$ docker-compose up --build
 ```
 
-Setup databases migrations:
+- Confirm if the server is running by heading over to: [http://localhost:3001](http://localhost:3001)
 
-```
-rake db:migrate
-```
+## Contributing
 
-Seed data for development
+Depending on whether your implementing a **feature**, doing a **chore**, fixing **bugs** or a **hotfix**, you must use the following branches naming convention: {type/short-description}
+_Example_
 
-```
-your@pc:~$ rake db:seed
-```
-
-Start the server and use the app
-
-```
-your@pc:~$ rails s
+```terminal
+git checkout -b bug/fixing-layout
+git checkout -b feature/adding-loan-details
+git checkout -b chore/correct-typo
+git checkout -b hotfix/refactor-jb
 ```
 
-## Roles Claim
+> Your feature/bug branch should be requested to merge into the `dev` branch and upon approval and merging of the PR, the branch should be deleted.
 
-The system has three type of users.
+<br>
 
-1. Admin => This is the sole owner and add/remove a Contributor. Has full system access
-2. User => This is the investors who comes with his/her data after investing on platforms to utilize our system to manage this data and be of value to them.
-3. Contributor => This is a user(moderators) given privileges by the admin to add, edit, delete some for the information related to the core app functions eg add platforms data so when an investor come to use the system all they need to scroll from available options.
+### **Important**: Do not install any Gem, if you feel you miss some Gem, create a discussion thread in #backend channel in Slack
+
+<br>
+
+You can report <a href="https://github.com/FlowFintech/FlowBack/issues">Report Bugs here</a> or open a discussion thread in Slack.
+
+<br>
+<hr>
+<br>
+
+## Roles
+
+The project has three type of users.
+
+**Admin:** This is the sole owner and add/remove a Contributor. Has full system access
+
+**User:** This is the investors who comes with his/her data after investing on platforms to utilize our system to manage this data and be of value to them.
+
+**Contributor:** This is a user(moderators) given privileges by the admin to add, edit, delete some for the information related to the core app functions eg add platforms data so when an investor come to use the system all they need to scroll from available options.
 
 ## API Endpoints
 
@@ -184,112 +180,16 @@ curl -XGET -v -H 'Content-Type: application/json' -H 'access-token: lW1c60hYkRwA
 - Using Postman:
 
 1. Create a new user with a POST request to your signup request, in this case is http://localhost:3000/api/v1/auth/sign_in and in Body with RAW format set the params you need to create a new user (like in the example) and click send. or login
-   <img src="./docs/screenshots/register.png" alt="screenshot1"/>
+   <img src="https://dev.flowfin.tech/assets/screenshots/register.png" alt="screenshot1"/>
 
 2. Now that you got the response of the request, the params you need are in the header of the request, click to Headers tab to see them.
-   <img src="./docs/screenshots/header.png" alt="screenshot1"/>
+   <img src="https://dev.flowfin.tech/assets/screenshots/header.png" alt="screenshot1"/>
 
 3. Then create a new request in Postman with the GET that requires the authorization and in Headers set the values access-token, client, uid from the header of the last request.
-   <img src="./docs/screenshots/request.png" alt="screenshot1"/>
-
-### Endpoints
-
-Here you can find the API Documentation
-([API Documentation ](https://app.swaggerhub.com/apis/Flow-Fintech/FlowAPI/1.0.0/)).
-
-| API Endpoint                           | Functionality                                | Status | User                       |
-| -------------------------------------- | -------------------------------------------- | ------ | -------------------------- |
-| POST api/v1/auth/sign_in               | Login a user                                 | OK     | ALL                        |
-| POST api/v1/auth/                      | Register a user                              | OK     | ALL                        |
-| GET api/v1/user_accounts               | Returns a list of User Accounts              | OK     | User                       |
-| GET api/v1/accounts                    | Returns a list of accounts                   | OK     | Admin or contrib           |
-| POST api/v1/accounts                   | Create a new accounts                        | Ok     | Admin or Contrib           |
-| PUT api/v1/accounts/:id                | Update an account bt nt currency & country   | Ok     | Admin or Contrib           |
-| DELETE api/v1/accounts/:id             | Delete an account                            | Ok     | Admin or Contrib           |
-| PUT api/v1/modify_countries/:id        | Update an account countries                  | Ok     | Admin or Contrib           |
-| DELETE api/v1/modify_countries/:id     | Delete an account countries                  | Ok     | Admin or Contrib           |
-| PUT api/v1/modify_currencies/:id       | Update an account currencies                 | Ok     | Admin or Contrib           |
-| DELETE api/v1/modify_currencies/:id    | Delete an account currencies                 | Ok     | Admin or Contrib           |
-| GET api/v1/currencies                  | Returns a list of Currencies                 |
-| POST api/v1/currencies                 | Create a new Currency                        |
-| GET api/v1/countries                   | Returns a list of countries                  |
-| POST api/v1/countries                  | Create a new Currency                        |
-| POST api/v1/contacts                   | Create a new contact                         | OK     | Admin, Contrib or User     |
-| GET api/v1/contacts                    | Get all public contact                       | OK     | Admin, Contrib or User-own |
-| GET api/v1/contacts/:id                | Get a contact                                | OK     | Admin, Contrib or User-own |
-| PUT api/v1/contacts/:id                | Update a contact                             | OK     | Admin, Contrib or User-own |
-| DELETE api/v1/contacts/:id             | Delete a contact                             | OK     | Admin, Contrib or User-own |
-| POST api/v1/originators                | Create a new originators                     | OK     | Admin, Contrib             |
-| GET api/v1/originators                 | Get all originators                          | OK     | ALL                        |
-| GET api/v1/originators/:id             | Get an originators                           | OK     | ALL                        |
-| PUT api/v1/originators/:id             | Update originator                            | OK     | Admin, Contrib             |
-| DELETE api/v1/originators/:id          | Delete originator                            | OK     | Admin, Contrib             |
-| POST api/v1/platforms                  | Create a new platform                        | OK     | Admin, Contrib             |
-| GET api/v1/platforms                   | Get all platforms                            | OK     | ALL                        |
-| GET api/v1/platforms/:id               | Get an platforms                             | OK     | ALL                        |
-| PUT api/v1/platforms/:id               | Update a platforms                           | OK     | Admin, Contrib             |
-| DELETE api/v1/platforms/:id            | Delete a platforms                           | OK     | Admin, Contrib             |
-| POST api/v1/platform_originators       | Create a new platform originator             | OK     | Admin, Contrib             |
-| GET api/v1/platform_originators        | Get all platform originators                 | OK     | ALL                        |
-| GET api/v1/platform_originators/:id    | Get a platform originator                    | OK     | ALL                        |
-| PUT api/v1/platform_originators/:id    | Update a platform_originator                 | OK     | Admin, Contrib             |
-| DELETE api/v1/platform_originators/:id | Delete a platform_originators                | OK     | Admin, Contrib             |
-| POST api/v1/contact_methods            | Create a new contact_method                  | OK     | Admin, Contrib or User     |
-| GET api/v1/contact_methods             | Get all public and own contact_methods       | OK     | Admin, Contrib or User-own |
-| GET api/v1/contact_methods/:id         | Get a contact_methods                        | OK     | Admin, Contrib or User-own |
-| PUT api/v1/contact_methods/:id         | Update a contact_methods                     | OK     | Admin, Contrib or User-own |
-| DELETE api/v1/contact_methods/:id      | Delete a contact_methods                     | OK     | Admin, Contrib or User-own |
-| POST api/v1/loans                      | Create a new loan                            | OK     | Admin, Contrib             |
-| GET api/v1/loans                       | Get all loans                                | OK     | ALL                        |
-| GET api/v1/loans/:id                   | Get a loan                                   | OK     | ALL                        |
-| PUT api/v1/loans/:id                   | Update a loan                                | OK     | Admin, Contrib             |
-| DELETE api/v1/loans/:id                | Delete a loan                                | OK     | Admin, Contrib             |
-| POST api/v1/user_accounts              | Create a new user_accounts                   | OK     | Admin, Contrib or User own |
-| GET api/v1/user_accounts               | Get all user user_accounts                   | OK     | Admin, Contrib or User own |
-| GET api/v1/user_accounts/:id           | Get a user user_accounts                     | OK     | Admin, Contrib or User own |
-| PUT api/v1/user_accounts/:id           | Update a user_accounts                       | OK     | Admin, Contrib or User own |
-| DELETE api/v1/user_accounts/:id        | Delete a user_accounts                       | OK     | Admin, Contrib or User own |
-| POST api/v1/transactions               | Create a new transactions under user_account | OK     | Admin, Contrib or User own |
-| GET api/v1/transactions                | Get all transactions under user_account      | OK     | Admin, Contrib or User own |
-| GET api/v1/transactions/:id            | Get a transactions under user_account        | OK     | Admin, Contrib or User own |
-| PUT api/v1/transactions/:id            | Update a transactions under user_account     | OK     | Admin, Contrib or User own |
-| DELETE api/v1/transactions/:id         | Delete a transactions under user_account     | OK     | Admin, Contrib or User own |
-| POST api/v1/user_loans                 | Create a new user_loan                       | OK     | User own                   |
-| GET api/v1/user_loans                  | Get all user_loans                           | OK     | User own                   |
-| GET api/v1/user_loans/:id              | Get a user_loan                              | OK     | User own                   |
-| PUT api/v1/user_loans/:id              | Update a user_loan                           | OK     | User own                   |
-| DELETE api/v1/user_loans/:id           | Delete a user_loan                           | OK     | User own                   |
-| POST api/v1/user_platforms             | Create a new user_platforms                  | OK     | User own                   |
-| GET api/v1/user_platforms              | Get all user_platforms                       | OK     | User own                   |
-| GET api/v1/user_platforms/:id          | Get a user_platforms                         | OK     | User own                   |
-| PUT api/v1/user_platforms/:id          | Update a user_platforms                      | OK     | User own                   |
-| DELETE api/v1/user_platforms/:id       | Delete a user_platforms                      | OK     | User own                   |
-| GET api/v1/users                       | Get all users                                | OK     | Admin                      |
-| GET api/v1/user_profile                | Get logged in user profile                   | OK     | Admin, Contrib or User     |
-| POST api/v1/update_profile             | Update the currency and country in profile   | OK     | Admin, Contrib or User     |
-| PUT api/v1/users/:id                   | Update user profile                          | OK     | Admin, Contrib or User     |
-
-## Live Version
-
-This is the link to the live preview. Feel free to visit.<br>
-[FlowBack](https://app.flowfin.tech/)<br>
-
-<!-- ROADMAP -->
-
-## Roadmap
-
-See the [open issues](https://github.com/FlowFintech/FlowBack/issues/issues) for a list of proposed features (and known issues).
-
-<!-- CONTACT -->
-
-## Authors
-
-Martin
-
-- [GitHub profile](https://github.com/FlowFintech)
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+<img src="https://dev.flowfin.tech/assets/screenshots/request.png" alt="screenshot1"/>
+<br>
+<hr>
+<br>
 
 [contributor-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
 [contributor-url]: https://github.com/FlowFintech/FlowBack/graphs/contributors
