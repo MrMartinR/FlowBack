@@ -18,7 +18,9 @@ class Api::V1::ContactsController < Api::BaseController
 
   # GET /contacts/1
   # GET /contacts/1.json
-  def show; end
+  def show
+    render json: ContactSerializer.new(@contact).serializable_hash
+  end
 
   # POST /contacts
   # POST /contacts.json
