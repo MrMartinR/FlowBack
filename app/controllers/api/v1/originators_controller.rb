@@ -4,7 +4,7 @@ class Api::V1::OriginatorsController < Api::BaseController
   before_action :set_originator, only: %i[show update destroy]
 
   def index
-    @originators = Originator.includes(:contact, :loans, :user_loans).all
+    @originators = Originator.includes(:contact).all
     render json: OriginatorSerializer.new(@originators).serializable_hash
   end
 

@@ -4,7 +4,7 @@ class Api::V1::PlatformsController < Api::BaseController
   before_action :set_platform, only: %i[show update destroy]
 
   def index
-    @platforms = Platform.includes(:user_loans, :loans, :contact, :accounts, :user_platforms).all
+    @platforms = Platform.includes(:contact, :accounts, :user_platforms).all
     render json: PlatformSerializer.new(@platforms).serializable_hash
   end
 
