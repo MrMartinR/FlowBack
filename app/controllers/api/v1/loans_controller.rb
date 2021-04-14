@@ -5,9 +5,8 @@ class Api::V1::LoansController < Api::BaseController
   before_action :set_platform, only: :index_by_platform_originator
 
   def index
-    @loans = Loan.joins(:country, :currency).order('created_at desc')
-    options = {include: [:country, :currency]}
-    render json: LoanSerializer.new(@loans, options).serializable_hash
+    @loans = Loan.includes(:country, :currency, :user_loans, platform_originator: [:platform, :originator]).order('created_at desc')
+    render json: LoanSerializer.new(@loans).serializable_hash
   end
 
   def index_by_platform_originator
