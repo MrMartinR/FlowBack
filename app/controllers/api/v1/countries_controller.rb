@@ -13,7 +13,9 @@ class Api::V1::CountriesController < Api::BaseController
 
   # GET /countries/1
   # GET /countries/1.json
-  def show; end
+  def show
+    render json: CountrySerializer.new(@country).serializable_hash
+  end
 
   # POST /countries
   # POST /countries.json

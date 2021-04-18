@@ -12,7 +12,9 @@ class Api::V1::CurrenciesController < Api::BaseController
 
   # GET /currencies/1
   # GET /currencies/1.json
-  def show; end
+  def show
+    render json: CurrencySerializer.new(@currency).serializable_hash
+  end
 
   # POST /currencies
   # POST /currencies.json
