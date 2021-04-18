@@ -3,15 +3,21 @@ class Api::V1::ContactMethodsController < Api::BaseController
   before_action :set_contact_method, only: %i[show update destroy]
 
   def index
-    if params[:contact_id]
-      @contact_methods = ContactMethod.includes(:contact).where('contact_id = ?', params[:contact_id])
-      render json: ContactMethodSerializer.new(@contact_methods).serializable_hash
-    else
-      json_response({ success: false, message: 'Contact Id needed to get contact methods ' }, :unprocessable_entity)
+    begin
+      if params[:contact_id]
+        @contact_methods = ContactMethod.includes(:contact).where('contact_id = ?', params[:contact_id])
+        render json: ContactMethodSerializer.new(@contact_methods).serializable_hash
+      else
+        json_response({success: false, message: 'Contact Id needed to get contact methods '}, :unprocessable_entity)
+      end
+    rescue ActiveRecord::StatementInvalid => e
+      json_response({success: false, message: 'Invalid Contact Id'}, :unprocessable_entity)
     end
   end
 
-  def show; end
+  def show
+    render json: ContactMethodSerializer.new(@contact_method).serializable_hash
+  end
 
   def create
     get_contact_creator_id = Contact.find(contact_method_params[:contact_id]).created_by
@@ -22,11 +28,11 @@ class Api::V1::ContactMethodsController < Api::BaseController
       if @contact_method.save
         render json: ContactMethodSerializer.new(@contact_method).serializable_hash
       else
-        json_response({ success: false, message: @contact_method.errors }, :unprocessable_entity)
+        json_response({success: false, message: @contact_method.errors}, :unprocessable_entity)
       end
 
     else
-      json_response({ success: false, message: 'You can not add a contact method in a contact you did not create and neither are you an admin or a contributor ' }, :unprocessable_entity)
+      json_response({success: false, message: 'You can not add a contact method in a contact you did not create and neither are you an admin or a contributor '}, :unprocessable_entity)
 
     end
   end
@@ -36,10 +42,10 @@ class Api::V1::ContactMethodsController < Api::BaseController
       if @contact_method.update(contact_method_params)
         render json: ContactMethodSerializer.new(@contact_method).serializable_hash
       else
-        json_response({ success: false, message: @contact_method.errors }, :unprocessable_entity)
+        json_response({success: false, message: @contact_method.errors}, :unprocessable_entity)
       end
     else
-      json_response({ success: false, message: 'You can not update a contact method you did not create and neither are you an admin or a contributor ' }, :unprocessable_entity)
+      json_response({success: false, message: 'You can not update a contact method you did not create and neither are you an admin or a contributor '}, :unprocessable_entity)
 
     end
   end
@@ -47,12 +53,12 @@ class Api::V1::ContactMethodsController < Api::BaseController
   def destroy
     if @contact_method.created_by == @user.id || @user.admin? || @user.contributor?
       if @contact_method.destroy
-        json_response({ success: true, message: 'Contact method deleted' })
+        json_response({success: true, message: 'Contact method deleted'})
       else
-        json_response({ success: false, message: @contact_method.errors }, :unprocessable_entity)
+        json_response({success: false, message: @contact_method.errors}, :unprocessable_entity)
       end
     else
-      json_response({ success: false, message: 'You can not delete a contact method you did not create and neither are you an admin or a contributor ' }, :unprocessable_entity)
+      json_response({success: false, message: 'You can not delete a contact method you did not create and neither are you an admin or a contributor '}, :unprocessable_entity)
 
     end
   end
@@ -66,8 +72,8 @@ class Api::V1::ContactMethodsController < Api::BaseController
 
   # Only allow a list of trusted parameters through.
   def contact_method_params
-    merged_params = { updated_by: @user.id }
-    merged_params = { created_by: @user.id } if params[:action] == 'create'
+    merged_params = {updated_by: @user.id}
+    merged_params = {created_by: @user.id} if params[:action] == 'create'
     params.require(:contact_method).permit(:contact_id, :created_by, :updated_by, :kind, :visibility, :data,
                                            :notes).merge(merged_params)
   end
