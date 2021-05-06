@@ -20,8 +20,9 @@ class Api::V1::ContactMethodsController < Api::BaseController
   end
 
   def create
-    get_contact_creator_id = Contact.find(contact_method_params[:contact_id]).created_by
-    get_contact_creator = User.find(get_contact_creator_id)
+    get_contact_creator_id = Contact.find_by(id: contact_method_params[:contact_id])
+    return  json_response({success: false, message: 'No contacts found with given contact_id'}, :unprocessable_entity), :bad_request if get_contact_creator_id.nil?
+    get_contact_creator = User.find(get_contact_creator_id.created_by)
     if get_contact_creator_id == @user.id || get_contact_creator.admin? || get_contact_creator.contributor?
       @contact_method = ContactMethod.new(contact_method_params)
 
