@@ -9,7 +9,7 @@ class Contact < ApplicationRecord
   has_one :platform
 
   KIND_CATEGORY = %w[COMPANY INDIVIDUAL].freeze
-  VISIBILITY_CATEGORY = %w[PUBLIC PRIVATE].freeze
+  VISIBILITY_CATEGORY = %w[Public Private].freeze
 
   validates :kind, inclusion: { in: KIND_CATEGORY, message: 'is not included in the list : [Company, Individual]' }
   validates :visibility, inclusion: { in: VISIBILITY_CATEGORY, message: 'is not included in the list : [Public, Private]' }

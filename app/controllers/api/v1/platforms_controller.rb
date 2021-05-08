@@ -12,7 +12,9 @@ class Api::V1::PlatformsController < Api::BaseController
   #   @platforms = Platform.order('created_at asc')
   # end
 
-  def show; end
+  def show
+    render json: PlatformSerializer.new(@platform).serializable_hash
+  end
 
   def create
     @platform = Platform.new(platform_params)
