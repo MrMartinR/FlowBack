@@ -8,7 +8,7 @@ class Contact < ApplicationRecord
   has_one :originator
   has_one :platform
 
-  KIND_CATEGORY = %w[COMPANY INDIVIDUAL].freeze
+  KIND_CATEGORY = %w[Company Individual].freeze
   VISIBILITY_CATEGORY = %w[Public Private].freeze
 
   validates :kind, inclusion: { in: KIND_CATEGORY, message: 'is not included in the list : [Company, Individual]' }
