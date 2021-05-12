@@ -3,7 +3,11 @@ class LoanSerializer
   #sets the type of serializer
   set_type :loan
   #The attributes needed in response
-  attributes  :code, :internal_code, :name, :borrower, :gender, :air, :status, :xirr, :protection_scheme, :rating, :dti_rating, :borrower_type, :category, :amount, :description, :link, :security_details, :amortization, :date_maturity, :date_listed, :date_issued, :installment, :notes, :country, :currency
+  attributes  :code, :internal_code, :name, :borrower, :gender, :air,
+              :status, :xirr, :protection_scheme, :rating, :dti_rating, :borrower_type,
+              :category, :amount, :description, :link, :security_details, :amortization,
+              :date_maturity, :date_listed, :date_issued, :installment, :notes, :country,
+              :currency, :country_id, :currency_id, :created_at, :updated_at, :created_by, :updated_by
 
   #for serializing platform
   attribute :platform do |loan|
@@ -30,9 +34,14 @@ class LoanSerializer
     object.platform_originator.platform.contact_id
   end
 
-  #for serializing trade name
-  attribute :trade_name do |object|
+  #for serializing platform trade name
+  attribute :platform_trade_name do |object|
     object.platform_originator.platform.contact.trade_name
+  end
+
+  #for serializing originator trade name
+  attribute :originator_trade_name do |object|
+    object.platform_originator.originator.contact.trade_name if object.platform_originator.originator.contact
   end
 
   #for serializing currency code
