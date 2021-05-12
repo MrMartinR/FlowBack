@@ -12,7 +12,7 @@ class Api::V1::LoansController < Api::BaseController
   def index_by_platform_originator
     platform = Platform.find_by(id: @platform.id)
     @loans = Loan.includes(:country, :currency, :user_loans, platform_originator: [:platform, :originator]).all.where(platform_originator_id: platform.platform_originators.ids)
-    render json: LoanSerializer.new(@loans, { fields: { loan: [:contact_id, :iso_code, :name, :trade_name, :code] } }).serializable_hash
+    render json: LoanSerializer.new(@loans, { fields: { loan: [:contact_id, :iso_code, :country_name, :trade_name, :currency_code] } }).serializable_hash
   end
 
   def show; end
