@@ -14,4 +14,29 @@ class LoanSerializer
   attribute :originator do |loan|
     loan.platform_originator.originator
   end
+
+  #for serializing iso_code
+  attribute :iso_code do |object|
+    object.country.iso_code
+  end
+
+  #for serializing country name
+  attribute :country_name do |object|
+    object.country.name
+  end
+
+  #for serializing contact id
+  attribute :contact_id do |object|
+    object.platform_originator.platform.contact_id
+  end
+
+  #for serializing trade name
+  attribute :trade_name do |object|
+    object.platform_originator.platform.contact.trade_name
+  end
+
+  #for serializing currency code
+  attribute :currency_code do |object|
+    object.currency.code
+  end
 end

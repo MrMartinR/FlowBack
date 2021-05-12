@@ -5,5 +5,6 @@ class Platform < ApplicationRecord
   has_many :loans
   has_many :user_loans
   has_many :accounts
+  has_many :platform_originators
   belongs_to :contact
 end

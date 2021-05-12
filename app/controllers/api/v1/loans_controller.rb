@@ -6,17 +6,13 @@ class Api::V1::LoansController < Api::BaseController
 
   def index
     @loans = Loan.includes(:country, :currency, :user_loans, platform_originator: [:platform, :originator]).order('created_at desc')
-    render json: LoanSerializer.new(@loans).serializable_hash
+    render json: LoanSerializer.new(@loans, { fields: { loan: [:code, :internal_code, :name, :borrower, :gender, :air, :status, :xirr, :protection_scheme, :rating, :dti_rating, :borrower_type, :category, :amount, :description, :link, :security_details, :amortization, :date_maturity, :date_listed, :date_issued, :installment, :notes, :country, :currency, :originator, :platform]}}).serializable_hash
   end
 
   def index_by_platform_originator
-    @loans = []
-    PlatformOriginator.all.where('platform_id = ?', @platform.id).each do |platform_originator|
-      Loan.all.where('platform_originator_id = ?', platform_originator.id).each do |loan|
-        @loans << loan
-      end
-    end
-    json_response({ success: false, message: @loans })
+    platform = Platform.find_by(id: @platform.id)
+    @loans = Loan.includes(:country, :currency, :user_loans, platform_originator: [:platform, :originator]).all.where(platform_originator_id: platform.platform_originators.ids)
+    render json: LoanSerializer.new(@loans, { fields: { loan: [:contact_id, :iso_code, :name, :trade_name, :code] } }).serializable_hash
   end
 
   def show; end
