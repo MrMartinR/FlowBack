@@ -20,7 +20,7 @@ class LoanSerializer
   end
 
   #for serializing iso_code
-  attribute :iso_code do |object|
+  attribute :country_iso_code do |object|
     object.country.iso_code
   end
 

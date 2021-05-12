@@ -16,7 +16,7 @@ class Api::V1::LoansController < Api::BaseController
   def index_by_platform_originator
     platform = Platform.find_by(id: @platform.id)
     @loans = Loan.includes(:country, :currency, :user_loans, platform_originator: [platform: [:contact], originator: [:contact]]).all.where(platform_originator_id: platform.platform_originators.ids)
-    render json: LoanSerializer.new(@loans, { fields: { loan: [:platform_contact_id, :originator_contact_id, :iso_code, :country_name, :platform_trade_name, :currency_code, :country_id, :currency_id,
+    render json: LoanSerializer.new(@loans, { fields: { loan: [:platform_contact_id, :originator_contact_id, :country_iso_code, :country_name, :platform_trade_name, :currency_code, :country_id, :currency_id,
                                                                :code, :internal_code, :name, :borrower, :gender, :air, :status, :xirr, :protection_scheme, :rating,
                                                                :dti_rating, :borrower_type, :category, :amount, :description, :link, :security_details, :amortization,
                                                                :date_maturity, :date_listed, :date_issued, :installment, :notes, :originator_trade_name, :created_at,
