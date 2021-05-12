@@ -29,9 +29,14 @@ class LoanSerializer
     object.country.name
   end
 
-  #for serializing contact id
-  attribute :contact_id do |object|
+  #for serializing platform contact id
+  attribute :platform_contact_id do |object|
     object.platform_originator.platform.contact_id
+  end
+
+  #for serializing originator contact id
+  attribute :originator_contact_id do |object|
+    object.platform_originator.originator.contact_id
   end
 
   #for serializing platform trade name
@@ -41,7 +46,7 @@ class LoanSerializer
 
   #for serializing originator trade name
   attribute :originator_trade_name do |object|
-    object.platform_originator.originator.contact.trade_name if object.platform_originator.originator.contact
+    object.platform_originator.originator.contact.trade_name
   end
 
   #for serializing currency code
