@@ -12,7 +12,10 @@ class Api::V1::OriginatorsController < Api::BaseController
   #   @originators = Originator.order('created_at asc')
   # end
 
-  def show; end
+
+  def show
+    render json: OriginatorSerializer.new(@originator).serializable_hash
+  end
 
   def create
     @originator = Originator.new(originator_params)
