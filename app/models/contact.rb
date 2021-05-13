@@ -8,12 +8,18 @@ class Contact < ApplicationRecord
   has_one :originator
   has_one :platform
 
-  KIND_CATEGORY = %w[Company Individual].freeze
-  VISIBILITY_CATEGORY = %w[Public Private].freeze
+  KIND_CATEGORY = %w[COMPANY INDIVIDUAL].freeze
+  VISIBILITY_CATEGORY = %w[PUBLIC PRIVATE].freeze
 
   validates :kind, inclusion: { in: KIND_CATEGORY, message: 'is not included in the list : [Company, Individual]' }
   validates :visibility, inclusion: { in: VISIBILITY_CATEGORY, message: 'is not included in the list : [Public, Private]' }
 
   before_validation { self.kind = kind.upcase }
   before_validation { self.visibility = visibility.upcase }
+  before_save :update_contact
+
+  def update_contact
+    self.kind = self.kind.capitalize
+    self.visibility = self.visibility.capitalize
+  end
 end
