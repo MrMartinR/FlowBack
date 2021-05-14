@@ -46,7 +46,7 @@ class LoanSerializer
 
   #for serializing originator trade name
   attribute :originator_trade_name do |object|
-    object.platform_originator.originator.contact.trade_name
+    object.platform_originator.originator.contact.trade_name if object.platform_originator.originator.contact
   end
 
   #for serializing currency code
