@@ -22,7 +22,9 @@ class Api::V1::AccountsController < Api::BaseController
   #     ")
   # end
 
-  def show; end
+  def show
+    render json: AccountSerializer.new(@account).serializable_hash
+  end
 
   # def index
   #   @entities = []

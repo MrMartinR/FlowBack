@@ -10,7 +10,7 @@ class Api::V1::LoansController < Api::BaseController
                                                                :status, :xirr, :protection_scheme, :rating, :dti_rating, :borrower_type,
                                                                :category, :amount, :description, :link, :security_details, :amortization,
                                                                :date_maturity, :date_listed, :date_issued, :installment, :notes, :country,
-                                                               :currency, :originator, :platform]}}).serializable_hash
+                                                               :currency, :originator, :platform, :platform_trade_name, :originator_trade_name]}}).serializable_hash
   end
 
   def index_by_platform_originator
