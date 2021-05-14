@@ -10,7 +10,7 @@ class Api::V1::PlatformOriginatorsController < Api::BaseController
   end
 
   def index_by_platform_id
-    @platform_originators = PlatformOriginator.includes(:loans, :platform, :originator).all.where('platform_id = ?', @platform.id)
+    @platform_originators = PlatformOriginator.includes(:loans, :platform, originator: [contact: [:country]]).all.where('platform_id = ?', @platform.id)
     render json: PlatformOriginatorSerializer.new(@platform_originators).serializable_hash
   end
 
