@@ -23,7 +23,9 @@ class Api::V1::LoansController < Api::BaseController
                                                                :updated_at, :created_by, :updated_by] } }).serializable_hash
   end
 
-  def show; end
+  def show
+    render json: LoanSerializer.new(@loan).serializable_hash
+  end
 
   def create
     @loan = Loan.new(loan_params)

@@ -8,7 +8,7 @@ class Api::V1::ContactsController < Api::BaseController
   # Get a list of public contacts and the private contacts
   # from the logged user in ASC order.
   def index
-    contacts = Contact.select(Arel.sql("*, coalesce(trade_name, nick, name) as name")).order(Arel.sql("coalesce(trade_name, nick, name) ASC")).where("user_id = ? or lower(visibility) = ?", @user.id, "public")
+    contacts = Contact.select(Arel.sql("*, coalesce(trade_name, nick, name) as name")).order(Arel.sql("coalesce(trade_name, nick, name) ASC")).where("user_id = ? or visibility = ?", @user.id, "Public")
     render json:ContactSerializer.new(contacts, {fields: { contact: [:name, ] }}).serializable_hash
   end
 
@@ -25,7 +25,7 @@ class Api::V1::ContactsController < Api::BaseController
   # POST /contacts
   # POST /contacts.json
   def create
-    if contact_params[:visibility] == 'PUBLIC'
+    if contact_params[:visibility] == 'Public'
       if @user.admin? || @user.contributor?
         @contact = Contact.new(contact_params)
         @contact.user_id = nil
@@ -35,7 +35,7 @@ class Api::V1::ContactsController < Api::BaseController
           json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
         end
       else
-        json_response({ success: false, message: 'Only admin or contrib can create a public contact' },
+        json_response({ success: false, message: 'Only admin or contributor can create a public contact' },
                       :unprocessable_entity)
       end
     else
@@ -52,7 +52,7 @@ class Api::V1::ContactsController < Api::BaseController
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
   def update
-    if @contact.visibility == 'PUBLIC'
+    if @contact.visibility == 'Public'
       if @user.admin? || @user.contributor?
         if @contact.update(contact_params)
           render json: ContactSerializer.new(@contact).serializable_hash
@@ -60,7 +60,7 @@ class Api::V1::ContactsController < Api::BaseController
           json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
         end
       else
-        json_response({ success: false, message: 'Only admin or contrib can update a public contact' },
+        json_response({ success: false, message: 'Only admin or contributor can update a public contact' },
                       :unprocessable_entity)
       end
     elsif @contact.update(contact_params)
