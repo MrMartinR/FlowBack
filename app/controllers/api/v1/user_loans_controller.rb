@@ -8,7 +8,9 @@ class Api::V1::UserLoansController < Api::BaseController
     render json: UserLoanSerializer.new(@user_loans).serializable_hash
   end
 
-  def show; end
+  def show
+    render json: UserLoanSerializer.new(@user_loan).serializable_hash
+  end
 
   def show_user_loan_by_loan_id
     @user_loan = UserLoan.where('loan_id = ? AND user_id = ?', params[:loan_id], @user.id).limit(100)

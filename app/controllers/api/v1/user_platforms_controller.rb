@@ -7,7 +7,9 @@ class Api::V1::UserPlatformsController < Api::BaseController
     render json: UserPlatformSerializer.new(@user_platforms).serializable_hash
   end
 
-  def show; end
+  def show
+    render json: UserPlatformSerializer.new(@user_platform).serializable_hash
+  end
 
   def create
     @user_platform = @user.user_platforms.new(user_platform_params)

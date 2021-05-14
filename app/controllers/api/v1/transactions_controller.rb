@@ -13,7 +13,9 @@ class Api::V1::TransactionsController < Api::BaseController
     render json: TransactionSerializer.new(@transactions).serializable_hash
   end
 
-  def show; end
+  def show
+    render json: TransactionSerializer.new(@transaction).serializable_hash
+  end
 
   def create
     @transaction = Transaction.new(transaction_params)

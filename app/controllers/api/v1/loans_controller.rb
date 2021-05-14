@@ -5,7 +5,7 @@ class Api::V1::LoansController < Api::BaseController
   before_action :set_platform, only: :index_by_platform_originator
 
   def index
-    @loans = Loan.includes(:country, :currency, :user_loans, platform_originator: [:platform, :originator]).order('created_at desc')
+    @loans = Loan.includes(:country, :currency, :user_loans, platform_originator: [platform: [:contact], originator: [:contact]]).order('created_at desc')
     render json: LoanSerializer.new(@loans, { fields: { loan: [:code, :internal_code, :name, :borrower, :gender, :air,
                                                                :status, :xirr, :protection_scheme, :rating, :dti_rating, :borrower_type,
                                                                :category, :amount, :description, :link, :security_details, :amortization,
