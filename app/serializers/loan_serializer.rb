@@ -53,4 +53,9 @@ class LoanSerializer
   attribute :currency_code do |object|
     object.currency.code
   end
+
+  #for serializing user loan id
+  attribute :user_loan_id do |object|
+    object.user_loan_ids
+  end
 end
