@@ -3,7 +3,7 @@ class CountrySerializer
   #sets the type of serializer
   set_type :country
   #The attributes needed in response
-  attributes :name, :iso_code, :continent, :currency
+  attributes :name, :iso_code, :continent, :currency, :fiscal_year_start
 
   #for getting flag url
   attribute :flag do |country|
