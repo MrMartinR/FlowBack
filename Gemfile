@@ -82,11 +82,12 @@ group :development, :test do
   # YARD is a documentation generation tool for the Ruby programming language.
   gem 'yard'
 
-  # Sajjad installed this gem
-  gem 'dotenv-rails', '~> 2.7.6'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 4.0.2'
 end
+
+# Sajjad installed this gem
+gem 'dotenv-rails', '~> 2.7.6'
 
 group :development do
   # gem "rspec"
