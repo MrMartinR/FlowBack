@@ -15,7 +15,7 @@ gem 'rails', '6.0.3.4'
 gem 'pg', '>= 0.18', '< 2.0'
 
 # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications. | https://github.com/puma/puma
-gem 'puma', '~> 4.1'
+gem 'puma', '~> 4.3'
 # Use SCSS for stylesheets
 # gem 'sass-rails', '>= 6'
 

@@ -144,8 +144,8 @@ GEM
     mini_racer (0.3.1)
       libv8 (~> 8.4.255)
     minitest (5.14.3)
-    nio4r (2.5.4)
-    nio4r (2.5.4-java)
+    nio4r (2.5.7)
+    nio4r (2.5.7-java)
     nokogiri (1.11.1)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
@@ -167,9 +167,9 @@ GEM
     pg (1.2.3-x64-mingw32)
     pg (1.2.3-x86-mingw32)
     public_suffix (4.0.6)
-    puma (4.3.7)
+    puma (4.3.8)
       nio4r (~> 2.0)
-    puma (4.3.7-java)
+    puma (4.3.8-java)
       nio4r (~> 2.0)
     racc (1.5.2)
     racc (1.5.2-java)
@@ -328,7 +328,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mini_racer
   pg (>= 0.18, < 2.0)
-  puma (~> 4.1)
+  puma (~> 4.3)
   rack-cors
   rails (= 6.0.3.4)
   rails-controller-testing
