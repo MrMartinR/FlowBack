@@ -9,7 +9,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.5'
 
 # Bundle edge Rails instead: gem 'rails' | https://github.com/rails/rails
-gem 'rails', '6.0.3.4'
+gem 'rails', '~> 6.1.1'
 
 # Use postgresql as the database for Active Record | https://github.com/ged/ruby-pg
 gem 'pg', '>= 0.18', '< 2.0'
@@ -82,11 +82,12 @@ group :development, :test do
   # YARD is a documentation generation tool for the Ruby programming language.
   gem 'yard'
 
-  # Sajjad installed this gem
-  gem 'dotenv-rails', '~> 2.7.6'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 4.0.2'
 end
+
+# Sajjad installed this gem
+gem 'dotenv-rails', '~> 2.7.6'
 
 group :development do
   # gem "rspec"
