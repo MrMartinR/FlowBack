@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_14_004731) do
+ActiveRecord::Schema.define(version: 2021_05_25_015556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -263,15 +263,6 @@ ActiveRecord::Schema.define(version: 2021_05_14_004731) do
     t.index ["user_id"], name: "index_user_accounts_on_user_id"
   end
 
-  create_table "user_kanbans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "task_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.uuid "user_id"
-    t.jsonb "task_description"
-    t.jsonb "task_type"
-  end
-
   create_table "user_loans", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "loan_id"
     t.uuid "user_account_id"
@@ -319,17 +310,12 @@ ActiveRecord::Schema.define(version: 2021_05_14_004731) do
     t.datetime "remember_created_at"
     t.string "username"
     t.string "email"
-    t.uuid "currency_id"
-    t.uuid "country_id"
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.date "dob"
-    t.string "name"
-    t.string "surname"
     t.uuid "contact_id"
-    t.index ["country_id"], name: "index_users_on_country_id"
-    t.index ["currency_id"], name: "index_users_on_currency_id"
+    t.jsonb "kanban"
+    t.jsonb "preferences"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
