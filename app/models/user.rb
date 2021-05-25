@@ -4,6 +4,8 @@ class User < ApplicationRecord
   rolify
   self.implicit_order_column = 'created_at'
 
+  devise authentication_keys: [:username]
+
   devise :database_authenticatable, :registerable, :recoverable, :rememberable
   include DeviseTokenAuth::Concerns::User
   # validations
@@ -11,12 +13,11 @@ class User < ApplicationRecord
   validates_uniqueness_of :username
   validates :avatar, attached: false, content_type: ['image/png', 'image/jpg', 'image/jpeg', 'image/gif'], size: { less_than: 2.megabytes, message: 'is not given between size' } # ,
   # relation
-  belongs_to :currency, optional: true
-  belongs_to :country, optional: true
   has_one_attached :avatar
   has_many :user_accounts
   has_many :user_platforms
   has_many :user_loans
+  has_one :contact
 
   after_create :assign_default_role
 
