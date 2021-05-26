@@ -13,7 +13,7 @@ class Api::V1::RegistrationsController < DeviseTokenAuth::RegistrationsControlle
     params
       .require(:data)
       .require(:attributes)
-      .permit(:username, :email, :uid, :password, :password_confirmation)
+      .permit(:username, :email, :uid, :password, :password_confirmation, :name, :country_id)
   end
 
   def account_update_params

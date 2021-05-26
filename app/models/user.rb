@@ -20,8 +20,9 @@ class User < ApplicationRecord
   has_one :contact
 
   after_create :assign_default_role
+  after_create :create_contact_for_user
 
-  attr_accessor :country_id, :currency_id
+  attr_accessor :name, :country_id
 
   def valid_token?(token, client = 'default')
     return false unless tokens[client]
@@ -41,5 +42,11 @@ class User < ApplicationRecord
 
   def contributor?
     has_role?(:contributor)
+  end
+
+  def create_contact_for_user
+    contact = Contact.new(name: name, user_id: id, country_id: country_id, visibility: "Private", kind: "Individual")
+    contact.save
+    self.update_column(:contact_id, contact.id)
   end
 end
