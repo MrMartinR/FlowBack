@@ -86,7 +86,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.2'
 end
 
-# Sajjad installed this gem
+# https://github.com/bkeepers/dotenv
 gem 'dotenv-rails', '~> 2.7.6'
 
 group :development do

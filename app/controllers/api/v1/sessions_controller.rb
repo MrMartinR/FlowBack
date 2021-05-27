@@ -51,4 +51,9 @@ class Api::V1::SessionsController < DeviseTokenAuth::SessionsController
   def resource_params
     params.require(:user).permit(*params_for_resource(:sign_in))
   end
+
+ # Implements the case insensitive in the login process
+  def find_resource(field, value)
+    @resource = resource_class.find_by("LOWER(#{field}) = ? AND provider = ?", value.downcase, provider)
+  end
 end
