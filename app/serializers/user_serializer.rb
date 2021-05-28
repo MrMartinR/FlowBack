@@ -8,7 +8,8 @@ class UserSerializer
   set_type :user
 
   #The attributes needed in response
-  attributes :email, :username, :surname, :name, :country, :currency
+  # attributes :email, :username, :surname, :name, :country, :currency
+  attributes :email, :username, :contact_id, :preferences, :kanban
 
   #for serializing image url
   attribute :image_url do |user|
@@ -27,7 +28,7 @@ class UserSerializer
   end
 
   #for getting formatted dob
-  attribute :dob do |user|
-    date_format(user.dob)
-  end
+  # attribute :dob do |user|
+  #   date_format(user.dob)
+  # end
 end
