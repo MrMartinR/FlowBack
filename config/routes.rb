@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  # @rev this 2 gets make sense?
   get 'pages/index'
   get 'pages/dashboard'
  
@@ -49,7 +50,7 @@ Rails.application.routes.draw do
         resources :transactions
         
 
-
+# @rev format html?? also are this user_profiles still a thing?
         match 'user_profile', to: 'users#user_profile', via: :get
         match 'update_profile', to: 'users#update_profile', via: :post,constraints: { format: 'html' } 
       end

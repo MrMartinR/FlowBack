@@ -16,8 +16,6 @@ gem 'pg', '>= 0.18', '< 2.0'
 
 # Puma is a simple, fast, threaded, and highly concurrent HTTP 1.1 server for Ruby/Rack applications. | https://github.com/puma/puma
 gem 'puma', '~> 4.3'
-# Use SCSS for stylesheets
-# gem 'sass-rails', '>= 6'
 
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
@@ -36,10 +34,10 @@ gem 'rack-cors', require: 'rack/cors'
 # Token based authentication for Rails JSON APIs. | https://github.com/lynndylanhurley/devise_token_auth
 gem 'devise_token_auth'
 
-# Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+
 
 # --- [ Image Processing ] ---
+# Use Active Storage variant
 # [REV] discuss if manage this on frontend or backend
 # If you are using active_storage (image_processing gem??) gem and you want to add simple validations for it, like presence or content_type you need to write a custom validation method. This gems doing it for you. | https://github.com/igorkasyanchuk/active_storage_validations
 gem 'active_storage_validations'
@@ -54,14 +52,6 @@ gem 'image_processing', '~> 1.2'
 # Minimal embedded v8 engine for Ruby - auto prefixer | https://github.com/rubyjs/mini_racer
 gem 'mini_racer'
 
-# Provides a simple API for performing paginated queries with Active Record | https://github.com/mislav/will_paginate/
-gem 'will_paginate', '~> 3.1.0'
-
-# [REV] what happened with this??
-# api doc
-# gem 'swagger-docs'
-# gem 'rswag'
-
 # Searching :
 # Ransack enables the creation of both simple and advanced search forms for your Ruby on Rails application It improves and expands upon MetaSearch's functionality, but does not have a 100%-compatible API | https://github.com/activerecord-hackery/ransack/
 gem 'ransack'
@@ -69,12 +59,15 @@ gem 'ransack'
 # cron manager
 gem 'whenever'
 
-# jsonapi-serializer
+# jsonapi-serializer | @link https://github.com/jsonapi-serializer/jsonapi-serializer
 gem 'jsonapi-serializer'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+
+# A runtime developer console and IRB alternative with powerful introspection capabilities. | @link https://github.com/pry/pry
+  gem 'pry', '~> 0.13.1'
 
   # A Ruby static code analyzer and formatter, based on the community Ruby style guide. | https://github.com/rubocop-hq/rubocop
   gem 'rubocop', '~> 1.8', require: false

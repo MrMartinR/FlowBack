@@ -27,8 +27,5 @@ class UserSerializer
     end
   end
 
-  #for getting formatted dob
-  # attribute :dob do |user|
-  #   date_format(user.dob)
-  # end
+
 end

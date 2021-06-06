@@ -7,7 +7,7 @@ class Api::V1::CountriesController < Api::BaseController
   # GET /countries.json
   def index
     @countries = Country.includes(:currency).order('countries.name asc')
-    @images = Country.with_attached_flag_image
+    # @images = Country.with_attached_flag_image
     render json: CountrySerializer.new(@countries).serializable_hash
   end
 

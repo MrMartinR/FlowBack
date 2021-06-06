@@ -7,19 +7,18 @@ class Api::V1::ContactsController < Api::BaseController
 
   # Get a list of public contacts and the private contacts
   # from the logged user in ASC order.
+  # contacts = Contact.select(Arel.sql("*, coalesce(trade_name, nick, name) as name_header")).order(Arel.sql("coalesce(trade_name, nick, name) ASC")).where("user_id = ? or visibility = ?", @user.id, "Public")
+  # render json:ContactSerializer.new(contacts, {fields: { contact: [:name, ] }}).serializable_hash
   def index
-    contacts = Contact.select(Arel.sql("*, coalesce(trade_name, nick, name) as name")).order(Arel.sql("coalesce(trade_name, nick, name) ASC")).where("user_id = ? or visibility = ?", @user.id, "Public")
-    render json:ContactSerializer.new(contacts, {fields: { contact: [:name, ] }}).serializable_hash
+  @contacts = Contact.select(Arel.sql("*, coalesce(trade_name, nick, name) as name_header")).order("name_header ASC").where("user_id = ? or visibility = ?", @user.id, "Public")
+  render json:ContactSerializer.new(@contacts, {fields: { contact: [:name_header, ] }}).serializable_hash.to_json
   end
 
-  # def index
-  # @contacts = Contact.where(user_id: [nil, @user.id]).order(name: :asc, nick: :asc, trade_name: :asc)
-  # end
 
-  # GET /contacts/1
-  # GET /contacts/1.json
+  # GET /contacts/:id
+  # GET /contacts/:id.json
   def show
-    render json: ContactSerializer.new(@contact).serializable_hash
+    render json: ContactSerializer.new(@contact).serializable_hash.to_json
   end
 
   # POST /contacts
@@ -49,8 +48,8 @@ class Api::V1::ContactsController < Api::BaseController
     end
   end
 
-  # PATCH/PUT /contacts/1
-  # PATCH/PUT /contacts/1.json
+  # PATCH/PUT /contacts/:id
+  # PATCH/PUT /contacts/:id.json
   def update
     if @contact.visibility == 'Public'
       if @user.admin? || @user.contributor?
@@ -70,8 +69,8 @@ class Api::V1::ContactsController < Api::BaseController
     end
   end
 
-  # DELETE /contacts/1
-  # DELETE /contacts/1.json
+  # DELETE /contacts/:id
+  # DELETE /contacts/:id.json
   def destroy
     if @contact.destroy
       json_response({ success: true, message: 'Contact deleted' })
