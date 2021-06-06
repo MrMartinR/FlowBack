@@ -5,26 +5,33 @@ class Api::V1::LoansController < Api::BaseController
   before_action :set_platform, only: :index_by_platform_originator
 
   def index
-    @loans = Loan.includes(:country, :currency, :platform_originator).order('created_at desc')
+    @loans = Loan.includes(:country, :currency, :user_loans, platform_originator: [platform: [:contact], originator: [:contact]]).order('created_at desc')
+    render json: LoanSerializer.new(@loans, { fields: { loan: [:code, :internal_code, :name, :borrower, :gender, :air,
+                                                               :status, :xirr, :protection_scheme, :rating, :dti_rating, :borrower_type,
+                                                               :category, :amount, :description, :link, :security_details, :amortization,
+                                                               :date_maturity, :date_listed, :date_issued, :installment, :notes, :country,
+                                                               :currency, :originator, :platform, :platform_trade_name, :originator_trade_name]}}).serializable_hash
   end
 
   def index_by_platform_originator
-    @loans = []
-    PlatformOriginator.all.where('platform_id = ?', @platform.id).each do |platform_originator|
-      Loan.all.where('platform_originator_id = ?', platform_originator.id).each do |loan|
-        @loans << loan
-      end
-    end
-    json_response({ success: false, message: @loans })
+    platform = Platform.find_by(id: @platform.id)
+    @loans = Loan.includes(:country, :currency, :user_loans, platform_originator: [platform: [:contact], originator: [:contact]]).all.where(platform_originator_id: platform.platform_originators.ids)
+    render json: LoanSerializer.new(@loans, { fields: { loan: [:platform_contact_id, :originator_contact_id, :country_iso_code, :country_name, :platform_trade_name, :currency_code, :country_id, :currency_id,
+                                                               :code, :internal_code, :name, :borrower, :gender, :air, :status, :xirr, :protection_scheme, :rating,
+                                                               :dti_rating, :borrower_type, :category, :amount, :description, :link, :security_details, :amortization,
+                                                               :date_maturity, :date_listed, :date_issued, :installment, :notes, :originator_trade_name, :created_at,
+                                                               :updated_at, :created_by, :updated_by] } }).serializable_hash
   end
 
-  def show; end
+  def show
+    render json: LoanSerializer.new(@loan).serializable_hash
+  end
 
   def create
     @loan = Loan.new(loan_params)
 
     if @loan.save
-      render :show, status: :created
+      render json: LoanSerializer.new(@loan).serializable_hash
     else
       json_response({ success: false, message: @loan.errors }, :unprocessable_entity)
     end
@@ -32,7 +39,7 @@ class Api::V1::LoansController < Api::BaseController
 
   def update
     if @loan.update(loan_params)
-      render :show, status: :ok
+      render json: LoanSerializer.new(@loan).serializable_hash
     else
       json_response({ success: false, message: @loan.errors }, :unprocessable_entity)
     end

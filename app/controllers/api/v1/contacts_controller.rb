@@ -7,73 +7,70 @@ class Api::V1::ContactsController < Api::BaseController
 
   # Get a list of public contacts and the private contacts
   # from the logged user in ASC order.
+  # contacts = Contact.select(Arel.sql("*, coalesce(trade_name, nick, name) as name_header")).order(Arel.sql("coalesce(trade_name, nick, name) ASC")).where("user_id = ? or visibility = ?", @user.id, "Public")
+  # render json:ContactSerializer.new(contacts, {fields: { contact: [:name, ] }}).serializable_hash
   def index
-    @contacts = Contact.find_by_sql(
-      "SELECT id, coalesce (trade_name,nick,name) as name
-      FROM contacts
-      WHERE user_id is null or user_id = '#{@user.id}'
-      ORDER BY 2"
-    )
+  @contacts = Contact.select(Arel.sql("*, coalesce(trade_name, nick, name) as name_header")).order("name_header ASC").where("user_id = ? or visibility = ?", @user.id, "Public")
+  render json:ContactSerializer.new(@contacts, {fields: { contact: [:name_header, ] }}).serializable_hash.to_json
   end
 
-  # def index
-  # @contacts = Contact.where(user_id: [nil, @user.id]).order(name: :asc, nick: :asc, trade_name: :asc)
-  # end
 
-  # GET /contacts/1
-  # GET /contacts/1.json
-  def show; end
+  # GET /contacts/:id
+  # GET /contacts/:id.json
+  def show
+    render json: ContactSerializer.new(@contact).serializable_hash.to_json
+  end
 
   # POST /contacts
   # POST /contacts.json
   def create
-    if contact_params[:visibility] == 'PUBLIC'
+    if contact_params[:visibility] == 'Public'
       if @user.admin? || @user.contributor?
         @contact = Contact.new(contact_params)
         @contact.user_id = nil
         if @contact.save
-          render :show, status: :ok
+          render json: ContactSerializer.new(@contact).serializable_hash
         else
           json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
         end
       else
-        json_response({ success: false, message: 'Only admin or contrib can create a public contact' },
+        json_response({ success: false, message: 'Only admin or contributor can create a public contact' },
                       :unprocessable_entity)
       end
     else
       @contact = Contact.new(contact_params)
       @contact.user_id = @user.id
       if @contact.save
-        render :show, status: :ok
+        render json: ContactSerializer.new(@contact).serializable_hash
       else
         json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
       end
     end
   end
 
-  # PATCH/PUT /contacts/1
-  # PATCH/PUT /contacts/1.json
+  # PATCH/PUT /contacts/:id
+  # PATCH/PUT /contacts/:id.json
   def update
-    if @contact.visibility == 'PUBLIC'
+    if @contact.visibility == 'Public'
       if @user.admin? || @user.contributor?
         if @contact.update(contact_params)
-          render :show, status: :ok
+          render json: ContactSerializer.new(@contact).serializable_hash
         else
           json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
         end
       else
-        json_response({ success: false, message: 'Only admin or contrib can update a public contact' },
+        json_response({ success: false, message: 'Only admin or contributor can update a public contact' },
                       :unprocessable_entity)
       end
     elsif @contact.update(contact_params)
-      render :show, status: :ok
+      render json: ContactSerializer.new(@contact).serializable_hash
     else
       json_response({ success: false, message: @contact.errors }, :unprocessable_entity)
     end
   end
 
-  # DELETE /contacts/1
-  # DELETE /contacts/1.json
+  # DELETE /contacts/:id
+  # DELETE /contacts/:id.json
   def destroy
     if @contact.destroy
       json_response({ success: true, message: 'Contact deleted' })

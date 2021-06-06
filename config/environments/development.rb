@@ -45,33 +45,33 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
+  # disabling this two configurations due no needed in API mode @link https://stackoverflow.com/questions/59515219/remove-sprockets-from-rails
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = true
+  # config.assets.debug = true
 
   # Suppress logger output for asset requests.
-  config.assets.quiet = true
+  # config.assets.quiet = true
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
-  #auzhwhwxqwizacyt
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   #config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3001 }
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :smtp
   #config.action_mailer.default_url_options = { :host => ENV['DOMAIN_NAME'] }
-  config.action_mailer.asset_host = 'localhost:3000'
+  config.action_mailer.asset_host = 'localhost:3001'
 
   config.action_mailer.smtp_settings = {
-      :address              => 'smtp.gmail.com',
+      :address              => 'mail.flowfin.tech',
       :port                 => 587,
       :authentication       => :plain,
-      :user_name            => 'inoe.bainur@gmail.com',
-      :password             => 'auzhwhwxqwizacyt',
+      :user_name            => 'dnr@flowfin.tech',
+      :password             => 'lCqnh3qz',
       :enable_starttls_auto => true
   }
 end

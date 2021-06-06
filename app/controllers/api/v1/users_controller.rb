@@ -5,6 +5,8 @@ class Api::V1::UsersController < Api::BaseController
 
   def index
     @users = User.order('username asc')
+    render json: UserSerializer.new(@users, { fields: { user: [:email, :username, :kanban, :preferences] } }).serializable_hash
+    # render json: UserSerializer.new(@users, { fields: { user: [:email, :username, :currency, :country] } }).serializable_hash
   end
 
   # ignore this for now
@@ -14,12 +16,14 @@ class Api::V1::UsersController < Api::BaseController
 
   def user_profile
     @user = current_api_v1_user
+    render json: UserSerializer.new(@user, { fields: { user: [:username, :email, :image_url, :kanban] } }).serializable_hash
+    # render json: UserSerializer.new(@user, { fields: { user: [:username, :name, :email, :dob, :surname, :image_url, :currency, :country] } }).serializable_hash
   end
 
   def update
     if current_api_v1_user == @user || current_api_v1_user.has_role?(:admin)
       if @user.update!(user_params)
-        render :user_profile
+        render json: UserSerializer.new(@user, { fields: { user: [:email, :username, :currency, :country] } }).serializable_hash
       else
         render json: { success: false, status: 400, message: 'Could not update profile' }
       end
@@ -32,7 +36,7 @@ class Api::V1::UsersController < Api::BaseController
     @user = current_api_v1_user
 
     if @user.update(user_params)
-      @user.update_column(:country_id, user_params[:country_id]) if user_params[:country_id].present?
+      # @user.update_column(:country_id, user_params[:country_id]) if user_params[:country_id].present?
       @user.update_column(:currency_id, user_params[:currency_id]) if user_params[:currency_id].present?
       render :user_profile, status: :ok
     else
@@ -61,7 +65,8 @@ class Api::V1::UsersController < Api::BaseController
   end
 
   def user_params
-    params.require('user').permit(:uid, :username, :email, 'password', :password_confirmation, :current_password, :currency_id, :country_id, :avatar, :dob, :name, :surname)
+    params.require('user').permit(:uid, :username, :email, 'password', :password_confirmation, :current_password, :currency_id)
+    # params.require('user').permit(:uid, :username, :email, 'password', :password_confirmation, :current_password, :currency_id, :country_id, :avatar, :dob, :name, :surname)
   end
 
   rescue_from ActionController::UnpermittedParameters do |error|

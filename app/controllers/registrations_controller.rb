@@ -3,6 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   protected
 
+  # @rev check if this should point to the user contact details
   def after_sign_up_path_for(_resource)
     settings_path # Or :prefix_to_your_route
   end

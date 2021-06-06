@@ -4,30 +4,24 @@ class Api::V1::TransactionsController < Api::BaseController
   before_action :set_user_account, only: :index_by_user_account
 
   def index
-    @transactions = []
-    Transaction.all.order('created_at desc').each do |transaction|
-      dt = data_return(transaction)
-      @transactions << dt
-    end
-    json_response({ success: true, message: @transactions })
+    @transactions =  Transaction.includes(:loan, :user_account).all.order('created_at desc')
+    render json: TransactionSerializer.new(@transactions).serializable_hash
   end
 
   def index_by_user_account
-    @transactions = []
-    Transaction.all.where('user_account_id = ?', @user_account.id).order('created_at desc').each do |transaction|
-      dt = data_return(transaction)
-      @transactions << dt
-    end
-    json_response({ success: true, message: @transactions })
+    @transactions = Transaction.includes(:user_account, :loan).all.where('user_account_id = ?', @user_account.id).order('created_at desc')
+    render json: TransactionSerializer.new(@transactions).serializable_hash
   end
 
-  def show; end
+  def show
+    render json: TransactionSerializer.new(@transaction).serializable_hash
+  end
 
   def create
     @transaction = Transaction.new(transaction_params)
 
     if @transaction.save
-      render :show, status: :created
+      render json: TransactionSerializer.new(@transaction).serializable_hash
     else
       render json: @transaction.errors, status: :unprocessable_entity
     end
@@ -35,7 +29,7 @@ class Api::V1::TransactionsController < Api::BaseController
 
   def update
     if @transaction.update(transaction_params)
-      render :show, status: :ok
+      render json: TransactionSerializer.new(@transaction).serializable_hash
     else
       render json: @transaction.errors, status: :unprocessable_entity
     end

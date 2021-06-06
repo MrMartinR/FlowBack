@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_29_162500) do
+ActiveRecord::Schema.define(version: 2021_05_25_015556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(version: 2020_12_29_162500) do
     t.string "iso_code"
     t.string "continent"
     t.uuid "currency_id"
-    t.string "flag"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.date "fiscal_year_start"
@@ -154,12 +153,12 @@ ActiveRecord::Schema.define(version: 2020_12_29_162500) do
     t.float "apr"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "customer_category"
+    t.jsonb "customer_category"
     t.uuid "created_by"
     t.uuid "updated_by"
     t.uuid "contact_id"
-    t.string "product_category_consumer"
-    t.string "product_category_business"
+    t.jsonb "product_category_consumer"
+    t.jsonb "product_category_business"
   end
 
   create_table "platform_originators", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -204,11 +203,11 @@ ActiveRecord::Schema.define(version: 2020_12_29_162500) do
     t.datetime "updated_at", precision: 6, null: false
     t.uuid "created_by"
     t.uuid "updated_by"
-    t.string "category"
-    t.string "invest_mode"
-    t.string "protection_scheme"
-    t.string "account_category"
-    t.string "structure"
+    t.jsonb "category"
+    t.jsonb "invest_mode"
+    t.jsonb "protection_scheme"
+    t.jsonb "account_category"
+    t.jsonb "structure"
     t.string "sm_notes"
     t.jsonb "cashflow_options"
     t.index ["contact_id"], name: "index_platforms_on_contact_id"
@@ -311,25 +310,19 @@ ActiveRecord::Schema.define(version: 2020_12_29_162500) do
     t.datetime "remember_created_at"
     t.string "username"
     t.string "email"
-    t.uuid "currency_id"
-    t.uuid "country_id"
     t.json "tokens"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.date "dob"
-    t.string "name"
-    t.string "surname"
     t.uuid "contact_id"
-    t.index ["country_id"], name: "index_users_on_country_id"
-    t.index ["currency_id"], name: "index_users_on_currency_id"
+    t.jsonb "kanban"
+    t.jsonb "preferences"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
-  create_table "users_roles", id: false, force: :cascade do |t|
-    t.uuid "user_id"
+  create_table "users_roles", primary_key: "user_id", id: :uuid, default: nil, force: :cascade do |t|
     t.uuid "role_id"
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
   end
