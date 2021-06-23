@@ -1,6 +1,6 @@
 class Api::V1::AccountsController < Api::BaseController
   before_action :authenticate_api_v1_user!
-  before_action :admin_or_contributor!
+  # before_action :admin_or_contributor! // this only applicable to create/delete/edit all the user can have access to a list of accounts
   before_action :set_account, only: %i[show update destroy]
 
   def index
