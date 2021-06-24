@@ -9,7 +9,7 @@ class Api::V1::UserLoansController < Api::BaseController
   end
 
   def show
-    @user_loan = @user.user_account.includes(user_account: [transactions: [:loan]]).find(params[:id])
+    @user_loan = @user.user_loans.includes(user_account: [transactions: [:loan]]).find(params[:id])
     render json: UserLoanSerializer.new(@user_loan, { include: [:user_account, 'user_account.transactions'] } ).serializable_hash
   end
 
