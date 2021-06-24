@@ -5,4 +5,6 @@ class Loan < ApplicationRecord
   belongs_to :currency
   has_many :user_loans
   belongs_to :platform_originator
+
+  has_many :transactions
 end
