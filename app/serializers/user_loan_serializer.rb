@@ -10,4 +10,7 @@ class UserLoanSerializer
   belongs_to :user
   belongs_to :user_account
 
+  attribute :transactions do |object|
+    object.user_account.transactions.where(loan_id: object.loan_id)
+  end
 end
