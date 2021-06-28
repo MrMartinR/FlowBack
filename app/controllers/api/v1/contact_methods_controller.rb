@@ -34,7 +34,7 @@ class Api::V1::ContactMethodsController < Api::BaseController
   # ------------------------------
 
   def create
-    # TODO: cover all possible errors and create a descriptive feedback.
+    # TODO cover all possible errors and create a descriptive feedback.
 
     # find the contact information
     get_contact_creator_id = Contact.find_by(id: contact_method_params[:contact_id])
@@ -42,7 +42,7 @@ class Api::V1::ContactMethodsController < Api::BaseController
     # extract the user_id from the content of the contact information variable get_contact_creator_id
     contact_user_id = get_contact_creator_id.user_id
                
-    # REV: no idea if this is working or not... or even if makes sense..
+    # FIXME no idea if this is working or not... or even if makes sense..
     # return  json_response({success: false, message: 'No contacts found with given contact_id'}, :unprocessable_entity), :bad_request if get_contact_creator_id.nil?
 
     # the contact owner (contact.user_id) is the same user as the

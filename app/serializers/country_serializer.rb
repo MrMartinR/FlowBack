@@ -6,7 +6,7 @@ class CountrySerializer
   attributes :name, :iso_code, :continent, :currency, :fiscal_year_start
 
   #for getting flag url
-  # [Author: Martin] [@rev] I did commented this piece of code in order to prevent thousands of queries,
+  # FIXME I did commented this piece of code in order to prevent thousands of queries,
   # the flags now are fetched from the frontend, I left this code for review
   # attribute :flag do |country|
   #   country.flag_image.attached? ? Rails.application.routes.url_helpers.rails_blob_path(country.flag_image,  only_path: true) : nil

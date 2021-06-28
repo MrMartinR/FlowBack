@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  # @rev wtf is this?
+  # FIXME: wtf is this?
   def index
   end
 end

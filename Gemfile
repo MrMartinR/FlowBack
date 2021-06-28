@@ -52,15 +52,18 @@ gem 'image_processing', '~> 1.2'
 # Minimal embedded v8 engine for Ruby - auto prefixer | https://github.com/rubyjs/mini_racer
 gem 'mini_racer'
 
-# Searching :
+
 # Ransack enables the creation of both simple and advanced search forms for your Ruby on Rails application It improves and expands upon MetaSearch's functionality, but does not have a 100%-compatible API | https://github.com/activerecord-hackery/ransack/
 gem 'ransack'
 
+# JSONAPI-Serializer | @link https://github.com/jsonapi-serializer/jsonapi-serializer
+gem 'jsonapi-serializer'
+
+# JSONAPI.rb | Lightweight, simple and maintained JSON:API support for your next Ruby HTTP API. | @link https://github.com/stas/jsonapi.rb
+gem 'jsonapi.rb'
+
 # cron manager
 gem 'whenever'
-
-# jsonapi-serializer | @link https://github.com/jsonapi-serializer/jsonapi-serializer
-gem 'jsonapi-serializer'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -79,7 +82,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.2'
 end
 
-# https://github.com/bkeepers/dotenv
+# @link https://github.com/bkeepers/dotenv
 gem 'dotenv-rails', '~> 2.7.6'
 
 group :development do

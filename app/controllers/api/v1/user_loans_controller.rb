@@ -4,7 +4,7 @@ class Api::V1::UserLoansController < Api::BaseController
   before_action :set_user_loan, only: %i[update destroy]
 
   def index
-    @user_loans = UserLoan.includes(:user, :user_account, :loan).by_user(@user).order('created_at desc')
+    @user_loans = UserLoan.includes(:user, :user_account, :loan).by_user(@user)
     render json: UserLoanSerializer.new(@user_loans).serializable_hash
   end
 
@@ -14,8 +14,7 @@ class Api::V1::UserLoansController < Api::BaseController
   end
 
   def show_user_loan_by_loan_id
-    @user_loan = UserLoan.where('loan_id = ? AND user_id = ?', params[:loan_id], @user.id).limit(100)
-    # json_response({ success: true, message: @user_loan})
+    @user_loan = UserLoan.where('loan_id = ? AND user_id = ?', params[:loan_id], @user.id)
     render json: UserLoanSerializer.new(@user_loan).serializable_hash
   end
 

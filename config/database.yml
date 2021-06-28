@@ -73,7 +73,7 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  # @rev I think this part is not relevant... because is handled by docker file ????
+  # FIXME I think this part is not relevant... because is handled by docker file ????
   # also the database name and users are not correct
   <<: *default
   database: flow_production
