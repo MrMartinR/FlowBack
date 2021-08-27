@@ -5,4 +5,5 @@ class UserAccount < ApplicationRecord
   belongs_to :user
 
   has_many :user_loans
+  has_many :transactions
 end

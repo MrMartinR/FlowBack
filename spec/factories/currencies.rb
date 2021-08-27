@@ -1,5 +1,5 @@
 FactoryBot.define do
-  #  @rev data is wrong
+  #  FIXME data is wrong
   factory :currency do
     name { 'India' }
     code { 'IND' }

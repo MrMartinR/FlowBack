@@ -5,7 +5,7 @@ class PlatformSerializer
 
   set_id :id
 
-# @REV: estp tampoco se de donde me lo he sacado.. para generar el link
+# FIXME esto tampoco se de donde me lo he sacado.. para generar el link
   link :self do |object|
     "https://api.flowfin.tech/v1/platforms/#{object.id}"
   end
@@ -14,7 +14,7 @@ class PlatformSerializer
   # -------------------------
   # attributes in the response
   # -------------------------
-  # @REV: He comentado el atributo :contact para evitar el drama N+1
+  # FIXME He comentado el atributo :contact para evitar el drama N+1
   # attribute :contact
   attributes :invest_mode, :taxes, :profitable, :ifisa, :sm_notes, :cashflow_options,
               :promo_end, :category, :status, :liquidity, :term, :min_investment, 
@@ -24,7 +24,7 @@ class PlatformSerializer
 # -------------------------
   # relationships
 # -------------------------
-  #  el [  belongs_to :contact ] agrega la siguiente estructura a la respuesta: 
+  #  FIXME el [  belongs_to :contact ] agrega la siguiente estructura a la respuesta: 
   # "relationships": {
   #               "contact": {
   #                 "data": {
@@ -35,7 +35,7 @@ class PlatformSerializer
   #         },
   belongs_to :contact 
 
-  # este codigo para pillar el link del contacto me lo saque de sabedios 
+  # FIXME este codigo para pillar el link del contacto me lo saque de sabedios 
   # donde y tambien hace el drama del N+1
   # belongs_to :contact ,  links: {
   #   self: -> (object) {

@@ -9,7 +9,7 @@ class Contact < ApplicationRecord
   has_many :contact_methods, dependent: :destroy   
   belongs_to :country, optional: true
   belongs_to :user, optional: true
-  has_one :account # @rev optional: true  ???
-  has_one :originator # @rev optional: true  ???
-  has_one :platform # @rev optional: true  ???
+  has_one :account # FIXME optional: true  ???
+  has_one :originator # FIXME optional: true  ???
+  has_one :platform # FIXME optional: true  ???
 end

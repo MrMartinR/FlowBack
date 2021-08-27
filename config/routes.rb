@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # @rev this 2 gets make sense?
+  # FIXME this 2 gets make sense?
   get 'pages/index'
   get 'pages/dashboard'
  
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
           registrations: 'api/v1/registrations',
           sessions: 'api/v1/sessions'
       }
-
+# FIXME Add nested resources???
       defaults format: :json do
         resources :accounts
         resources :currencies
@@ -20,37 +20,42 @@ Rails.application.routes.draw do
         resources :settings
         resources :image_assets, :path => '/icons', only: [:index, :create, :update]
         resources :users, only: [:index,:update]
+        
         resources :user_accounts do
           collection do
             get 'search'
           end
         end
+        
         get 'user_accounts/:id/transactions', to: 'transactions#index_by_user_account'
         resources :originators
         resources :platform_originators
         resources :user_platforms
         resources :contacts
         resources :contact_methods
+
         resources :platforms do
           collection do
             get 'search'
           end
         end
+
         get '/platforms/:id/platform_originators', to: 'platform_originators#index_by_platform_id'        
         get '/platforms/:id/loans', to: 'loans#index_by_platform_originator'        
         resources :loans
+
         resources :user_loans do
           collection do
             get 'index_as_admin'
             get 'search'
           end
         end
-        get '/user_loans/user_loan/:loan_id', to: 'user_loans#show_user_loan_by_loan_id'
 
+        get '/user_loans/user_loan/:loan_id', to: 'user_loans#show_user_loan_by_loan_id'
         resources :transactions
         
 
-# @rev format html?? also are this user_profiles still a thing?
+# FIXME format html?? also are this user_profiles still a thing?
         match 'user_profile', to: 'users#user_profile', via: :get
         match 'update_profile', to: 'users#update_profile', via: :post,constraints: { format: 'html' } 
       end

@@ -45,7 +45,7 @@ class LoanSerializer
   end
 
   #for serializing originator trade name
-  # @rev why this if? all the originators has a contact and all are companies and all have trade_name
+  # FIXME why this if? all the originators has a contact and all are companies and all have trade_name
   attribute :originator_trade_name do |object|
     object.platform_originator.originator.contact.trade_name if object.platform_originator.originator.contact
   end

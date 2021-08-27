@@ -1,20 +1,20 @@
 class Api::V1::UserLoansController < Api::BaseController
   before_action :authenticate_api_v1_user!
   before_action :auth_admin!, only: :index_as_admin
-  before_action :set_user_loan, only: %i[show update destroy]
+  before_action :set_user_loan, only: %i[update destroy]
 
   def index
-    @user_loans = UserLoan.includes(:user, :user_account, :loan).by_user(@user).order('created_at desc')
+    @user_loans = UserLoan.includes(:user, :user_account, :loan).by_user(@user)
     render json: UserLoanSerializer.new(@user_loans).serializable_hash
   end
 
   def show
-    render json: UserLoanSerializer.new(@user_loan).serializable_hash
+    @user_loan = @user.user_loans.includes(loan: [transactions: [:loan]]).find(params[:id])
+    render json: UserLoanSerializer.new(@user_loan, { include: ["user_account.includes(:user_loans).where(user_loans: { loan_id: #{@user_loan.loan_id} })"] } ).serializable_hash
   end
 
   def show_user_loan_by_loan_id
-    @user_loan = UserLoan.where('loan_id = ? AND user_id = ?', params[:loan_id], @user.id).limit(100)
-    # json_response({ success: true, message: @user_loan})
+    @user_loan = UserLoan.where('loan_id = ? AND user_id = ?', params[:loan_id], @user.id)
     render json: UserLoanSerializer.new(@user_loan).serializable_hash
   end
 

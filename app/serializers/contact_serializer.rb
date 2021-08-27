@@ -8,7 +8,7 @@ class ContactSerializer
   set_id :id
 
   # sets the self link
-  # @REV: I am not sure the endpoint.. if needs the /v1/ etc..  check this..
+  # FIXME I am not sure the endpoint.. if needs the /v1/ etc..  check this..
   link :self do |object|
     "https://api.flowfin.tech/contacts/#{object.id}"
   end
@@ -16,7 +16,7 @@ class ContactSerializer
   # attributes in the response
   # attributes :name, :created_by, :updated_by, :kind, :company_name, :surname, :founded, :description, :tags, :legal_form, :id_number, :platform, :country, :dob, :nick, :account, :user, :originator, :trade_name, :contact_methods, :visibility
   # attributes :platform, :country, :account, :user, :originator, :contact_methods,
-  # @TODO: mover los 3 atributos fuera de la seccion de atributos del contacto
+  # TODO mover los 3 atributos fuera de la seccion de atributos del contacto
   # meterlos dentro de los atributoss en los included o relationships (no estoy seguro donde deben ir)
   # (por defecto las relationships solo envian el id y el tipo )
 

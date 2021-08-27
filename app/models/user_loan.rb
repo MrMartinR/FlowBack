@@ -39,6 +39,7 @@ class UserLoan < ApplicationRecord
   validates :market, inclusion: { in: MARKET_VALUES }
   validates :invest_mode, inclusion: { in: INVEST_MODE_VALUES }
   validates :position, inclusion: { in: POSITION_VALUES }
+  # FIXME check this numericality
   validates :xirr, presence: true, format: { with: /\A\d+(?:\.\d{0,2})?\z/ }, numericality: { greater_than: 0, less_than: 101 }
 
   scope :by_user, ->(id_user) { where('user_id = ?', id_user) }
