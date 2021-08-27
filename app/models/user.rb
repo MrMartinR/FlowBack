@@ -21,6 +21,7 @@ class User < ApplicationRecord
   after_create :assign_default_role
   after_create :create_contact_for_user
 
+  # attr_accessor Macro that abstracts setter/getter writter/reader
   attr_accessor :name, :country_id
 
   def valid_token?(token, client = 'default')
