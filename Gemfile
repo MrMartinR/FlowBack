@@ -42,7 +42,7 @@ gem 'devise_token_auth'
 # If you are using active_storage (image_processing gem??) gem and you want to add simple validations for it, like presence or content_type you need to write a custom validation method. This gems doing it for you. | https://github.com/igorkasyanchuk/active_storage_validations
 gem 'active_storage_validations'
 # High-level wrapper for processing images for the web with ImageMagick or libvips. | https://github.com/janko/image_processing/
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.12'
 
 # Reduces boot times through caching; required in config/boot.rb | https://github.com/Shopify/bootsnap/
 # commented due permission problems doing migrations https://github.com/Shopify/bootsnap/issues/77
